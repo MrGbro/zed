@@ -7,11 +7,25 @@
     <groupId>io.homeey</groupId>
     <artifactId>zed</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <modules>
+        <module>gateway-common</module>
+        <module>gateway-core</module>
+        <module>gateway-bootstrap</module>
+        <module>gateway-admin</module>
+        <module>gateway-dist</module>
+        <module>gateway-transport</module>
+        <module>gateway-plugin</module>
+        <module>gateway-config</module>
+        <module>gateway-registry</module>
+        <module>architecture-tests</module>
+    </modules>
 
 </project>
