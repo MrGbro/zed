@@ -2,6 +2,15 @@ package io.homeey.gateway.core.runtime;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+/**
+ * 快照模式验证器，验证路由快照的结构和字段合法性。
+ * <p>
+ * 该验证器支持多个schema版本，确保路由配置符合预期的格式要求。
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 public final class SnapshotSchemaValidator {
     public static final int DEFAULT_SCHEMA_VERSION = 1;
     public static final int LATEST_SCHEMA_VERSION = 2;

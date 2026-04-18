@@ -13,10 +13,27 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 路由快照编解码器，负责将JSON格式的路由配置转换为路由表快照。
+ * <p>
+ * 支持从JSON字符串中解析路由定义、插件绑定和策略集，并构建 {@link RouteTableSnapshot}。
+ * 同时处理不同版本的schema兼容性。
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 public final class RouteSnapshotCodec {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final SnapshotSchemaValidator schemaValidator = new SnapshotSchemaValidator();
 
+    /**
+     * 解码JSON字符串为路由表快照。
+     *
+     * @param json JSON格式的路由配置
+     * @return 路由表快照
+     * @throws SnapshotCodecException 如果解码失败
+     */
     public RouteTableSnapshot decode(String json) {
         try {
             JsonNode root = objectMapper.readTree(json);

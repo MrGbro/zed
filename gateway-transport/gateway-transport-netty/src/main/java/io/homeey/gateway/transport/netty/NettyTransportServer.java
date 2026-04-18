@@ -17,6 +17,15 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
+/**
+ * 基于Reactor Netty的传输服务器实现。
+ * <p>
+ * 该实现使用Reactor Netty作为HTTP服务器，支持HTTP/1.1和HTTP/2，提供响应式的请求处理能力。
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 public final class NettyTransportServer implements TransportServer {
     private final int port;
     private final GatewayRequestHandler requestHandler;

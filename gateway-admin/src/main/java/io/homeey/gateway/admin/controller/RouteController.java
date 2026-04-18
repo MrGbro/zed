@@ -19,6 +19,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * 路由管理控制器，提供路由的CRUD和发布功能。
+ * <p>
+ * 该控制器提供REST API用于管理路由配置、插件绑定以及发布路由到网关。
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 @RestController
 @RequestMapping("/api/routes")
 public class RouteController {

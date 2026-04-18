@@ -13,6 +13,19 @@ import java.util.concurrent.CompletionException;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Function;
 
+/**
+ * 默认网关过滤器链实现，按顺序执行过滤器。
+ * <p>
+ * 该链支持过滤器的失败策略（FAIL_CLOSE/FAIL_OPEN），当过滤器执行失败时：
+ * <ul>
+ *   <li>FAIL_CLOSE：中断链执行，返回错误</li>
+ *   <li>FAIL_OPEN：跳过当前过滤器，继续执行下一个</li>
+ * </ul>
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 public final class DefaultGatewayFilterChain implements GatewayFilterChain {
     private final List<FilterInvocation> invocations;
     private final int index;

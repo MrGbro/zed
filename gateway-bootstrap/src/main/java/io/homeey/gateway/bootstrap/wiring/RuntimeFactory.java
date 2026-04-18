@@ -16,6 +16,16 @@ import io.homeey.gateway.transport.api.TransportServerFactory;
 
 import java.util.Map;
 
+/**
+ * 运行时工厂，负责创建和组装网关的运行时组件。
+ * <p>
+ * 该工厂根据引导配置创建传输服务器、代理客户端、配置提供者、服务发现提供者等核心组件，
+ * 并将它们组装成完整的运行时环境。
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 public final class RuntimeFactory {
     public record RuntimeComponents(
             TransportServer transportServer,

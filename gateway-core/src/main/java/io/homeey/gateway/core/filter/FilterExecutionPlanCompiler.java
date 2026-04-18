@@ -13,6 +13,20 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 
+/**
+ * 过滤器执行计划编译器，根据路由配置和插件绑定生成执行计划。
+ * <p>
+ * 该编译器负责：
+ * <ul>
+ *   <li>加载全局和路由级别的自动激活过滤器</li>
+ *   <li>根据插件绑定添加手动配置的过滤器</li>
+ *   <li>按顺序组织过滤器调用链</li>
+ * </ul>
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 public final class FilterExecutionPlanCompiler {
     private static final String GROUP_GLOBAL = "global";
     private static final String GROUP_ROUTE = "route";

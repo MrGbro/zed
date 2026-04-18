@@ -10,6 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 插件管理控制器，提供插件查询功能。
+ * <p>
+ * 该控制器用于列出系统中所有可用的网关过滤器插件。
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 @RestController
 @RequestMapping("/api/plugins")
 public class PluginController {

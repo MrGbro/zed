@@ -8,6 +8,20 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.List;
 
+/**
+ * 基数树路由定位器，基于前缀树实现高效的路由匹配。
+ * <p>
+ * 该定位器使用基数树（Radix Tree）数据结构组织路由，支持：
+ * <ul>
+ *   <li>按主机名分组路由</li>
+ *   <li>最长前缀匹配</li>
+ *   <li>HTTP方法和Header条件匹配</li>
+ * </ul>
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 public final class RadixRouteLocator {
     private final Map<String, HostBucket> hostBuckets;
 

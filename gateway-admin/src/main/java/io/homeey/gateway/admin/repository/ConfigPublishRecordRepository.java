@@ -13,6 +13,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * 基于配置中心的发布记录仓库实现。
+ * <p>
+ * 该仓库将发布记录持久化到配置中心（如Nacos），支持本地缓存和远程同步。
+ * 最多保留200条发布记录，超出时自动清理旧记录。
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 @Repository
 public class ConfigPublishRecordRepository implements PublishRecordRepository {
     private static final String RECORDS_DATA_ID = "gateway.publish.records.json";

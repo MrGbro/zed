@@ -23,6 +23,21 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * 默认网关请求处理器，实现网关的核心请求处理逻辑。
+ * <p>
+ * 该处理器负责：
+ * <ul>
+ *   <li>根据请求匹配路由</li>
+ *   <li>执行过滤器链</li>
+ *   <li>服务发现与负载均衡</li>
+ *   <li>代理转发到上游服务</li>
+ * </ul>
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 public final class DefaultGatewayRequestHandler implements GatewayRequestHandler {
     private final RuntimeSnapshotManager snapshotManager;
     private final ServiceDiscoveryProvider discoveryProvider;

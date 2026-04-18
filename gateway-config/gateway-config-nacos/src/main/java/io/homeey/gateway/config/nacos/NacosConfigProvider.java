@@ -14,6 +14,16 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
 
+/**
+ * Nacos配置提供者实现，基于Nacos配置中心提供配置管理服务。
+ * <p>
+ * 该实现支持从Nacos获取、发布和订阅配置，当Nacos不可用时自动降级到内存配置提供者。
+ * 内部维护配置快照，确保在连接失败时仍能提供最新的配置数据。
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 public final class NacosConfigProvider implements ConfigProvider {
     private final ConfigService nacosConfigService;
     private final InMemoryConfigProvider fallback;

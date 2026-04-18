@@ -15,6 +15,15 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
+/**
+ * 基于OkHttp的代理客户端实现。
+ * <p>
+ * 该实现使用OkHttp作为HTTP客户端，提供异步的代理请求执行能力。
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 public final class OkHttpProxyClient implements ProxyClient {
     private final OkHttpClient client;
 

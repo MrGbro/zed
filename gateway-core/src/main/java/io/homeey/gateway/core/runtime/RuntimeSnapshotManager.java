@@ -9,6 +9,15 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
+/**
+ * 运行时快照管理器，管理网关的运行时配置快照。
+ * <p>
+ * 该管理器维护两份快照：通用配置快照和路由表快照，支持原子性更新和指标统计。
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 public final class RuntimeSnapshotManager {
     private final AtomicReference<Map<String, Object>> snapshotRef;
     private final AtomicReference<RouteTableSnapshot> routeSnapshotRef;

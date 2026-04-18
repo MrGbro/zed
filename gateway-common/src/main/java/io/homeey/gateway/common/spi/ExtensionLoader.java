@@ -16,6 +16,21 @@ import java.util.ServiceConfigurationError;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
+/**
+ * SPI扩展加载器，负责加载和管理SPI扩展实现。
+ * <p>
+ * 该加载器从 {@code META-INF/gateway/} 目录下的配置文件中读取扩展定义，
+ * 支持按需加载、默认扩展获取和基于条件的自动激活。
+ * </p>
+ * <p>
+ * 配置文件格式：{@code 扩展名称=完整类名}
+ * </p>
+ *
+ * @param <T> SPI接口类型
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 public final class ExtensionLoader<T> {
     private static final String DIRECTORY = "META-INF/gateway/";
     private static final Map<Class<?>, ExtensionLoader<?>> LOADERS = new ConcurrentHashMap<>();
@@ -31,6 +46,18 @@ public final class ExtensionLoader<T> {
         this.extensionClasses = loadExtensionClasses();
     }
 
+    /**
+     * 获取指定SPI类型的扩展加载器。
+     * <p>
+     * 每个SPI类型只会有一个加载器实例，确保扩展的缓存和复用。
+     * </p>
+     *
+     * @param type SPI接口类型
+     * @param <T>  SPI接口类型
+     * @return 扩展加载器实例
+     * @throws IllegalArgumentException 如果type不是接口类型
+     * @throws NullPointerException     如果type为null
+     */
     public static <T> ExtensionLoader<T> getExtensionLoader(Class<T> type) {
         Objects.requireNonNull(type, "type");
         if (!type.isInterface()) {
@@ -39,6 +66,16 @@ public final class ExtensionLoader<T> {
         return (ExtensionLoader<T>) LOADERS.computeIfAbsent(type, ExtensionLoader::new);
     }
 
+    /**
+     * 获取指定名称的扩展实例。
+     * <p>
+     * 扩展实例会被缓存，多次调用返回同一个实例（单例模式）。
+     * </p>
+     *
+     * @param name 扩展名称
+     * @return 扩展实例
+     * @throws IllegalArgumentException 如果扩展名称不存在
+     */
     public T getExtension(String name) {
         String normalized = normalizeName(name);
         if (!extensionClasses.containsKey(normalized)) {
@@ -47,6 +84,15 @@ public final class ExtensionLoader<T> {
         return instances.computeIfAbsent(normalized, key -> createInstance(extensionClasses.get(key)));
     }
 
+    /**
+     * 获取默认扩展实例。
+     * <p>
+     * 默认扩展由SPI接口上的 {@link SPI} 注解的value属性指定。
+     * </p>
+     *
+     * @return 默认扩展实例
+     * @throws IllegalStateException 如果SPI接口没有指定默认扩展
+     */
     public T getDefaultExtension() {
         SPI spi = type.getAnnotation(SPI.class);
         if (spi == null || spi.value().isBlank()) {
@@ -55,6 +101,16 @@ public final class ExtensionLoader<T> {
         return getExtension(spi.value());
     }
 
+    /**
+     * 获取所有激活的扩展实例列表。
+     * <p>
+     * 根据分组和条件解析器，筛选出符合条件的扩展，并按order排序后返回。
+     * </p>
+     *
+     * @param group              分组名称，用于匹配扩展的激活分组
+     * @param conditionResolver  条件解析器，用于解析条件键的值
+     * @return 激活的扩展实例列表
+     */
     public List<T> getActivateExtensions(String group, Function<String, String> conditionResolver) {
         List<ActivateEntry<T>> entries = getActivateEntries(group, conditionResolver);
         List<T> result = new ArrayList<>(entries.size());
@@ -64,6 +120,16 @@ public final class ExtensionLoader<T> {
         return List.copyOf(result);
     }
 
+    /**
+     * 获取所有激活的扩展条目列表，包含名称、顺序和实例信息。
+     * <p>
+     * 与 {@link #getActivateExtensions(String, Function)} 类似，但返回的信息更详细。
+     * </p>
+     *
+     * @param group              分组名称，用于匹配扩展的激活分组
+     * @param conditionResolver  条件解析器，用于解析条件键的值
+     * @return 激活的扩展条目列表
+     */
     public List<ActivateEntry<T>> getActivateEntries(String group, Function<String, String> conditionResolver) {
         List<ActivateCandidate<T>> candidates = new ArrayList<>();
         for (Map.Entry<String, Class<? extends T>> entry : extensionClasses.entrySet()) {
@@ -90,10 +156,23 @@ public final class ExtensionLoader<T> {
         return List.copyOf(result);
     }
 
+    /**
+     * 获取所有支持的扩展名称列表。
+     *
+     * @return 扩展名称列表
+     */
     public List<String> getSupportedExtensions() {
         return List.copyOf(extensionClasses.keySet());
     }
 
+    /**
+     * 激活条目记录，包含扩展的名称、顺序和实例。
+     *
+     * @param name     扩展名称
+     * @param order    激活顺序
+     * @param instance 扩展实例
+     * @param <T>      SPI接口类型
+     */
     public record ActivateEntry<T>(
             String name,
             int order,

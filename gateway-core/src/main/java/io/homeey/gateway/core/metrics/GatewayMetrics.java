@@ -3,6 +3,15 @@ package io.homeey.gateway.core.metrics;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 网关指标收集器，收集和统计网关运行时的关键指标。
+ * <p>
+ * 支持的指标包括：QPS、P99延迟、4xx/5xx错误数、超时次数和重试次数。
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 public final class GatewayMetrics {
     private final ConcurrentHashMap<String, Long> counters = new ConcurrentHashMap<>();
 

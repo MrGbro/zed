@@ -16,6 +16,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 发布服务，负责路由配置的验证和发布。
+ * <p>
+ * 该服务提供路由配置的业务逻辑处理，包括：
+ * <ul>
+ *   <li>验证路由配置的合法性</li>
+ *   <li>构建路由快照并发布到配置中心</li>
+ *   <li>记录发布历史</li>
+ * </ul>
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 @Service
 public class PublishService {
     private static final int SNAPSHOT_SCHEMA_VERSION = 2;
