@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gateway Admin</title>
+    <style>
+        :root {
+            --bg: #f4f8f5;
+            --card: #ffffff;
+            --fg: #1f3b2d;
+            --accent: #1e7a4a;
+            --muted: #5b6f64;
+        }
+        body {
+            margin: 0;
+            font-family: "Segoe UI", "PingFang SC", sans-serif;
+            background: radial-gradient(circle at top right, #dff5e8, var(--bg) 45%);
+            color: var(--fg);
+        }
+        .wrap {
+            max-width: 920px;
+            margin: 24px auto;
+            padding: 0 16px;
+        }
+        .card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 8px 28px rgba(24, 69, 44, 0.08);
+            margin-bottom: 16px;
+        }
+        h1 { margin: 0 0 8px; font-size: 26px; }
+        h2 { margin: 0 0 12px; font-size: 18px; }
+        button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+        input { padding: 8px; margin-right: 8px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 8px 0; border-bottom: 1px solid #ecf0ed; }
+        .hint { color: var(--muted); font-size: 13px; }
+        .record { font-family: Consolas, monospace; }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="card">
+        <h1>Gateway Admin Console</h1>
+        <div class="hint">Route list, create, and publish records.</div>
+    </div>
+
+    <div class="card">
+        <h2>Create Route</h2>
+        <input id="routeId" placeholder="route id" value="r1">
+        <input id="routePath" placeholder="path" value="/orders">
+        <input id="routeUpstream" placeholder="upstream" value="order-service">
+        <button onclick="createRoute()">Create</button>
+    </div>
+
+    <div class="card">
+        <h2>Routes</h2>
+        <table>
+            <thead><tr><th>ID</th><th>Path</th><th>Upstream</th></tr></thead>
+            <tbody id="routeTable"></tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Publish</h2>
+        <button onclick="publishRoutes()">Publish</button>
+        <div id="publishRecord" class="record"></div>
+    </div>
+</div>
+
+<script>
+    async function loadRoutes() {
+        const res = await fetch('/api/routes');
+        const data = await res.json();
+        const table = document.getElementById('routeTable');
+        table.innerHTML = data.map(r =>
+            `<tr><td>${r.id || ''}</td><td>${r.path || ''}</td><td>${r.upstream || ''}</td></tr>`
+        ).join('');
+    }
+
+    async function createRoute() {
+        const body = {
+            id: document.getElementById('routeId').value,
+            path: document.getElementById('routePath').value,
+            upstream: document.getElementById('routeUpstream').value,
+            plugins: ['auth']
+        };
+        await fetch('/api/routes', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+        await loadRoutes();
+    }
+
+    async function publishRoutes() {
+        const res = await fetch('/api/routes/publish', { method: 'POST' });
+        const data = await res.json();
+        document.getElementById('publishRecord').textContent =
+            `version=${data.version}, publishedAt=${data.publishedAt}`;
+    }
+
+    loadRoutes();
+</script>
+</body>
+</html>
