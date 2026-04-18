@@ -1,0 +1,1 @@
+async-http-client=io.homeey.gateway.proxy.asynchttp.AsyncHttpProxyClientFactory

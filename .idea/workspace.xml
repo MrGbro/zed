@@ -5,7 +5,97 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89100707-e19e-4d06-8e09-d912ebb83c06" name="Changes" comment="chore(workspace): 更新工作区配置文件&#10;&#10;- 在XML声明前添加了标识符&quot;shan&quot;&#10;- 调整了自动导入设置的重载类型为选择性模式">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/phase1-phase2-completion-gap-2026-04-18.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/phase1-phase2-gap-spi-2026-04-18.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/superpowers/plans/2026-04-18-gateway-p0-completion-implementation-plan.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/superpowers/specs/2026-04-18-gateway-p0-completion-design.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-admin/src/main/java/io/homeey/gateway/admin/config/AdminNacosConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-admin/src/main/java/io/homeey/gateway/admin/model/PublishRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/DefaultGatewayRequestHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-common/src/main/java/io/homeey/gateway/common/spi/Activate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-common/src/main/java/io/homeey/gateway/common/spi/ExtensionLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-common/src/main/java/io/homeey/gateway/common/spi/SPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-config/gateway-config-api/src/main/java/io/homeey/gateway/config/api/ConfigProviderFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-config/gateway-config-nacos/src/main/java/io/homeey/gateway/config/nacos/InMemoryConfigProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-config/gateway-config-nacos/src/main/java/io/homeey/gateway/config/nacos/NacosConfigProviderFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-config/gateway-config-nacos/src/main/resources/META-INF/gateway/io.homeey.gateway.config.api.ConfigProviderFactory" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-core/src/main/java/io/homeey/gateway/core/filter/FilterExecutionPlanCompiler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-core/src/main/java/io/homeey/gateway/core/runtime/RouteSnapshotCodec.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/AuthGatewayFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/FilterFailPolicy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/FilterInvocation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/LoggingGatewayFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/PluginBinding.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/PolicySet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/PublishRecord.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/resources/META-INF/gateway/io.homeey.gateway.plugin.api.GatewayFilter" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-api/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-api/src/main/java/io/homeey/gateway/proxy/api/ProxyClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-api/src/main/java/io/homeey/gateway/proxy/api/ProxyClientFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-api/src/main/java/io/homeey/gateway/proxy/api/ProxyRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-api/src/main/java/io/homeey/gateway/proxy/api/ProxyResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-async-http/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-async-http/src/main/java/io/homeey/gateway/proxy/asynchttp/AsyncHttpProxyClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-async-http/src/main/java/io/homeey/gateway/proxy/asynchttp/AsyncHttpProxyClientFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-async-http/src/main/resources/META-INF/gateway/io.homeey.gateway.proxy.api.ProxyClientFactory" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-okhttp/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-okhttp/src/main/java/io/homeey/gateway/proxy/okhttp/OkHttpProxyClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-okhttp/src/main/java/io/homeey/gateway/proxy/okhttp/OkHttpProxyClientFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-okhttp/src/main/resources/META-INF/gateway/io.homeey.gateway.proxy.api.ProxyClientFactory" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-reactor-netty/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-reactor-netty/src/main/java/io/homeey/gateway/proxy/reactor/ReactorNettyProxyClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-reactor-netty/src/main/java/io/homeey/gateway/proxy/reactor/ReactorNettyProxyClientFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-reactor-netty/src/main/resources/META-INF/gateway/io.homeey.gateway.proxy.api.ProxyClientFactory" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-proxy/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-registry/gateway-registry-api/src/main/java/io/homeey/gateway/registry/api/ServiceDiscoveryProviderFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-registry/gateway-registry-nacos/src/main/java/io/homeey/gateway/registry/nacos/InMemoryServiceDiscoveryProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-registry/gateway-registry-nacos/src/main/java/io/homeey/gateway/registry/nacos/NacosServiceDiscoveryProviderFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-registry/gateway-registry-nacos/src/main/resources/META-INF/gateway/io.homeey.gateway.registry.api.ServiceDiscoveryProviderFactory" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-api/src/main/java/io/homeey/gateway/transport/api/GatewayRequestHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-api/src/main/java/io/homeey/gateway/transport/api/HttpRequestMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-api/src/main/java/io/homeey/gateway/transport/api/HttpResponseMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-api/src/main/java/io/homeey/gateway/transport/api/TransportServerFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyTransportServerFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/resources/META-INF/gateway/io.homeey.gateway.transport.api.TransportServerFactory" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-admin/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-admin/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-admin/src/main/java/io/homeey/gateway/admin/controller/PluginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-admin/src/main/java/io/homeey/gateway/admin/controller/PluginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-admin/src/main/java/io/homeey/gateway/admin/controller/RouteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-admin/src/main/java/io/homeey/gateway/admin/controller/RouteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-admin/src/main/java/io/homeey/gateway/admin/service/PublishService.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-admin/src/main/java/io/homeey/gateway/admin/service/PublishService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-admin/src/test/java/io/homeey/gateway/admin/RouteControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-admin/src/test/java/io/homeey/gateway/admin/RouteControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/BootstrapApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/BootstrapApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/RuntimeFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/RuntimeFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/test/java/io/homeey/gateway/bootstrap/BootstrapWiringTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/test/java/io/homeey/gateway/bootstrap/BootstrapWiringTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-config/gateway-config-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-config/gateway-config-api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-config/gateway-config-api/src/main/java/io/homeey/gateway/config/api/ConfigProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-config/gateway-config-api/src/main/java/io/homeey/gateway/config/api/ConfigProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-config/gateway-config-nacos/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-config/gateway-config-nacos/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-config/gateway-config-nacos/src/main/java/io/homeey/gateway/config/nacos/NacosConfigProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-config/gateway-config-nacos/src/main/java/io/homeey/gateway/config/nacos/NacosConfigProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-config/gateway-config-nacos/src/test/java/io/homeey/gateway/config/nacos/NacosConfigProviderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-config/gateway-config-nacos/src/test/java/io/homeey/gateway/config/nacos/NacosConfigProviderTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-core/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-core/src/main/java/io/homeey/gateway/core/filter/DefaultGatewayFilterChain.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-core/src/main/java/io/homeey/gateway/core/filter/DefaultGatewayFilterChain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-core/src/main/java/io/homeey/gateway/core/filter/FilterExecutionPlan.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-core/src/main/java/io/homeey/gateway/core/filter/FilterExecutionPlan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-core/src/main/java/io/homeey/gateway/core/route/RadixRouteLocator.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-core/src/main/java/io/homeey/gateway/core/route/RadixRouteLocator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-core/src/main/java/io/homeey/gateway/core/route/RouteDefinition.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-core/src/main/java/io/homeey/gateway/core/route/RouteDefinition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-core/src/main/java/io/homeey/gateway/core/runtime/RuntimeSnapshotManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-core/src/main/java/io/homeey/gateway/core/runtime/RuntimeSnapshotManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-core/src/test/java/io/homeey/gateway/core/FilterChainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-core/src/test/java/io/homeey/gateway/core/FilterChainTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-core/src/test/java/io/homeey/gateway/core/RadixRouteLocatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-core/src/test/java/io/homeey/gateway/core/RadixRouteLocatorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-core/src/test/java/io/homeey/gateway/core/RuntimeSnapshotManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-core/src/test/java/io/homeey/gateway/core/RuntimeSnapshotManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/GatewayContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/GatewayContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/GatewayFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/GatewayFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-registry/gateway-registry-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-registry/gateway-registry-api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-registry/gateway-registry-api/src/main/java/io/homeey/gateway/registry/api/ServiceDiscoveryProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-registry/gateway-registry-api/src/main/java/io/homeey/gateway/registry/api/ServiceDiscoveryProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-registry/gateway-registry-nacos/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-registry/gateway-registry-nacos/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-registry/gateway-registry-nacos/src/main/java/io/homeey/gateway/registry/nacos/NacosServiceDiscoveryProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-registry/gateway-registry-nacos/src/main/java/io/homeey/gateway/registry/nacos/NacosServiceDiscoveryProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-transport/gateway-transport-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyRequestAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyRequestAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyResponseAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyResponseAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyTransportServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyTransportServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +103,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/gateway-phase1-2" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitToolBoxStore">
@@ -24,8 +119,12 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1776484616" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="feature/gateway-phase1-2" />
-                    <option name="lastUsedInstant" value="1776482917" />
+                    <option name="lastUsedInstant" value="1776484575" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="master" />
@@ -46,29 +145,43 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="D:/SoftWare/DevTools/maven" />
         <option name="showDialogWithAdvancedSettings" value="true" />
         <option name="threads" value="4" />
-        <option name="usePluginRegistry" value="true" />
         <option name="userSettingsFile" value="D:\SoftWare\DevTools\maven\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="3CUSAyks6Qct3e1SaRJo7Bpnr0U" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "feature/gateway-phase1-2",
+    "git-widget-placeholder": "main",
     "go.import.settings.migrated": "true",
+    "kotlin-language-version-configured": "true",
     "last_opened_file_path": "F:/CodeSpace/OpenSource/Java",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "MavenSettings",
     "vue.rearranger.settings.migration": "true"
   }
@@ -82,6 +195,13 @@
       </method>
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.32098.37" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -91,11 +211,23 @@
       <option name="presentableId" value="Default" />
       <updated>1776438517970</updated>
       <workItem from="1776438518805" duration="4000" />
+      <workItem from="1776484600108" duration="10870000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="chore(ide): 更新IDE配置并忽略.idea目录&#10;&#10;- 在.gitignore中添加/.idea/路径&#10;- 更新workspace.xml中的变更列表记录&#10;- 移除Maven设置中的本地路径配置&#10;- 添加项目颜色信息组件配置&#10;- 更新运行活动标记和Node.js包检测设置&#10;- 添加共享索引和GitHub Copilot工作区配置&#10;- 记录新的工作时间统计信息" />
@@ -105,5 +237,13 @@
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
   </component>
 </project>

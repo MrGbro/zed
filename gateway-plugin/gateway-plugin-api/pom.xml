@@ -19,6 +19,11 @@
             <artifactId>gateway-common</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-transport-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

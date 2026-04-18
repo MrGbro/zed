@@ -10,7 +10,7 @@ class NacosConfigProviderTest {
 
     @Test
     void shouldUpdateSnapshotAndNotifySubscriber() {
-        NacosConfigProvider provider = new NacosConfigProvider();
+        NacosConfigProvider provider = new NacosConfigProvider("127.0.0.1:65535");
         AtomicReference<String> callbackValue = new AtomicReference<>();
 
         provider.subscribe("routes.json", "DEFAULT_GROUP", callbackValue::set)
@@ -28,7 +28,7 @@ class NacosConfigProviderTest {
 
     @Test
     void shouldKeepCurrentSnapshotWhenNacosEventFails() {
-        NacosConfigProvider provider = new NacosConfigProvider();
+        NacosConfigProvider provider = new NacosConfigProvider("127.0.0.1:65535");
         provider.onNacosConfigChanged("routes.json", "DEFAULT_GROUP", "{\"version\":\"v1\"}");
 
         provider.onNacosConfigChanged("routes.json", "DEFAULT_GROUP", null);

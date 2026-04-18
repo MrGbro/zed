@@ -22,6 +22,7 @@
         <module>gateway-admin</module>
         <module>gateway-dist</module>
         <module>gateway-transport</module>
+        <module>gateway-proxy</module>
         <module>gateway-plugin</module>
         <module>gateway-config</module>
         <module>gateway-registry</module>

@@ -7,5 +7,7 @@ import java.util.function.Consumer;
 public interface ServiceDiscoveryProvider {
     CompletionStage<List<String>> getInstances(String serviceName);
 
+    CompletionStage<Void> register(String serviceName, String endpoint);
+
     CompletionStage<Void> subscribe(String serviceName, Consumer<List<String>> listener);
 }

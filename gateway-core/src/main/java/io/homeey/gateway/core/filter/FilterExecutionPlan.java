@@ -1,12 +1,12 @@
 package io.homeey.gateway.core.filter;
 
-import io.homeey.gateway.plugin.api.GatewayFilter;
+import io.homeey.gateway.plugin.api.FilterInvocation;
 
 import java.util.List;
 
-public record FilterExecutionPlan(List<GatewayFilter> filters) {
+public record FilterExecutionPlan(List<FilterInvocation> invocations) {
 
     public FilterExecutionPlan {
-        filters = List.copyOf(filters);
+        invocations = List.copyOf(invocations);
     }
 }

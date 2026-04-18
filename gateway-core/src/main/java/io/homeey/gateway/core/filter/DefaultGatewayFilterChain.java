@@ -2,50 +2,66 @@ package io.homeey.gateway.core.filter;
 
 import io.homeey.gateway.common.error.ErrorCategory;
 import io.homeey.gateway.common.error.GatewayError;
+import io.homeey.gateway.plugin.api.FilterFailPolicy;
+import io.homeey.gateway.plugin.api.FilterInvocation;
 import io.homeey.gateway.plugin.api.GatewayContext;
-import io.homeey.gateway.plugin.api.GatewayFilter;
 import io.homeey.gateway.plugin.api.GatewayFilterChain;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.CompletionStage;
+import java.util.function.Function;
 
 public final class DefaultGatewayFilterChain implements GatewayFilterChain {
-    private final List<GatewayFilter> filters;
+    private final List<FilterInvocation> invocations;
     private final int index;
 
-    public DefaultGatewayFilterChain(List<GatewayFilter> filters) {
-        this(filters, 0);
+    public DefaultGatewayFilterChain(List<FilterInvocation> invocations) {
+        this(invocations, 0);
     }
 
-    private DefaultGatewayFilterChain(List<GatewayFilter> filters, int index) {
-        this.filters = List.copyOf(filters);
+    private DefaultGatewayFilterChain(List<FilterInvocation> invocations, int index) {
+        this.invocations = List.copyOf(invocations);
         this.index = index;
     }
 
     @Override
     public CompletionStage<Void> next(GatewayContext context) {
-        if (index >= filters.size()) {
+        if (index >= invocations.size()) {
             return CompletableFuture.completedFuture(null);
         }
 
-        GatewayFilter current = filters.get(index);
-        DefaultGatewayFilterChain next = new DefaultGatewayFilterChain(filters, index + 1);
+        FilterInvocation current = invocations.get(index);
+        DefaultGatewayFilterChain next = new DefaultGatewayFilterChain(invocations, index + 1);
 
         try {
-            return current.filter(context, next)
-                    .exceptionally(ex -> {
+            return current.filter().filter(context, next)
+                    .handle((unused, ex) -> {
+                        if (ex == null) {
+                            return CompletableFuture.<Void>completedFuture(null);
+                        }
                         Throwable cause = unwrap(ex);
-                        mapGatewayError(context, cause);
-                        throw new CompletionException(cause);
-                    });
+                        return handleThrowable(context, current, next, cause);
+                    })
+                    .thenCompose(Function.identity());
         } catch (Throwable throwable) {
-            mapGatewayError(context, throwable);
-            CompletableFuture<Void> failed = new CompletableFuture<>();
-            failed.completeExceptionally(throwable);
-            return failed;
+            return handleThrowable(context, current, next, throwable);
         }
+    }
+
+    private CompletionStage<Void> handleThrowable(GatewayContext context,
+                                                  FilterInvocation current,
+                                                  DefaultGatewayFilterChain next,
+                                                  Throwable throwable) {
+        if (current.failPolicy() == FilterFailPolicy.FAIL_OPEN) {
+            context.attributes().put("plugin.failopen." + current.name(), throwable.getMessage());
+            return next(context);
+        }
+        mapGatewayError(context, throwable);
+        CompletableFuture<Void> failed = new CompletableFuture<>();
+        failed.completeExceptionally(throwable);
+        return failed;
     }
 
     private static void mapGatewayError(GatewayContext context, Throwable throwable) {

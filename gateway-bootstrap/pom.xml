@@ -16,7 +16,37 @@
     <dependencies>
         <dependency>
             <groupId>io.homeey</groupId>
+            <artifactId>gateway-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-plugin-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
             <artifactId>gateway-transport-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-proxy-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-proxy-async-http</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-proxy-okhttp</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-proxy-reactor-netty</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -31,7 +61,17 @@
         </dependency>
         <dependency>
             <groupId>io.homeey</groupId>
+            <artifactId>gateway-config-nacos</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
             <artifactId>gateway-registry-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-registry-nacos</artifactId>
             <version>${project.version}</version>
         </dependency>
 

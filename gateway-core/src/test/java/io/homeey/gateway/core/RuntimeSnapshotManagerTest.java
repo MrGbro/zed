@@ -1,8 +1,10 @@
 package io.homeey.gateway.core;
 
 import io.homeey.gateway.core.runtime.RuntimeSnapshotManager;
+import io.homeey.gateway.core.route.RouteTableSnapshot;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,5 +33,15 @@ class RuntimeSnapshotManagerTest {
         assertEquals("v1", manager.currentSnapshot().get("version"));
         assertEquals(0L, manager.metrics().get("config_update_success"));
         assertEquals(1L, manager.metrics().get("config_update_fail"));
+    }
+
+    @Test
+    void shouldSwitchRouteSnapshotAtomically() {
+        RuntimeSnapshotManager manager = new RuntimeSnapshotManager(Map.of("version", "v1"));
+        RouteTableSnapshot snapshot = new RouteTableSnapshot("v2", List.of());
+
+        manager.onRouteSnapshotPublished(snapshot);
+
+        assertEquals("v2", manager.currentRouteSnapshot().version());
     }
 }

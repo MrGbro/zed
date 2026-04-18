@@ -4,18 +4,19 @@ import io.homeey.gateway.common.error.ErrorCategory;
 import io.homeey.gateway.common.error.GatewayError;
 import io.homeey.gateway.core.context.GatewayContext;
 import io.homeey.gateway.core.filter.DefaultGatewayFilterChain;
+import io.homeey.gateway.plugin.api.FilterFailPolicy;
+import io.homeey.gateway.plugin.api.FilterInvocation;
 import io.homeey.gateway.plugin.api.GatewayFilter;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
-import java.util.concurrent.CompletionStage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FilterChainTest {
 
@@ -37,7 +38,11 @@ class FilterChainTest {
         };
 
         DefaultGatewayFilterChain chain =
-                new DefaultGatewayFilterChain(List.of(pre, routing, post));
+                new DefaultGatewayFilterChain(List.of(
+                        new FilterInvocation("pre", pre, FilterFailPolicy.FAIL_CLOSE),
+                        new FilterInvocation("routing", routing, FilterFailPolicy.FAIL_CLOSE),
+                        new FilterInvocation("post", post, FilterFailPolicy.FAIL_CLOSE)
+                ));
 
         chain.next(new GatewayContext()).toCompletableFuture().join();
 
@@ -56,7 +61,11 @@ class FilterChainTest {
         };
 
         DefaultGatewayFilterChain chain =
-                new DefaultGatewayFilterChain(List.of(pre, failClose, post));
+                new DefaultGatewayFilterChain(List.of(
+                        new FilterInvocation("pre", pre, FilterFailPolicy.FAIL_CLOSE),
+                        new FilterInvocation("fail-close", failClose, FilterFailPolicy.FAIL_CLOSE),
+                        new FilterInvocation("post", post, FilterFailPolicy.FAIL_CLOSE)
+                ));
         GatewayContext context = new GatewayContext();
 
         CompletionException ex = assertThrows(
@@ -70,5 +79,33 @@ class FilterChainTest {
         assertEquals(500, gatewayError.httpStatus());
         assertNull(context.attributes().get("post"));
         assertEquals("boom", ex.getCause().getMessage());
+    }
+
+    @Test
+    void shouldContinueWhenFailOpenFilterThrows() {
+        List<String> order = new ArrayList<>();
+        GatewayFilter pre = (ctx, chain) -> {
+            order.add("pre");
+            return chain.next(ctx);
+        };
+        GatewayFilter failOpen = (ctx, chain) -> {
+            order.add("fail-open");
+            throw new RuntimeException("soft-failed");
+        };
+        GatewayFilter post = (ctx, chain) -> {
+            order.add("post");
+            return chain.next(ctx);
+        };
+
+        DefaultGatewayFilterChain chain = new DefaultGatewayFilterChain(List.of(
+                new FilterInvocation("pre", pre, FilterFailPolicy.FAIL_CLOSE),
+                new FilterInvocation("fail-open", failOpen, FilterFailPolicy.FAIL_OPEN),
+                new FilterInvocation("post", post, FilterFailPolicy.FAIL_CLOSE)
+        ));
+        GatewayContext context = new GatewayContext();
+        chain.next(context).toCompletableFuture().join();
+
+        assertEquals(List.of("pre", "fail-open", "post"), order);
+        assertTrue(context.attributes().containsKey("plugin.failopen.fail-open"));
     }
 }

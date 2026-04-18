@@ -1,0 +1,2 @@
+logging=io.homeey.gateway.plugin.api.LoggingGatewayFilter
+auth=io.homeey.gateway.plugin.api.AuthGatewayFilter
