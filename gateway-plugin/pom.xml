@@ -11,5 +11,9 @@
     </parent>
 
     <artifactId>gateway-plugin</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>gateway-plugin-api</module>
+    </modules>
 </project>

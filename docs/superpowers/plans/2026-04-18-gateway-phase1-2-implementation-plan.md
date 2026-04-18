@@ -83,7 +83,7 @@
 - Create: `gateway-registry/pom.xml`
 - Create: `architecture-tests/pom.xml`
 
-- [ ] **Step 1: 写失败测试（构建层）**
+- [x] **Step 1: 写失败测试（构建层）**
 
 在根目录创建最小验证脚本（临时命令，不入库）：
 ```bash
@@ -91,7 +91,7 @@ mvn -q -DskipTests validate
 ```
 预期：FAIL，提示子模块不存在。
 
-- [ ] **Step 2: 先改根 `pom.xml` 为 parent 聚合**
+- [x] **Step 2: 先改根 `pom.xml` 为 parent 聚合**
 
 写入以下核心结构（完整替换）：
 ```xml
@@ -110,7 +110,7 @@ mvn -q -DskipTests validate
 </modules>
 ```
 
-- [ ] **Step 3: 创建各父/子模块最小 `pom.xml`**
+- [x] **Step 3: 创建各父/子模块最小 `pom.xml`**
 
 所有子模块统一继承 parent，并最小声明 `artifactId` 与 `packaging`。
 
@@ -124,12 +124,12 @@ mvn -q -DskipTests validate
 <artifactId>gateway-common</artifactId>
 ```
 
-- [ ] **Step 4: 验证构建通过**
+- [x] **Step 4: 验证构建通过**
 
 Run: `mvn -q -DskipTests validate`
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add pom.xml README.md gateway-common gateway-core gateway-bootstrap gateway-admin gateway-dist gateway-transport gateway-plugin gateway-config gateway-registry architecture-tests
@@ -151,7 +151,7 @@ git commit -m "build: initialize gateway multi-module structure"
 - Create: `gateway-transport/gateway-transport-api/src/main/java/io/homeey/gateway/transport/api/TransportServer.java`
 - Create: `gateway-core/src/main/java/io/homeey/gateway/core/context/GatewayContext.java`
 
-- [ ] **Step 1: 写失败测试（类型可见性）**
+- [x] **Step 1: 写失败测试（类型可见性）**
 
 Create `gateway-core/src/test/java/io/homeey/gateway/core/ApiContractCompileTest.java`:
 ```java
@@ -169,12 +169,12 @@ class ApiContractCompileTest {
 }
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `mvn -q -pl gateway-core -Dtest=ApiContractCompileTest test`
 Expected: FAIL，找不到 `GatewayFilter`。
 
-- [ ] **Step 3: 写 API 与 common 最小实现**
+- [x] **Step 3: 写 API 与 common 最小实现**
 
 关键代码示例：
 ```java
@@ -189,12 +189,12 @@ public interface TransportServer {
 }
 ```
 
-- [ ] **Step 4: 运行测试确认通过**
+- [x] **Step 4: 运行测试确认通过**
 
 Run: `mvn -q -pl gateway-core -Dtest=ApiContractCompileTest test`
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add gateway-common gateway-plugin/gateway-plugin-api gateway-config/gateway-config-api gateway-registry/gateway-registry-api gateway-transport/gateway-transport-api gateway-core
@@ -210,7 +210,7 @@ git commit -m "feat(api): add core contracts and common error/context models"
 - Create: `gateway-core/src/main/java/io/homeey/gateway/core/filter/FilterExecutionPlan.java`
 - Test: `gateway-core/src/test/java/io/homeey/gateway/core/FilterChainTest.java`
 
-- [ ] **Step 1: 写失败测试（顺序、短路、异常映射）**
+- [x] **Step 1: 写失败测试（顺序、短路、异常映射）**
 
 ```java
 @Test
@@ -220,12 +220,12 @@ void shouldExecuteFiltersInOrder() { /* assert pre->routing->post 顺序 */ }
 void shouldStopWhenFailCloseFilterThrows() { /* assert 短路并返回 GatewayError */ }
 ```
 
-- [ ] **Step 2: 运行失败测试**
+- [x] **Step 2: 运行失败测试**
 
 Run: `mvn -q -pl gateway-core -Dtest=FilterChainTest test`
 Expected: FAIL（类不存在）。
 
-- [ ] **Step 3: 写最小实现使测试通过**
+- [x] **Step 3: 写最小实现使测试通过**
 
 核心结构：
 ```java
@@ -236,12 +236,12 @@ public final class DefaultGatewayFilterChain implements GatewayFilterChain {
 }
 ```
 
-- [ ] **Step 4: 重跑测试**
+- [x] **Step 4: 重跑测试**
 
 Run: `mvn -q -pl gateway-core -Dtest=FilterChainTest test`
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add gateway-core/src/main/java/io/homeey/gateway/core/filter gateway-core/src/test/java/io/homeey/gateway/core/FilterChainTest.java
@@ -258,7 +258,7 @@ git commit -m "feat(core): implement async filter chain with fail semantics"
 - Create: `gateway-core/src/main/java/io/homeey/gateway/core/route/RouteTableSnapshot.java`
 - Test: `gateway-core/src/test/java/io/homeey/gateway/core/RadixRouteLocatorTest.java`
 
-- [ ] **Step 1: 写失败测试（host/path/method/header 匹配）**
+- [x] **Step 1: 写失败测试（host/path/method/header 匹配）**
 
 ```java
 @Test
@@ -268,12 +268,12 @@ void shouldMatchByHostThenPathThenMethod() { }
 void shouldReturnNotFoundWhenNoRouteMatches() { }
 ```
 
-- [ ] **Step 2: 执行失败测试**
+- [x] **Step 2: 执行失败测试**
 
 Run: `mvn -q -pl gateway-core -Dtest=RadixRouteLocatorTest test`
 Expected: FAIL。
 
-- [ ] **Step 3: 实现 Radix 核心与快照替换**
+- [x] **Step 3: 实现 Radix 核心与快照替换**
 
 ```java
 public final class RouteTableSnapshot {
@@ -282,12 +282,12 @@ public final class RouteTableSnapshot {
 }
 ```
 
-- [ ] **Step 4: 执行测试通过**
+- [x] **Step 4: 执行测试通过**
 
 Run: `mvn -q -pl gateway-core -Dtest=RadixRouteLocatorTest test`
 Expected: PASS。
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add gateway-core/src/main/java/io/homeey/gateway/core/route gateway-core/src/test/java/io/homeey/gateway/core/RadixRouteLocatorTest.java
@@ -304,24 +304,24 @@ git commit -m "feat(core): add radix route locator with immutable snapshots"
 - Create: `gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyResponseAdapter.java`
 - Test: `gateway-transport/gateway-transport-netty/src/test/java/io/homeey/gateway/transport/netty/NettyTransportServerTest.java`
 
-- [ ] **Step 1: 写失败测试（server start/stop + basic proxy）**
-- [ ] **Step 2: 运行失败测试**
+- [x] **Step 1: 写失败测试（server start/stop + basic proxy）**
+- [x] **Step 2: 运行失败测试**
 
 Run: `mvn -q -pl gateway-transport/gateway-transport-netty -Dtest=NettyTransportServerTest test`
 Expected: FAIL。
 
-- [ ] **Step 3: 最小实现 Netty TransportServer**
+- [x] **Step 3: 最小实现 Netty TransportServer**
 
 要求：
 1. 支持 HTTP/1.1；
 2. 暴露 start/stop；
 3. 将请求适配为 `GatewayRequest` 并回写响应。
 
-- [ ] **Step 4: 重跑测试**
+- [x] **Step 4: 重跑测试**
 
 Expected: PASS。
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add gateway-transport/gateway-transport-netty
@@ -338,24 +338,24 @@ git commit -m "feat(transport-netty): add minimal http transport server"
 - Create: `gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/RuntimeFactory.java`
 - Test: `gateway-bootstrap/src/test/java/io/homeey/gateway/bootstrap/BootstrapWiringTest.java`
 
-- [ ] **Step 1: 写失败测试（按配置装配 netty+nacos）**
-- [ ] **Step 2: 运行失败测试**
+- [x] **Step 1: 写失败测试（按配置装配 netty+nacos）**
+- [x] **Step 2: 运行失败测试**
 
 Run: `mvn -q -pl gateway-bootstrap -Dtest=BootstrapWiringTest test`
 Expected: FAIL。
 
-- [ ] **Step 3: 实现 RuntimeFactory 与生命周期编排**
+- [x] **Step 3: 实现 RuntimeFactory 与生命周期编排**
 
 要求：
 1. 读取本地配置；
 2. 选择实现并装配；
 3. 执行 `init -> start -> stop`。
 
-- [ ] **Step 4: 重跑测试**
+- [x] **Step 4: 重跑测试**
 
 Expected: PASS。
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add gateway-bootstrap
@@ -372,8 +372,8 @@ git commit -m "feat(bootstrap): add config-driven runtime wiring"
 - Test: `gateway-config/gateway-config-nacos/src/test/java/io/homeey/gateway/config/nacos/NacosConfigProviderTest.java`
 - Test: `gateway-registry/gateway-registry-nacos/src/test/java/io/homeey/gateway/registry/nacos/NacosServiceDiscoveryProviderTest.java`
 
-- [ ] **Step 1: 写失败测试（订阅回调、快照更新）**
-- [ ] **Step 2: 运行失败测试**
+- [x] **Step 1: 写失败测试（订阅回调、快照更新）**
+- [x] **Step 2: 运行失败测试**
 
 Run:
 ```bash
@@ -382,18 +382,18 @@ mvn -q -pl gateway-registry/gateway-registry-nacos -Dtest=NacosServiceDiscoveryP
 ```
 Expected: FAIL。
 
-- [ ] **Step 3: 实现 API 适配层**
+- [x] **Step 3: 实现 API 适配层**
 
 要求：
 1. 封装 Nacos SDK 到 `ConfigProvider` / `ServiceDiscoveryProvider`；
 2. 事件转换为统一模型；
 3. 出错不破坏当前运行快照。
 
-- [ ] **Step 4: 重跑测试**
+- [x] **Step 4: 重跑测试**
 
 Expected: PASS。
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add gateway-config/gateway-config-nacos gateway-registry/gateway-registry-nacos
@@ -412,20 +412,20 @@ git commit -m "feat(nacos): add config and discovery providers"
 - Create: `gateway-admin/src/main/resources/static/index.html`
 - Test: `gateway-admin/src/test/java/io/homeey/gateway/admin/RouteControllerTest.java`
 
-- [ ] **Step 1: 写失败测试（路由 CRUD + 发布接口）**
-- [ ] **Step 2: 运行失败测试**
+- [x] **Step 1: 写失败测试（路由 CRUD + 发布接口）**
+- [x] **Step 2: 运行失败测试**
 
 Run: `mvn -q -pl gateway-admin -Dtest=RouteControllerTest test`
 Expected: FAIL。
 
-- [ ] **Step 3: 实现 Admin API 与发布服务**
+- [x] **Step 3: 实现 Admin API 与发布服务**
 
 要求：
 1. 路由与插件绑定 CRUD；
 2. 发布版本写入配置中心；
 3. 返回发布记录。
 
-- [ ] **Step 4: 实现简易 Web 控制台**
+- [x] **Step 4: 实现简易 Web 控制台**
 
 最小功能：
 1. 路由列表；
@@ -433,11 +433,11 @@ Expected: FAIL。
 3. 发布按钮；
 4. 发布记录展示。
 
-- [ ] **Step 5: 重跑测试**
+- [x] **Step 5: 重跑测试**
 
 Expected: PASS。
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add gateway-admin
@@ -453,23 +453,23 @@ git commit -m "feat(admin): add route/plugin management api and basic web consol
 - Create: `gateway-core/src/main/java/io/homeey/gateway/core/runtime/RuntimeSnapshotManager.java`
 - Test: `gateway-core/src/test/java/io/homeey/gateway/core/RuntimeSnapshotManagerTest.java`
 
-- [ ] **Step 1: 写失败测试（发布事件触发快照替换）**
-- [ ] **Step 2: 运行失败测试**
+- [x] **Step 1: 写失败测试（发布事件触发快照替换）**
+- [x] **Step 2: 运行失败测试**
 
 Run: `mvn -q -pl gateway-core -Dtest=RuntimeSnapshotManagerTest test`
 Expected: FAIL。
 
-- [ ] **Step 3: 实现订阅回调 + 后台构建 + 原子替换**
+- [x] **Step 3: 实现订阅回调 + 后台构建 + 原子替换**
 
 要求：
 1. 构建失败时回退旧快照；
 2. 打点 `config_update_success/fail` 指标。
 
-- [ ] **Step 4: 重跑测试**
+- [x] **Step 4: 重跑测试**
 
 Expected: PASS。
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add gateway-core
@@ -484,7 +484,7 @@ git commit -m "feat(core): add runtime snapshot manager for hot reload"
 - Create: `architecture-tests/src/test/java/io/homeey/gateway/arch/DependencyRulesTest.java`
 - Modify: `architecture-tests/pom.xml`
 
-- [ ] **Step 1: 写失败测试（插件依赖 core）**
+- [x] **Step 1: 写失败测试（插件依赖 core）**
 
 ```java
 @ArchTest
@@ -493,22 +493,22 @@ static final ArchRule plugins_should_not_depend_on_core =
     .should().dependOnClassesThat().resideInAnyPackage("..core..");
 ```
 
-- [ ] **Step 2: 运行失败测试（先故意验证）**
+- [x] **Step 2: 运行失败测试（先故意验证）**
 
 Run: `mvn -q -pl architecture-tests test`
 Expected: FAIL（在引入临时违规依赖时）。
 
-- [ ] **Step 3: 移除临时违规并固化规则**
+- [x] **Step 3: 移除临时违规并固化规则**
 
 包括：
 1. api 不依赖实现；
 2. core 不暴露 reactor/netty 类型。
 
-- [ ] **Step 4: 运行架构测试通过**
+- [x] **Step 4: 运行架构测试通过**
 
 Expected: PASS。
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add architecture-tests
@@ -525,24 +525,24 @@ git commit -m "test(arch): enforce dependency direction and api purity"
 - Create: `gateway-core/src/main/java/io/homeey/gateway/core/error/ErrorMapper.java`
 - Test: `gateway-core/src/test/java/io/homeey/gateway/core/ErrorMapperTest.java`
 
-- [ ] **Step 1: 写失败测试（错误映射与 trace 注入）**
-- [ ] **Step 2: 运行失败测试**
+- [x] **Step 1: 写失败测试（错误映射与 trace 注入）**
+- [x] **Step 2: 运行失败测试**
 
 Run: `mvn -q -pl gateway-core -Dtest=ErrorMapperTest test`
 Expected: FAIL。
 
-- [ ] **Step 3: 实现 metrics/tracing/error mapper**
+- [x] **Step 3: 实现 metrics/tracing/error mapper**
 
 要求：
 1. 错误码覆盖 `GW4xxx/GW5xxx`；
 2. 指标覆盖 qps/p99/4xx/5xx/timeout/retry；
 3. 响应头透传 traceId。
 
-- [ ] **Step 4: 重跑测试**
+- [x] **Step 4: 重跑测试**
 
 Expected: PASS。
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add gateway-core
@@ -559,12 +559,12 @@ git commit -m "feat(obs): add metrics tracing and standardized error mapping"
 - Create: `scripts/perf/wrk-phase2.lua`
 - Create: `docs/superpowers/checklists/phase1-phase2-acceptance.md`
 
-- [ ] **Step 1: 写失败验收脚本（先执行预期失败）**
+- [x] **Step 1: 写失败验收脚本（先执行预期失败）**
 
 Run: `powershell -File scripts/e2e/run-phase2-smoke.ps1`
 Expected: FAIL（脚本或目标未就绪）。
 
-- [ ] **Step 2: 实现脚本并补齐文档**
+- [x] **Step 2: 实现脚本并补齐文档**
 
 脚本要求：
 1. 启动 admin 与 node；
@@ -572,11 +572,11 @@ Expected: FAIL（脚本或目标未就绪）。
 3. 校验 node 热更新生效；
 4. 触发基础压测并输出结果。
 
-- [ ] **Step 3: 运行验收脚本通过**
+- [x] **Step 3: 运行验收脚本通过**
 
 Expected: PASS，输出关键指标。
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add scripts docs/superpowers/checklists
@@ -618,3 +618,4 @@ Plan complete and saved to `docs/superpowers/plans/2026-04-18-gateway-phase1-2-i
 2. Inline Execution - Execute tasks in this session using executing-plans, batch execution with checkpoints
 
 Which approach?
+

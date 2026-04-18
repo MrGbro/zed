@@ -11,5 +11,10 @@
     </parent>
 
     <artifactId>gateway-transport</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>gateway-transport-api</module>
+        <module>gateway-transport-netty</module>
+    </modules>
 </project>

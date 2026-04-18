@@ -11,5 +11,10 @@
     </parent>
 
     <artifactId>gateway-config</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>gateway-config-api</module>
+        <module>gateway-config-nacos</module>
+    </modules>
 </project>
