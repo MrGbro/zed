@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89100707-e19e-4d06-8e09-d912ebb83c06" name="Changes" comment="docs(gateway): 添加仓库指南文档并清理工作区配置&#10;&#10;- 新增 AGENTS.md 包含项目结构、构建命令、编码规范等完整指南&#10;- 移除 workspace.xml 中的冗余变更列表配置&#10;- 更新工作项时间统计和任务计数器配置">
-      <change afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfigLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/resources/bootstrap.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-bootstrap/src/test/java/io/homeey/gateway/bootstrap/config/BootstrapConfigLoaderTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-bootstrap/src/test/resources/bootstrap.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/BootstrapApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/BootstrapApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/test/java/io/homeey/gateway/bootstrap/BootstrapWiringTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/test/java/io/homeey/gateway/bootstrap/BootstrapWiringTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/perf-gate-phase2.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/phase1-phase2-completion-gap-2026-04-18.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/superpowers/checklists/phase1-phase2-acceptance.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,32 +77,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "go.import.settings.migrated": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "F:/CodeSpace/OpenSource/Java",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "spring.configuration.checksum": "1d77d12031158deb1420e868589f87d7",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/CodeSpace/OpenSource/Java&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;1d77d12031158deb1420e868589f87d7&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="AdminApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="gateway-admin" />
