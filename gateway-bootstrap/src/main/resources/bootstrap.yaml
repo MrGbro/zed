@@ -1,0 +1,9 @@
+transportType: netty
+configProviderType: nacos
+discoveryProviderType: nacos
+proxyClientType: async-http-client
+port: 18080
+nacosServerAddr: 192.168.79.144:8848
+routesDataId: gateway.routes.json
+group: GATEWAY
+gracefulTimeoutMillis: 5000

@@ -30,6 +30,30 @@ public record BootstrapConfig(
         String group,
         long gracefulTimeoutMillis
 ) {
+    public static final String DEFAULT_TRANSPORT_TYPE = "netty";
+    public static final String DEFAULT_CONFIG_PROVIDER_TYPE = "nacos";
+    public static final String DEFAULT_DISCOVERY_PROVIDER_TYPE = "nacos";
+    public static final String DEFAULT_PROXY_CLIENT_TYPE = "async-http-client";
+    public static final int DEFAULT_PORT = 18080;
+    public static final String DEFAULT_NACOS_SERVER_ADDR = "192.168.79.144:8848";
+    public static final String DEFAULT_ROUTES_DATA_ID = "gateway.routes.json";
+    public static final String DEFAULT_GROUP = "GATEWAY";
+    public static final long DEFAULT_GRACEFUL_TIMEOUT_MILLIS = 5000L;
+
+    public static BootstrapConfig defaultConfig() {
+        return new BootstrapConfig(
+                DEFAULT_TRANSPORT_TYPE,
+                DEFAULT_CONFIG_PROVIDER_TYPE,
+                DEFAULT_DISCOVERY_PROVIDER_TYPE,
+                DEFAULT_PROXY_CLIENT_TYPE,
+                DEFAULT_PORT,
+                DEFAULT_NACOS_SERVER_ADDR,
+                DEFAULT_ROUTES_DATA_ID,
+                DEFAULT_GROUP,
+                DEFAULT_GRACEFUL_TIMEOUT_MILLIS
+        );
+    }
+
 
     /**
      * 创建默认引导配置。
@@ -41,14 +65,14 @@ public record BootstrapConfig(
     public static BootstrapConfig of(String transportType, int port) {
         return new BootstrapConfig(
                 transportType,
-                "nacos",
-                "nacos",
-                "async-http-client",
+                DEFAULT_CONFIG_PROVIDER_TYPE,
+                DEFAULT_DISCOVERY_PROVIDER_TYPE,
+                DEFAULT_PROXY_CLIENT_TYPE,
                 port,
-                "192.168.79.144:8848",
-                "gateway.routes.json",
-                "GATEWAY",
-                5000
+                DEFAULT_NACOS_SERVER_ADDR,
+                DEFAULT_ROUTES_DATA_ID,
+                DEFAULT_GROUP,
+                DEFAULT_GRACEFUL_TIMEOUT_MILLIS
         );
     }
 }

@@ -1,0 +1,9 @@
+transportType: netty
+configProviderType: nacos
+discoveryProviderType: nacos
+proxyClientType: async-http-client
+port: 19080
+nacosServerAddr: 127.0.0.1:8848
+routesDataId: classpath.routes.json
+group: CLASSPATH_GROUP
+gracefulTimeoutMillis: 6000

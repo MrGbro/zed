@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89100707-e19e-4d06-8e09-d912ebb83c06" name="Changes" comment="feat(gateway): 完成网关P0功能实现&#10;&#10;- 添加真实数据平面转发管道替代演示行为&#10;- 实现HTTP/2入站支持&#10;- 集成真实Nacos配置中心和服务发现&#10;- 实现管理端发布到配置中心再到节点热重载闭环&#10;- 添加运行时生命周期init/start/stop及优雅关闭&#10;- 实现可插拔代理客户端策略包括async-http-client等&#10;- 添加Nacos不可用时自动降级到本地内存配置&#10;- 实现路由快照原子切换和实时订阅更新&#10;- 完善插件过滤器生命周期管理和故障处理策略&#10;- 添加性能门禁检查脚本确保QPS和延迟达标" />
+    <list default="true" id="89100707-e19e-4d06-8e09-d912ebb83c06" name="Changes" comment="docs(gateway): 添加仓库指南文档并清理工作区配置&#10;&#10;- 新增 AGENTS.md 包含项目结构、构建命令、编码规范等完整指南&#10;- 移除 workspace.xml 中的冗余变更列表配置&#10;- 更新工作项时间统计和任务计数器配置">
+      <change afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfigLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/resources/bootstrap.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-bootstrap/src/test/java/io/homeey/gateway/bootstrap/config/BootstrapConfigLoaderTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-bootstrap/src/test/resources/bootstrap.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/BootstrapApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/BootstrapApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/test/java/io/homeey/gateway/bootstrap/BootstrapWiringTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/test/java/io/homeey/gateway/bootstrap/BootstrapWiringTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -90,7 +101,11 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "MavenSettings",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "spring.configuration.checksum": "1d77d12031158deb1420e868589f87d7",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -119,7 +134,8 @@
       <option name="presentableId" value="Default" />
       <updated>1776438517970</updated>
       <workItem from="1776438518805" duration="4000" />
-      <workItem from="1776484600108" duration="12276000" />
+      <workItem from="1776484600108" duration="12588000" />
+      <workItem from="1776515878792" duration="2059000" />
     </task>
     <task id="LOCAL-00001" summary="feat(gateway): 完成网关P0功能实现&#10;&#10;- 添加真实数据平面转发管道替代演示行为&#10;- 实现HTTP/2入站支持&#10;- 集成真实Nacos配置中心和服务发现&#10;- 实现管理端发布到配置中心再到节点热重载闭环&#10;- 添加运行时生命周期init/start/stop及优雅关闭&#10;- 实现可插拔代理客户端策略包括async-http-client等&#10;- 添加Nacos不可用时自动降级到本地内存配置&#10;- 实现路由快照原子切换和实时订阅更新&#10;- 完善插件过滤器生命周期管理和故障处理策略&#10;- 添加性能门禁检查脚本确保QPS和延迟达标">
       <created>1776513765970</created>
@@ -135,7 +151,14 @@
       <option name="project" value="LOCAL" />
       <updated>1776514602823</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="docs(gateway): 添加仓库指南文档并清理工作区配置&#10;&#10;- 新增 AGENTS.md 包含项目结构、构建命令、编码规范等完整指南&#10;- 移除 workspace.xml 中的冗余变更列表配置&#10;- 更新工作项时间统计和任务计数器配置">
+      <created>1776514944814</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1776514944814</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,7 +179,8 @@
     <MESSAGE value="chore(ide): 更新IDE配置并忽略.idea目录&#10;&#10;- 在.gitignore中添加/.idea/路径&#10;- 更新workspace.xml中的变更列表记录&#10;- 移除Maven设置中的本地路径配置&#10;- 添加项目颜色信息组件配置&#10;- 更新运行活动标记和Node.js包检测设置&#10;- 添加共享索引和GitHub Copilot工作区配置&#10;- 记录新的工作时间统计信息" />
     <MESSAGE value="chore(workspace): 更新工作区配置文件&#10;&#10;- 在XML声明前添加了标识符&quot;shan&quot;&#10;- 调整了自动导入设置的重载类型为选择性模式" />
     <MESSAGE value="feat(gateway): 完成网关P0功能实现&#10;&#10;- 添加真实数据平面转发管道替代演示行为&#10;- 实现HTTP/2入站支持&#10;- 集成真实Nacos配置中心和服务发现&#10;- 实现管理端发布到配置中心再到节点热重载闭环&#10;- 添加运行时生命周期init/start/stop及优雅关闭&#10;- 实现可插拔代理客户端策略包括async-http-client等&#10;- 添加Nacos不可用时自动降级到本地内存配置&#10;- 实现路由快照原子切换和实时订阅更新&#10;- 完善插件过滤器生命周期管理和故障处理策略&#10;- 添加性能门禁检查脚本确保QPS和延迟达标" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(gateway): 完成网关P0功能实现&#10;&#10;- 添加真实数据平面转发管道替代演示行为&#10;- 实现HTTP/2入站支持&#10;- 集成真实Nacos配置中心和服务发现&#10;- 实现管理端发布到配置中心再到节点热重载闭环&#10;- 添加运行时生命周期init/start/stop及优雅关闭&#10;- 实现可插拔代理客户端策略包括async-http-client等&#10;- 添加Nacos不可用时自动降级到本地内存配置&#10;- 实现路由快照原子切换和实时订阅更新&#10;- 完善插件过滤器生命周期管理和故障处理策略&#10;- 添加性能门禁检查脚本确保QPS和延迟达标" />
+    <MESSAGE value="docs(gateway): 添加仓库指南文档并清理工作区配置&#10;&#10;- 新增 AGENTS.md 包含项目结构、构建命令、编码规范等完整指南&#10;- 移除 workspace.xml 中的冗余变更列表配置&#10;- 更新工作项时间统计和任务计数器配置" />
+    <option name="LAST_COMMIT_MESSAGE" value="docs(gateway): 添加仓库指南文档并清理工作区配置&#10;&#10;- 新增 AGENTS.md 包含项目结构、构建命令、编码规范等完整指南&#10;- 移除 workspace.xml 中的冗余变更列表配置&#10;- 更新工作项时间统计和任务计数器配置" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>

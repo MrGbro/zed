@@ -1,6 +1,7 @@
 package io.homeey.gateway.bootstrap;
 
 import io.homeey.gateway.bootstrap.config.BootstrapConfig;
+import io.homeey.gateway.bootstrap.config.BootstrapConfigLoader;
 import io.homeey.gateway.common.spi.ExtensionLoader;
 import io.homeey.gateway.bootstrap.wiring.RuntimeFactory;
 import io.homeey.gateway.core.route.RouteTableSnapshot;
@@ -132,6 +133,10 @@ public final class BootstrapApplication {
         start();
     }
 
+    public void run() {
+        run(BootstrapConfigLoader.load());
+    }
+
     /**
      * 关闭网关应用。
      * <p>
@@ -140,6 +145,12 @@ public final class BootstrapApplication {
      */
     public void shutdown() {
         stop();
+    }
+
+    public static void main(String[] args) {
+        BootstrapApplication app = new BootstrapApplication(new RuntimeFactory());
+        app.run();
+        Runtime.getRuntime().addShutdownHook(new Thread(app::shutdown));
     }
 
     private void initFilterLifecycle() {
