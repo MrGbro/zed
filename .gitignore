@@ -39,3 +39,4 @@ build/
 
 # Git worktrees (local isolated workspaces)
 .worktrees/
+.idea/
