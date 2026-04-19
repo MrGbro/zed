@@ -48,7 +48,7 @@ public final class ReactorTransportServer implements TransportServer {
                                     : "";
                             String host = request.requestHeaders().get(HttpHeaderNames.HOST);
                             String path = request.path();
-                            if (path != null && !path.isEmpty() && !path.startsWith("/")) {
+                            if (!path.isEmpty() && !path.startsWith("/")) {
                                 path = "/" + path;
                             }
                             HttpRequestMessage message = new HttpRequestMessage(

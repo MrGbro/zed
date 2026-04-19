@@ -1,4 +1,4 @@
-transportType: vertx
+transportType: reactor
 configProviderType: nacos
 discoveryProviderType: nacos
 proxyClientType: async-http-client

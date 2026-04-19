@@ -13,9 +13,44 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 
 /**
- * Manual smoke entry for Netty URI path parsing.
+ * 手动冒烟测试入口，用于验证Netty URI路径解析行为。
+ * <p>
+ * 该测试类启动一个独立的Netty HTTP服务器（端口9999），用于验证：
+ * <ul>
+ *   <li>{@link FullHttpRequest#uri()} 返回的完整URI格式</li>
+ *   <li>{@link NettyTransportServer#toRequestMessage(FullHttpRequest)} 转换后的路径是否包含前导斜杠</li>
+ *   <li>不同请求路径（如 /test、/api/users、/）的处理结果</li>
+ * </ul>
+ * </p>
+ * <p>
+ * 使用方法：
+ * <pre>{@code
+ * // 1. 运行 main 方法启动测试服务器
+ * // 2. 访问以下URL进行测试：
+ * //    - http://localhost:9999/test
+ * //    - http://localhost:9999/api/users
+ * //    - http://localhost:9999/
+ * // 3. 观察控制台输出和浏览器响应，验证路径格式
+ * }</pre>
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/19
  */
 public class PathTest {
+    /**
+     * 启动测试服务器并验证路径解析行为。
+     * <p>
+     * 该方法创建一个Netty HTTP服务器，监听9999端口，对每个请求：
+     * <ul>
+     *   <li>打印完整的URI和转换后的路径信息</li>
+     *   <li>检查路径是否以斜杠开头</li>
+     *   <li>返回包含这些信息的HTTP响应</li>
+     * </ul>
+     * </p>
+     *
+     * @param args 命令行参数（未使用）
+     */
     public static void main(String[] args) {
         NioEventLoopGroup boss = new NioEventLoopGroup(1);
         NioEventLoopGroup worker = new NioEventLoopGroup();

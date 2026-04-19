@@ -17,6 +17,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 public final class VertxTransportServer implements TransportServer {
+    private static final String HOST_HEADER = "Host";
     private final int port;
     private final GatewayRequestHandler requestHandler;
     private final Vertx vertx;
@@ -49,6 +50,9 @@ public final class VertxTransportServer implements TransportServer {
                     Map<String, String> headers = new LinkedHashMap<>();
                     ctx.request().headers().forEach(entry -> headers.put(entry.getKey(), entry.getValue()));
                     String host = headers.getOrDefault(HttpHeaders.HOST.toString(), "");
+                    if (host == null || host.isEmpty()) {
+                        host = headers.getOrDefault(HOST_HEADER, "");
+                    }
                     String path = ctx.normalizedPath();
                     if (path != null && !path.isEmpty() && !path.startsWith("/")) {
                         path = "/" + path;
