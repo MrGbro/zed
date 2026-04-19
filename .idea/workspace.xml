@@ -4,10 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89100707-e19e-4d06-8e09-d912ebb83c06" name="Changes" comment="feat(gateway): 添加静态路由和可配置静态资源目录功能&#10;&#10;- 在bootstrap配置中添加静态资源目录字段&#10;- 实现静态文件服务功能，支持GET请求返回本地文件&#10;- 集成Vert.x传输层，替换原有的Reactor Netty实现&#10;- 添加路径遍历安全检查，防止访问外部目录&#10;- 更新网关依赖配置，添加新的传输模块&#10;- 创建静态路由实现计划文档&#10;- 实现Netty传输层的基础HTTP服务功能&#10;- 添加React式传输层实现和测试代码&#10;- 创建调试启动脚本用于本地开发测试&#10;- 实现默认请求处理器并支持基本ping命令&#10;- 添加完整的单元测试覆盖静态路由功能">
+    <list default="true" id="89100707-e19e-4d06-8e09-d912ebb83c06" name="Changes" comment="fix(transport): 修复传输层路径和主机头处理问题&#10;&#10;- 修复ReactorTransportServer中路径为空时的空指针异常&#10;- 添加VertxTransportServer中HOST头部字段常量定义&#10;- 修复VertxTransportServer中主机头获取逻辑，支持多种头部名称&#10;- 更新bootstrap配置将传输类型从vertx改为reactor&#10;- 为PathTest添加详细的JavaDoc文档注释&#10;- 修正IDE工作区配置中的任务记录信息">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/resources/bootstrap.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/resources/bootstrap.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/FilterFailPolicy.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/FilterFailPolicy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/FilterInvocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/FilterInvocation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-api/src/main/java/io/homeey/gateway/proxy/api/ProxyRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-api/src/main/java/io/homeey/gateway/proxy/api/ProxyRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-api/src/main/java/io/homeey/gateway/proxy/api/ProxyResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-api/src/main/java/io/homeey/gateway/proxy/api/ProxyResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-transport/gateway-transport-api/src/main/java/io/homeey/gateway/transport/api/HttpRequestMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-api/src/main/java/io/homeey/gateway/transport/api/HttpRequestMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-transport/gateway-transport-api/src/main/java/io/homeey/gateway/transport/api/HttpResponseMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-api/src/main/java/io/homeey/gateway/transport/api/HttpResponseMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyRequestAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyRequestAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyResponseAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyResponseAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-transport/gateway-transport-reactor/src/main/java/io/homeey/gateway/transport/reactor/ReactorTransportServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-reactor/src/main/java/io/homeey/gateway/transport/reactor/ReactorTransportServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-transport/gateway-transport-reactor/src/main/java/io/homeey/gateway/transport/reactor/ReactorTransportServerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-reactor/src/main/java/io/homeey/gateway/transport/reactor/ReactorTransportServerFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway-transport/gateway-transport-vertx/src/main/java/io/homeey/gateway/transport/vertx/VertxTransportServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-vertx/src/main/java/io/homeey/gateway/transport/vertx/VertxTransportServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-transport/gateway-transport-vertx/src/main/java/io/homeey/gateway/transport/vertx/VertxTransportServerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-vertx/src/main/java/io/homeey/gateway/transport/vertx/VertxTransportServerFactory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +178,7 @@
       <workItem from="1776438518805" duration="4000" />
       <workItem from="1776484600108" duration="12588000" />
       <workItem from="1776515878792" duration="2059000" />
-      <workItem from="1776563774616" duration="7205000" />
+      <workItem from="1776563774616" duration="8624000" />
     </task>
     <task id="LOCAL-00001" summary="feat(gateway): 完成网关P0功能实现&#10;&#10;- 添加真实数据平面转发管道替代演示行为&#10;- 实现HTTP/2入站支持&#10;- 集成真实Nacos配置中心和服务发现&#10;- 实现管理端发布到配置中心再到节点热重载闭环&#10;- 添加运行时生命周期init/start/stop及优雅关闭&#10;- 实现可插拔代理客户端策略包括async-http-client等&#10;- 添加Nacos不可用时自动降级到本地内存配置&#10;- 实现路由快照原子切换和实时订阅更新&#10;- 完善插件过滤器生命周期管理和故障处理策略&#10;- 添加性能门禁检查脚本确保QPS和延迟达标">
       <created>1776513765970</created>
@@ -219,7 +229,14 @@
       <option name="project" value="LOCAL" />
       <updated>1776581217130</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="fix(transport): 修复传输层路径和主机头处理问题&#10;&#10;- 修复ReactorTransportServer中路径为空时的空指针异常&#10;- 添加VertxTransportServer中HOST头部字段常量定义&#10;- 修复VertxTransportServer中主机头获取逻辑，支持多种头部名称&#10;- 更新bootstrap配置将传输类型从vertx改为reactor&#10;- 为PathTest添加详细的JavaDoc文档注释&#10;- 修正IDE工作区配置中的任务记录信息">
+      <created>1776581966686</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1776581966686</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -245,7 +262,8 @@
     <MESSAGE value="fix(gateway): 修复静态资源路径配置和路由路径标准化问题&#10;&#10;- 修正 BootstrapConfig 中静态资源路径默认值为 &quot;static&quot;&#10;- 更新测试用例适配新的静态资源路径配置&#10;- 修复 DefaultGatewayRequestHandler 构造函数中的路径引用&#10;- 添加路由路径标准化逻辑确保路径以斜杠开头&#10;- 移除 netty-all 依赖避免版本冲突&#10;- 统一项目中 Netty 相关依赖版本管理" />
     <MESSAGE value="feat(admin): 重构网关管理界面并增强功能&#10;&#10;- 将前端界面完全重构为响应式网格布局设计&#10;- 添加路由统计卡片显示各项配置数量指标&#10;- 实现可折叠的路由和插件绑定列表组件&#10;- 增加完整的表单验证和错误处理机制&#10;- 添加插件列表展示和插件绑定管理功能&#10;- 实现路由删除和插件绑定删除功能&#10;- 添加发布配置参数设置界面&#10;- 集成配置中心支持从外部加载数据&#10;- 实现状态初始化和数据同步机制&#10;- 添加操作状态提示和用户反馈功能&#10;- 优化样式主题使用渐变背景和现代化UI组件&#10;- 增加移动端适配支持响应式断点&#10;- 添加表格操作按钮和状态标识显示" />
     <MESSAGE value="feat(gateway): 添加静态路由和可配置静态资源目录功能&#10;&#10;- 在bootstrap配置中添加静态资源目录字段&#10;- 实现静态文件服务功能，支持GET请求返回本地文件&#10;- 集成Vert.x传输层，替换原有的Reactor Netty实现&#10;- 添加路径遍历安全检查，防止访问外部目录&#10;- 更新网关依赖配置，添加新的传输模块&#10;- 创建静态路由实现计划文档&#10;- 实现Netty传输层的基础HTTP服务功能&#10;- 添加React式传输层实现和测试代码&#10;- 创建调试启动脚本用于本地开发测试&#10;- 实现默认请求处理器并支持基本ping命令&#10;- 添加完整的单元测试覆盖静态路由功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(gateway): 添加静态路由和可配置静态资源目录功能&#10;&#10;- 在bootstrap配置中添加静态资源目录字段&#10;- 实现静态文件服务功能，支持GET请求返回本地文件&#10;- 集成Vert.x传输层，替换原有的Reactor Netty实现&#10;- 添加路径遍历安全检查，防止访问外部目录&#10;- 更新网关依赖配置，添加新的传输模块&#10;- 创建静态路由实现计划文档&#10;- 实现Netty传输层的基础HTTP服务功能&#10;- 添加React式传输层实现和测试代码&#10;- 创建调试启动脚本用于本地开发测试&#10;- 实现默认请求处理器并支持基本ping命令&#10;- 添加完整的单元测试覆盖静态路由功能" />
+    <MESSAGE value="fix(transport): 修复传输层路径和主机头处理问题&#10;&#10;- 修复ReactorTransportServer中路径为空时的空指针异常&#10;- 添加VertxTransportServer中HOST头部字段常量定义&#10;- 修复VertxTransportServer中主机头获取逻辑，支持多种头部名称&#10;- 更新bootstrap配置将传输类型从vertx改为reactor&#10;- 为PathTest添加详细的JavaDoc文档注释&#10;- 修正IDE工作区配置中的任务记录信息" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix(transport): 修复传输层路径和主机头处理问题&#10;&#10;- 修复ReactorTransportServer中路径为空时的空指针异常&#10;- 添加VertxTransportServer中HOST头部字段常量定义&#10;- 修复VertxTransportServer中主机头获取逻辑，支持多种头部名称&#10;- 更新bootstrap配置将传输类型从vertx改为reactor&#10;- 为PathTest添加详细的JavaDoc文档注释&#10;- 修正IDE工作区配置中的任务记录信息" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
@@ -255,34 +273,19 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/DefaultGatewayRequestHandler.java</url>
-          <line>148</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyTransportServer.java</url>
           <line>60</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/DefaultGatewayRequestHandler.java</url>
-          <line>77</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/gateway-core/src/main/java/io/homeey/gateway/core/route/RadixRouteLocator.java</url>
-          <line>43</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/DefaultGatewayRequestHandler.java</url>
-          <line>164</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/gateway-transport/gateway-transport-vertx/src/main/java/io/homeey/gateway/transport/vertx/VertxTransportServer.java</url>
-          <line>61</line>
+          <line>82</line>
           <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gateway-transport/gateway-transport-reactor/src/main/java/io/homeey/gateway/transport/reactor/ReactorTransportServer.java</url>
+          <line>86</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

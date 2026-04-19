@@ -16,6 +16,16 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
+/**
+ * 基于Eclipse Vert.x的传输服务器实现。
+ * <p>
+ * 该实现使用Vert.x作为HTTP服务器，提供高性能、事件驱动的请求处理能力。
+ * Vert.x以其轻量级和高并发特性著称，适合构建高吞吐量的网关服务。
+ * </p>
+ *
+ * @author tahong[jt4mrg@gmail.com]
+ * @date 2026/04/18
+ */
 public final class VertxTransportServer implements TransportServer {
     private static final String HOST_HEADER = "Host";
     private final int port;
@@ -23,10 +33,21 @@ public final class VertxTransportServer implements TransportServer {
     private final Vertx vertx;
     private volatile HttpServer server;
 
+    /**
+     * 构造传输服务器，使用默认请求处理器。
+     *
+     * @param port 监听端口
+     */
     public VertxTransportServer(int port) {
         this(port, VertxTransportServer::defaultHandler);
     }
 
+    /**
+     * 构造传输服务器，使用自定义请求处理器。
+     *
+     * @param port           监听端口
+     * @param requestHandler 请求处理器，负责处理HTTP请求
+     */
     public VertxTransportServer(int port, GatewayRequestHandler requestHandler) {
         this.port = port;
         this.requestHandler = requestHandler;
@@ -114,6 +135,15 @@ public final class VertxTransportServer implements TransportServer {
         return future;
     }
 
+    /**
+     * 将网关响应应用到Vert.x路由上下文。
+     * <p>
+     * 该方法设置响应状态码、响应头，并发送响应体。
+     * </p>
+     *
+     * @param ctx      Vert.x路由上下文
+     * @param response 网关统一的HTTP响应消息
+     */
     private static void applyResponse(io.vertx.ext.web.RoutingContext ctx, HttpResponseMessage response) {
         ctx.response().setStatusCode(response.statusCode());
         if (response.headers() != null) {
@@ -123,6 +153,15 @@ public final class VertxTransportServer implements TransportServer {
         ctx.response().end(io.vertx.core.buffer.Buffer.buffer(bytes));
     }
 
+    /**
+     * 写入内部错误响应。
+     * <p>
+     * 该方法返回HTTP 500状态码和简单的错误消息。
+     * 如果响应已经结束，则不执行任何操作。
+     * </p>
+     *
+     * @param ctx Vert.x路由上下文
+     */
     private static void writeInternalError(io.vertx.ext.web.RoutingContext ctx) {
         if (ctx.response().ended()) {
             return;
@@ -133,6 +172,19 @@ public final class VertxTransportServer implements TransportServer {
                 .end("internal error");
     }
 
+    /**
+     * 默认请求处理器，提供基本的健康检查和404响应。
+     * <p>
+     * 该处理器支持：
+     * <ul>
+     *   <li>/ping 或包含 "ping" 的路径：返回 200 OK 和 "ok" 文本</li>
+     *   <li>其他路径：返回 404 Not Found 和 "not found" 文本</li>
+     * </ul>
+     * </p>
+     *
+     * @param request HTTP请求消息
+     * @return HTTP响应消息的CompletionStage
+     */
     private static CompletionStage<HttpResponseMessage> defaultHandler(HttpRequestMessage request) {
         String path = request.path() == null ? "" : request.path().toLowerCase();
         if (path.startsWith("/ping") || path.contains("ping")) {
