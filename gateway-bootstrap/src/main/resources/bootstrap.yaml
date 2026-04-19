@@ -1,4 +1,4 @@
-transportType: netty
+transportType: vertx
 configProviderType: nacos
 discoveryProviderType: nacos
 proxyClientType: async-http-client

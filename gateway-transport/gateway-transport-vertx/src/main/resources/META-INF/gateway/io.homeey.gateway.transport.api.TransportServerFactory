@@ -1,0 +1,1 @@
+vertx=io.homeey.gateway.transport.vertx.VertxTransportServerFactory

@@ -10,7 +10,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>gateway-transport-netty</artifactId>
+    <artifactId>gateway-transport-reactor</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -24,12 +24,11 @@
             <artifactId>gateway-common</artifactId>
             <version>${project.version}</version>
         </dependency>
-
         <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-codec-http</artifactId>
+            <groupId>io.projectreactor.netty</groupId>
+            <artifactId>reactor-netty-http</artifactId>
+            <version>${reactor-netty.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>

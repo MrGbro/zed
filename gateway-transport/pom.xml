@@ -16,5 +16,7 @@
     <modules>
         <module>gateway-transport-api</module>
         <module>gateway-transport-netty</module>
+        <module>gateway-transport-vertx</module>
+        <module>gateway-transport-reactor</module>
     </modules>
 </project>
