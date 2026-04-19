@@ -7,3 +7,4 @@ nacosServerAddr: 192.168.79.144:8848
 routesDataId: gateway.routes.json
 group: GATEWAY
 gracefulTimeoutMillis: 5000
+staticResourcesDir: ./static

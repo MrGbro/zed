@@ -89,4 +89,30 @@ class RouteSnapshotCodecTest {
         SnapshotCodecException ex = assertThrows(SnapshotCodecException.class, () -> codec.decode(json));
         assertEquals("SNAPSHOT_INVALID_ROUTE", ex.code());
     }
+
+    @Test
+    void shouldDecodeStaticRouteWithoutUpstreamTarget() {
+        String json = """
+                {
+                  "schemaVersion":2,
+                  "version":"v3",
+                  "routes":[
+                    {
+                      "id":"r-static",
+                      "host":"api.example.com",
+                      "pathPrefix":"/fixtures",
+                      "method":"GET",
+                      "headers":{},
+                      "upstreamService":"static",
+                      "upstreamPath":""
+                    }
+                  ]
+                }
+                """;
+        RouteSnapshotCodec codec = new RouteSnapshotCodec();
+        RouteTableSnapshot snapshot = codec.decode(json);
+        assertEquals("v3", snapshot.version());
+        assertEquals(1, snapshot.routes().size());
+        assertEquals("static", snapshot.routes().get(0).upstreamService());
+    }
 }

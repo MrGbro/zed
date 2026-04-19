@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -14,6 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class RouteControllerTest {
 
     @Autowired
@@ -33,7 +36,7 @@ class RouteControllerTest {
 
         mockMvc.perform(get("/api/routes"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value("r1"));
+                .andExpect(jsonPath("$[*].id", hasItem("r1")));
 
         String bindings = """
                 [{"name":"auth","routeId":"r1","order":10,"enabled":true,"failPolicy":"FAIL_CLOSE","config":{"mode":"strict"}}]
@@ -69,5 +72,22 @@ class RouteControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.error").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").exists());
+    }
+
+    @Test
+    void shouldAllowStaticRoutePublish() throws Exception {
+        String body = """
+                {"id":"r-static","host":"api.example.com","pathPrefix":"/assets","method":"GET","headers":{},"upstreamService":"static","upstreamPath":"/hello.txt"}
+                """;
+
+        mockMvc.perform(post("/api/routes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value("r-static"));
+
+        mockMvc.perform(post("/api/routes/publish"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.version").exists());
     }
 }

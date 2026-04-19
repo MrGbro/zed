@@ -4,11 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89100707-e19e-4d06-8e09-d912ebb83c06" name="Changes" comment="docs(gateway): 添加仓库指南文档并清理工作区配置&#10;&#10;- 新增 AGENTS.md 包含项目结构、构建命令、编码规范等完整指南&#10;- 移除 workspace.xml 中的冗余变更列表配置&#10;- 更新工作项时间统计和任务计数器配置">
+    <list default="true" id="89100707-e19e-4d06-8e09-d912ebb83c06" name="Changes" comment="feat(gateway): 实现网关引导配置加载机制&#10;&#10;- 添加 BootstrapConfigLoader 从 YAML 文件加载启动配置&#10;- 支持系统属性、类路径和默认值三级配置加载优先级&#10;- 新增 bootstrap.yaml 配置文件定义网关运行参数&#10;- 集成 SnakeYAML 依赖处理配置文件解析&#10;- 添加完整的配置加载单元测试验证各种场景&#10;- 更新 README 文档说明配置加载机制和使用方法">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/perf-gate-phase2.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/phase1-phase2-completion-gap-2026-04-18.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/superpowers/checklists/phase1-phase2-acceptance.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-admin/src/test/java/io/homeey/gateway/admin/RouteControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-admin/src/test/java/io/homeey/gateway/admin/RouteControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfigLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfigLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/DefaultGatewayRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/DefaultGatewayRequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/RuntimeFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/RuntimeFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/resources/bootstrap.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/resources/bootstrap.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/test/java/io/homeey/gateway/bootstrap/config/BootstrapConfigLoaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/test/java/io/homeey/gateway/bootstrap/config/BootstrapConfigLoaderTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/test/resources/bootstrap.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/test/resources/bootstrap.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-core/src/test/java/io/homeey/gateway/core/RouteSnapshotCodecTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-core/src/test/java/io/homeey/gateway/core/RouteSnapshotCodecTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/PluginBinding.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/PluginBinding.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/PublishRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/PublishRecord.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -73,7 +73,8 @@ public final class BootstrapConfigLoader {
                 stringValue(raw, "nacosServerAddr", defaults.nacosServerAddr()),
                 stringValue(raw, "routesDataId", defaults.routesDataId()),
                 stringValue(raw, "group", defaults.group()),
-                longValue(raw, "gracefulTimeoutMillis", defaults.gracefulTimeoutMillis())
+                longValue(raw, "gracefulTimeoutMillis", defaults.gracefulTimeoutMillis()),
+                stringValue(raw, "staticResourcesDir", defaults.staticResourcesDir())
         );
     }
 

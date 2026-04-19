@@ -51,7 +51,8 @@ public final class RuntimeFactory {
         DefaultGatewayRequestHandler handler = new DefaultGatewayRequestHandler(
                 snapshotManager,
                 discoveryProvider,
-                proxyClient
+                proxyClient,
+                config.staticResourcesDir()
         );
 
         TransportServer transport = createTransport(config, handler);

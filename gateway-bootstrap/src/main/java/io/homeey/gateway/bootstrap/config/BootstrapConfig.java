@@ -15,6 +15,7 @@ package io.homeey.gateway.bootstrap.config;
  * @param routesDataId           路由配置的dataId
  * @param group                  配置分组
  * @param gracefulTimeoutMillis  优雅关闭超时时间（毫秒）
+ * @param staticResourcesDir     静态资源根目录
  *
  * @author tahong[jt4mrg@gmail.com]
  * @date 2026/04/18
@@ -28,7 +29,8 @@ public record BootstrapConfig(
         String nacosServerAddr,
         String routesDataId,
         String group,
-        long gracefulTimeoutMillis
+        long gracefulTimeoutMillis,
+        String staticResourcesDir
 ) {
     public static final String DEFAULT_TRANSPORT_TYPE = "netty";
     public static final String DEFAULT_CONFIG_PROVIDER_TYPE = "nacos";
@@ -39,6 +41,7 @@ public record BootstrapConfig(
     public static final String DEFAULT_ROUTES_DATA_ID = "gateway.routes.json";
     public static final String DEFAULT_GROUP = "GATEWAY";
     public static final long DEFAULT_GRACEFUL_TIMEOUT_MILLIS = 5000L;
+    public static final String DEFAULT_STATIC_RESOURCES_DIR = "./static";
 
     public static BootstrapConfig defaultConfig() {
         return new BootstrapConfig(
@@ -50,7 +53,8 @@ public record BootstrapConfig(
                 DEFAULT_NACOS_SERVER_ADDR,
                 DEFAULT_ROUTES_DATA_ID,
                 DEFAULT_GROUP,
-                DEFAULT_GRACEFUL_TIMEOUT_MILLIS
+                DEFAULT_GRACEFUL_TIMEOUT_MILLIS,
+                DEFAULT_STATIC_RESOURCES_DIR
         );
     }
 
@@ -72,7 +76,8 @@ public record BootstrapConfig(
                 DEFAULT_NACOS_SERVER_ADDR,
                 DEFAULT_ROUTES_DATA_ID,
                 DEFAULT_GROUP,
-                DEFAULT_GRACEFUL_TIMEOUT_MILLIS
+                DEFAULT_GRACEFUL_TIMEOUT_MILLIS,
+                DEFAULT_STATIC_RESOURCES_DIR
         );
     }
 }

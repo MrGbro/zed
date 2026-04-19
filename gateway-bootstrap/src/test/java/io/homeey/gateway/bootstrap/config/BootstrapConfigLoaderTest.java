@@ -43,6 +43,7 @@ class BootstrapConfigLoaderTest {
         assertEquals("classpath.routes.json", config.routesDataId());
         assertEquals("CLASSPATH_GROUP", config.group());
         assertEquals(6000L, config.gracefulTimeoutMillis());
+        assertEquals("./static", config.staticResourcesDir());
     }
 
     @Test
@@ -58,6 +59,7 @@ class BootstrapConfigLoaderTest {
                 routesDataId: external.routes.json
                 group: EXTERNAL_GROUP
                 gracefulTimeoutMillis: 9000
+                staticResourcesDir: ./tmp/static-assets
                 """, StandardCharsets.UTF_8);
         System.setProperty(CONFIG_PROPERTY, file.toString());
 
@@ -72,6 +74,7 @@ class BootstrapConfigLoaderTest {
         assertEquals("external.routes.json", config.routesDataId());
         assertEquals("EXTERNAL_GROUP", config.group());
         assertEquals(9000L, config.gracefulTimeoutMillis());
+        assertEquals("./tmp/static-assets", config.staticResourcesDir());
     }
 
     @Test
@@ -95,6 +98,7 @@ class BootstrapConfigLoaderTest {
         assertEquals(defaults.routesDataId(), config.routesDataId());
         assertEquals("MINI_GROUP", config.group());
         assertEquals(defaults.gracefulTimeoutMillis(), config.gracefulTimeoutMillis());
+        assertEquals(defaults.staticResourcesDir(), config.staticResourcesDir());
     }
 
     @Test
@@ -111,5 +115,6 @@ class BootstrapConfigLoaderTest {
         assertEquals(defaults.routesDataId(), config.routesDataId());
         assertEquals(defaults.group(), config.group());
         assertEquals(defaults.gracefulTimeoutMillis(), config.gracefulTimeoutMillis());
+        assertEquals(defaults.staticResourcesDir(), config.staticResourcesDir());
     }
 }
