@@ -1,0 +1,43 @@
+{
+  "publishedAt": "2026-04-18T16:27:26.434993900Z",
+  "pluginBindings": [
+    {
+      "config": {
+        "mode": "strict"
+      },
+      "name": "auth",
+      "failPolicy": "FAIL_CLOSE",
+      "order": 10,
+      "enabled": true,
+      "routeId": "r1"
+    }
+  ],
+  "operator": "admin",
+  "summary": "publish routes and plugins",
+  "schemaVersion": 2,
+  "version": "v1776529646434",
+  "routes": [
+    {
+      "upstreamPath": "/orders",
+      "method": "GET",
+      "upstreamService": "order-service",
+      "id": "r1",
+      "pathPrefix": "/orders",
+      "host": "api.example.com",
+      "headers": {
+        "x-env": "prod"
+      }
+    },
+    {
+      "id": "r-static",
+      "host": "api.example.com",
+      "pathPrefix": "/assets",
+      "method": "GET",
+      "headers": {},
+      "upstreamService": "static",
+      "upstreamPath": ""
+    }
+  ],
+  "policySet": {
+  }
+}

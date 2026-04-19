@@ -55,10 +55,15 @@ public final class NettyTransportServer implements TransportServer {
                                     ? request.uri().substring(request.uri().indexOf('?') + 1)
                                     : "";
                             String host = request.requestHeaders().get(HttpHeaderNames.HOST);
+                            String path = request.path();
+                            // Ensure path starts with leading slash for consistent routing
+                            if (path != null && !path.isEmpty() && !path.startsWith("/")) {
+                                path = "/" + path;
+                            }
                             HttpRequestMessage message = new HttpRequestMessage(
                                     request.method().name(),
                                     host == null ? "" : host,
-                                    request.path(),
+                                    path,
                                     query,
                                     headers,
                                     body

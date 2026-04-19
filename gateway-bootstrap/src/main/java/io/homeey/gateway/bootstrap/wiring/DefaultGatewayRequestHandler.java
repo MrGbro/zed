@@ -55,7 +55,7 @@ public final class DefaultGatewayRequestHandler implements GatewayRequestHandler
             ServiceDiscoveryProvider discoveryProvider,
             ProxyClient proxyClient
     ) {
-        this(snapshotManager, discoveryProvider, proxyClient, "./static");
+        this(snapshotManager, discoveryProvider, proxyClient, "static");
     }
 
     public DefaultGatewayRequestHandler(
@@ -68,7 +68,7 @@ public final class DefaultGatewayRequestHandler implements GatewayRequestHandler
         this.discoveryProvider = discoveryProvider;
         this.proxyClient = proxyClient;
         this.filterPlanCompiler = new FilterExecutionPlanCompiler();
-        this.staticResourcesRoot = Path.of(staticResourcesDir == null || staticResourcesDir.isBlank() ? "./static" : staticResourcesDir)
+        this.staticResourcesRoot = Path.of(staticResourcesDir == null || staticResourcesDir.isBlank() ? "static" : staticResourcesDir)
                 .toAbsolutePath()
                 .normalize();
     }

@@ -13,7 +13,22 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <netty.version>4.1.109.Final</netty.version>
+        <reactor-netty.version>1.1.19</reactor-netty.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Force Netty version to avoid conflicts -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-bom</artifactId>
+                <version>${netty.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <modules>
         <module>gateway-common</module>

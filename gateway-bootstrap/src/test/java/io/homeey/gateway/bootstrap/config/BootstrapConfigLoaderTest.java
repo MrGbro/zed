@@ -43,7 +43,7 @@ class BootstrapConfigLoaderTest {
         assertEquals("classpath.routes.json", config.routesDataId());
         assertEquals("CLASSPATH_GROUP", config.group());
         assertEquals(6000L, config.gracefulTimeoutMillis());
-        assertEquals("./static", config.staticResourcesDir());
+        assertEquals("static", config.staticResourcesDir());
     }
 
     @Test

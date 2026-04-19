@@ -4,26 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89100707-e19e-4d06-8e09-d912ebb83c06" name="Changes" comment="feat(gateway): 实现网关引导配置加载机制&#10;&#10;- 添加 BootstrapConfigLoader 从 YAML 文件加载启动配置&#10;- 支持系统属性、类路径和默认值三级配置加载优先级&#10;- 新增 bootstrap.yaml 配置文件定义网关运行参数&#10;- 集成 SnakeYAML 依赖处理配置文件解析&#10;- 添加完整的配置加载单元测试验证各种场景&#10;- 更新 README 文档说明配置加载机制和使用方法">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="89100707-e19e-4d06-8e09-d912ebb83c06" name="Changes" comment="feat(gateway): 添加静态资源服务功能&#10;&#10;- 新增 staticResourcesDir 配置项用于指定静态资源目录&#10;- 扩展 BootstrapConfig 支持静态资源配置加载&#10;- 在 DefaultGatewayRequestHandler 中实现静态资源服务逻辑&#10;- 添加 MIME 类型检测和安全路径验证机制&#10;- 支持 GET 和 HEAD 请求方法处理静态文件&#10;- 集成 Jackson 注解支持配置对象序列化&#10;- 更新测试用例验证静态路由发布功能&#10;- 修改 IDE 配置兼容 JDK 版本设置">
+      <change afterPath="$PROJECT_DIR$/docs/route.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/resources/static/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-admin/src/test/java/io/homeey/gateway/admin/RouteControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-admin/src/test/java/io/homeey/gateway/admin/RouteControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfigLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfigLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/DefaultGatewayRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/DefaultGatewayRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/RuntimeFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/RuntimeFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/resources/bootstrap.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/resources/bootstrap.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/test/java/io/homeey/gateway/bootstrap/config/BootstrapConfigLoaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/test/java/io/homeey/gateway/bootstrap/config/BootstrapConfigLoaderTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/test/resources/bootstrap.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/test/resources/bootstrap.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-core/src/test/java/io/homeey/gateway/core/RouteSnapshotCodecTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-core/src/test/java/io/homeey/gateway/core/RouteSnapshotCodecTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/PluginBinding.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/PluginBinding.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/PublishRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-plugin/gateway-plugin-api/src/main/java/io/homeey/gateway/plugin/api/PublishRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-reactor-netty/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-reactor-netty/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyTransportServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyTransportServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -87,33 +87,50 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/CodeSpace/OpenSource/Java&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;1d77d12031158deb1420e868589f87d7&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/CodeSpace/OpenSource/Java",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "spring.configuration.checksum": "1d77d12031158deb1420e868589f87d7",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager">
+}]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RunManager" selected="Application.BootstrapApplication">
+    <configuration name="BootstrapApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="io.homeey.gateway.bootstrap.BootstrapApplication" />
+      <module name="gateway-bootstrap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.homeey.gateway.bootstrap.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="AdminApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="gateway-admin" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="io.homeey.gateway.admin.AdminApplication" />
@@ -121,6 +138,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.BootstrapApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -140,6 +162,7 @@
       <workItem from="1776438518805" duration="4000" />
       <workItem from="1776484600108" duration="12588000" />
       <workItem from="1776515878792" duration="2059000" />
+      <workItem from="1776563774616" duration="1514000" />
     </task>
     <task id="LOCAL-00001" summary="feat(gateway): 完成网关P0功能实现&#10;&#10;- 添加真实数据平面转发管道替代演示行为&#10;- 实现HTTP/2入站支持&#10;- 集成真实Nacos配置中心和服务发现&#10;- 实现管理端发布到配置中心再到节点热重载闭环&#10;- 添加运行时生命周期init/start/stop及优雅关闭&#10;- 实现可插拔代理客户端策略包括async-http-client等&#10;- 添加Nacos不可用时自动降级到本地内存配置&#10;- 实现路由快照原子切换和实时订阅更新&#10;- 完善插件过滤器生命周期管理和故障处理策略&#10;- 添加性能门禁检查脚本确保QPS和延迟达标">
       <created>1776513765970</created>
@@ -162,7 +185,14 @@
       <option name="project" value="LOCAL" />
       <updated>1776514944814</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat(gateway): 添加静态资源服务功能&#10;&#10;- 新增 staticResourcesDir 配置项用于指定静态资源目录&#10;- 扩展 BootstrapConfig 支持静态资源配置加载&#10;- 在 DefaultGatewayRequestHandler 中实现静态资源服务逻辑&#10;- 添加 MIME 类型检测和安全路径验证机制&#10;- 支持 GET 和 HEAD 请求方法处理静态文件&#10;- 集成 Jackson 注解支持配置对象序列化&#10;- 更新测试用例验证静态路由发布功能&#10;- 修改 IDE 配置兼容 JDK 版本设置">
+      <created>1776563799976</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1776563799976</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,11 +214,38 @@
     <MESSAGE value="chore(workspace): 更新工作区配置文件&#10;&#10;- 在XML声明前添加了标识符&quot;shan&quot;&#10;- 调整了自动导入设置的重载类型为选择性模式" />
     <MESSAGE value="feat(gateway): 完成网关P0功能实现&#10;&#10;- 添加真实数据平面转发管道替代演示行为&#10;- 实现HTTP/2入站支持&#10;- 集成真实Nacos配置中心和服务发现&#10;- 实现管理端发布到配置中心再到节点热重载闭环&#10;- 添加运行时生命周期init/start/stop及优雅关闭&#10;- 实现可插拔代理客户端策略包括async-http-client等&#10;- 添加Nacos不可用时自动降级到本地内存配置&#10;- 实现路由快照原子切换和实时订阅更新&#10;- 完善插件过滤器生命周期管理和故障处理策略&#10;- 添加性能门禁检查脚本确保QPS和延迟达标" />
     <MESSAGE value="docs(gateway): 添加仓库指南文档并清理工作区配置&#10;&#10;- 新增 AGENTS.md 包含项目结构、构建命令、编码规范等完整指南&#10;- 移除 workspace.xml 中的冗余变更列表配置&#10;- 更新工作项时间统计和任务计数器配置" />
-    <option name="LAST_COMMIT_MESSAGE" value="docs(gateway): 添加仓库指南文档并清理工作区配置&#10;&#10;- 新增 AGENTS.md 包含项目结构、构建命令、编码规范等完整指南&#10;- 移除 workspace.xml 中的冗余变更列表配置&#10;- 更新工作项时间统计和任务计数器配置" />
+    <MESSAGE value="feat(gateway): 添加静态资源服务功能&#10;&#10;- 新增 staticResourcesDir 配置项用于指定静态资源目录&#10;- 扩展 BootstrapConfig 支持静态资源配置加载&#10;- 在 DefaultGatewayRequestHandler 中实现静态资源服务逻辑&#10;- 添加 MIME 类型检测和安全路径验证机制&#10;- 支持 GET 和 HEAD 请求方法处理静态文件&#10;- 集成 Jackson 注解支持配置对象序列化&#10;- 更新测试用例验证静态路由发布功能&#10;- 修改 IDE 配置兼容 JDK 版本设置" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(gateway): 添加静态资源服务功能&#10;&#10;- 新增 staticResourcesDir 配置项用于指定静态资源目录&#10;- 扩展 BootstrapConfig 支持静态资源配置加载&#10;- 在 DefaultGatewayRequestHandler 中实现静态资源服务逻辑&#10;- 添加 MIME 类型检测和安全路径验证机制&#10;- 支持 GET 和 HEAD 请求方法处理静态文件&#10;- 集成 Jackson 注解支持配置对象序列化&#10;- 更新测试用例验证静态路由发布功能&#10;- 修改 IDE 配置兼容 JDK 版本设置" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/DefaultGatewayRequestHandler.java</url>
+          <line>148</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyTransportServer.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/DefaultGatewayRequestHandler.java</url>
+          <line>77</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gateway-core/src/main/java/io/homeey/gateway/core/route/RadixRouteLocator.java</url>
+          <line>43</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

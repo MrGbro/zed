@@ -41,7 +41,7 @@ public record BootstrapConfig(
     public static final String DEFAULT_ROUTES_DATA_ID = "gateway.routes.json";
     public static final String DEFAULT_GROUP = "GATEWAY";
     public static final long DEFAULT_GRACEFUL_TIMEOUT_MILLIS = 5000L;
-    public static final String DEFAULT_STATIC_RESOURCES_DIR = "./static";
+    public static final String DEFAULT_STATIC_RESOURCES_DIR = "static";
 
     public static BootstrapConfig defaultConfig() {
         return new BootstrapConfig(
