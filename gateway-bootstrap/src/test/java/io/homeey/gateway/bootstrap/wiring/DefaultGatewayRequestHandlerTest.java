@@ -126,6 +126,63 @@ class DefaultGatewayRequestHandlerTest {
         assertEquals(403, response.statusCode());
     }
 
+    @Test
+    void shouldExposeMetricsFromObserveProvider() {
+        RuntimeSnapshotManager snapshotManager = new RuntimeSnapshotManager(Map.of("version", "v0"));
+        ServiceDiscoveryProvider discoveryProvider = new ServiceDiscoveryProvider() {
+            @Override
+            public CompletionStage<List<String>> getInstances(String serviceName) {
+                return CompletableFuture.completedFuture(List.of());
+            }
+
+            @Override
+            public CompletionStage<Void> register(String serviceName, String endpoint) {
+                return CompletableFuture.completedFuture(null);
+            }
+
+            @Override
+            public CompletionStage<Void> subscribe(String serviceName, java.util.function.Consumer<List<String>> listener) {
+                return CompletableFuture.completedFuture(null);
+            }
+        };
+        ProxyClient proxyClient = new ProxyClient() {
+            @Override
+            public CompletionStage<ProxyResponse> execute(ProxyRequest request) {
+                return CompletableFuture.completedFuture(new ProxyResponse(200, Map.of(), new byte[0]));
+            }
+
+            @Override
+            public void close() {
+                // no-op
+            }
+        };
+        io.homeey.gateway.observe.api.ObserveProvider provider = new io.homeey.gateway.observe.api.ObserveProvider() {
+            @Override
+            public String metricsSnapshot() {
+                return "gateway_requests_total 1\n";
+            }
+        };
+        DefaultGatewayRequestHandler handler = new DefaultGatewayRequestHandler(
+                snapshotManager,
+                discoveryProvider,
+                proxyClient,
+                tempDir.toString(),
+                provider,
+                "/metrics"
+        );
+        HttpResponseMessage response = handler.handle(new HttpRequestMessage(
+                "GET",
+                "api.example.com",
+                "/metrics",
+                "",
+                Map.of(),
+                new byte[0]
+        )).toCompletableFuture().join();
+        assertEquals(200, response.statusCode());
+        assertEquals("text/plain; version=0.0.4; charset=UTF-8", response.headers().get("content-type"));
+        assertTrue(new String(response.body(), StandardCharsets.UTF_8).contains("gateway_requests_total"));
+    }
+
     private DefaultGatewayRequestHandler newHandler(
             String routeId,
             String pathPrefix,

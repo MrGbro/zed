@@ -57,11 +57,16 @@ public final class NacosConfigProvider implements ConfigProvider {
             } catch (Exception ignored) {
                 // fallback below
             }
+            String fallbackValue;
             try {
-                return fallback.get(dataId, group).toCompletableFuture().join();
+                fallbackValue = fallback.get(dataId, group).toCompletableFuture().join();
             } catch (RuntimeException ex) {
-                return snapshots.get(key(dataId, group));
+                fallbackValue = null;
             }
+            if (fallbackValue != null) {
+                return fallbackValue;
+            }
+            return snapshots.get(key(dataId, group));
         });
     }
 

@@ -85,6 +85,16 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-observe-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-observe-otel</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>2.2</version>

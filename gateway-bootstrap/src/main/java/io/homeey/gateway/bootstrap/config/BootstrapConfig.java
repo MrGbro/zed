@@ -1,5 +1,7 @@
 package io.homeey.gateway.bootstrap.config;
 
+import java.util.Map;
+
 /**
  * 引导配置记录，封装网关启动所需的配置参数。
  * <p>
@@ -30,7 +32,14 @@ public record BootstrapConfig(
         String routesDataId,
         String group,
         long gracefulTimeoutMillis,
-        String staticResourcesDir
+        String staticResourcesDir,
+        String observeProviderType,
+        String otlpEndpoint,
+        Map<String, String> otlpHeaders,
+        String observeServiceName,
+        long observeExportIntervalMillis,
+        String metricsPath,
+        boolean accessLogEnabled
 ) {
     public static final String DEFAULT_TRANSPORT_TYPE = "netty";
     public static final String DEFAULT_CONFIG_PROVIDER_TYPE = "nacos";
@@ -42,6 +51,12 @@ public record BootstrapConfig(
     public static final String DEFAULT_GROUP = "GATEWAY";
     public static final long DEFAULT_GRACEFUL_TIMEOUT_MILLIS = 5000L;
     public static final String DEFAULT_STATIC_RESOURCES_DIR = "static";
+    public static final String DEFAULT_OBSERVE_PROVIDER_TYPE = "otel";
+    public static final String DEFAULT_OTLP_ENDPOINT = "";
+    public static final String DEFAULT_OBSERVE_SERVICE_NAME = "gateway-node";
+    public static final long DEFAULT_OBSERVE_EXPORT_INTERVAL_MILLIS = 10000L;
+    public static final String DEFAULT_METRICS_PATH = "/metrics";
+    public static final boolean DEFAULT_ACCESS_LOG_ENABLED = true;
 
     public static BootstrapConfig defaultConfig() {
         return new BootstrapConfig(
@@ -54,7 +69,14 @@ public record BootstrapConfig(
                 DEFAULT_ROUTES_DATA_ID,
                 DEFAULT_GROUP,
                 DEFAULT_GRACEFUL_TIMEOUT_MILLIS,
-                DEFAULT_STATIC_RESOURCES_DIR
+                DEFAULT_STATIC_RESOURCES_DIR,
+                DEFAULT_OBSERVE_PROVIDER_TYPE,
+                DEFAULT_OTLP_ENDPOINT,
+                Map.of(),
+                DEFAULT_OBSERVE_SERVICE_NAME,
+                DEFAULT_OBSERVE_EXPORT_INTERVAL_MILLIS,
+                DEFAULT_METRICS_PATH,
+                DEFAULT_ACCESS_LOG_ENABLED
         );
     }
 
@@ -77,7 +99,14 @@ public record BootstrapConfig(
                 DEFAULT_ROUTES_DATA_ID,
                 DEFAULT_GROUP,
                 DEFAULT_GRACEFUL_TIMEOUT_MILLIS,
-                DEFAULT_STATIC_RESOURCES_DIR
+                DEFAULT_STATIC_RESOURCES_DIR,
+                DEFAULT_OBSERVE_PROVIDER_TYPE,
+                DEFAULT_OTLP_ENDPOINT,
+                Map.of(),
+                DEFAULT_OBSERVE_SERVICE_NAME,
+                DEFAULT_OBSERVE_EXPORT_INTERVAL_MILLIS,
+                DEFAULT_METRICS_PATH,
+                DEFAULT_ACCESS_LOG_ENABLED
         );
     }
 }

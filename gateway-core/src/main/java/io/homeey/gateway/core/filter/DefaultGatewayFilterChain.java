@@ -69,7 +69,7 @@ public final class DefaultGatewayFilterChain implements GatewayFilterChain {
                                                   Throwable throwable) {
         if (current.failPolicy() == FilterFailPolicy.FAIL_OPEN) {
             context.attributes().put("plugin.failopen." + current.name(), throwable.getMessage());
-            return next(context);
+            return next.next(context);
         }
         mapGatewayError(context, throwable);
         CompletableFuture<Void> failed = new CompletableFuture<>();

@@ -44,6 +44,12 @@ class BootstrapConfigLoaderTest {
         assertEquals("CLASSPATH_GROUP", config.group());
         assertEquals(6000L, config.gracefulTimeoutMillis());
         assertEquals("static", config.staticResourcesDir());
+        assertEquals("otel", config.observeProviderType());
+        assertEquals("", config.otlpEndpoint());
+        assertEquals("gateway-test-node", config.observeServiceName());
+        assertEquals(5000L, config.observeExportIntervalMillis());
+        assertEquals("/metrics", config.metricsPath());
+        assertEquals(true, config.accessLogEnabled());
     }
 
     @Test
@@ -60,6 +66,14 @@ class BootstrapConfigLoaderTest {
                 group: EXTERNAL_GROUP
                 gracefulTimeoutMillis: 9000
                 staticResourcesDir: ./tmp/static-assets
+                observeProviderType: custom-observe
+                otlpEndpoint: http://collector:4317
+                otlpHeaders:
+                  Authorization: Bearer test-token
+                observeServiceName: gateway-ext
+                observeExportIntervalMillis: 15000
+                metricsPath: /actuator/metrics
+                accessLogEnabled: false
                 """, StandardCharsets.UTF_8);
         System.setProperty(CONFIG_PROPERTY, file.toString());
 
@@ -75,6 +89,13 @@ class BootstrapConfigLoaderTest {
         assertEquals("EXTERNAL_GROUP", config.group());
         assertEquals(9000L, config.gracefulTimeoutMillis());
         assertEquals("./tmp/static-assets", config.staticResourcesDir());
+        assertEquals("custom-observe", config.observeProviderType());
+        assertEquals("http://collector:4317", config.otlpEndpoint());
+        assertEquals("Bearer test-token", config.otlpHeaders().get("Authorization"));
+        assertEquals("gateway-ext", config.observeServiceName());
+        assertEquals(15000L, config.observeExportIntervalMillis());
+        assertEquals("/actuator/metrics", config.metricsPath());
+        assertEquals(false, config.accessLogEnabled());
     }
 
     @Test
@@ -99,6 +120,13 @@ class BootstrapConfigLoaderTest {
         assertEquals("MINI_GROUP", config.group());
         assertEquals(defaults.gracefulTimeoutMillis(), config.gracefulTimeoutMillis());
         assertEquals(defaults.staticResourcesDir(), config.staticResourcesDir());
+        assertEquals(defaults.observeProviderType(), config.observeProviderType());
+        assertEquals(defaults.otlpEndpoint(), config.otlpEndpoint());
+        assertEquals(defaults.otlpHeaders(), config.otlpHeaders());
+        assertEquals(defaults.observeServiceName(), config.observeServiceName());
+        assertEquals(defaults.observeExportIntervalMillis(), config.observeExportIntervalMillis());
+        assertEquals(defaults.metricsPath(), config.metricsPath());
+        assertEquals(defaults.accessLogEnabled(), config.accessLogEnabled());
     }
 
     @Test
@@ -116,5 +144,12 @@ class BootstrapConfigLoaderTest {
         assertEquals(defaults.group(), config.group());
         assertEquals(defaults.gracefulTimeoutMillis(), config.gracefulTimeoutMillis());
         assertEquals(defaults.staticResourcesDir(), config.staticResourcesDir());
+        assertEquals(defaults.observeProviderType(), config.observeProviderType());
+        assertEquals(defaults.otlpEndpoint(), config.otlpEndpoint());
+        assertEquals(defaults.otlpHeaders(), config.otlpHeaders());
+        assertEquals(defaults.observeServiceName(), config.observeServiceName());
+        assertEquals(defaults.observeExportIntervalMillis(), config.observeExportIntervalMillis());
+        assertEquals(defaults.metricsPath(), config.metricsPath());
+        assertEquals(defaults.accessLogEnabled(), config.accessLogEnabled());
     }
 }

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public final class BootstrapConfigLoader {
@@ -74,7 +75,14 @@ public final class BootstrapConfigLoader {
                 stringValue(raw, "routesDataId", defaults.routesDataId()),
                 stringValue(raw, "group", defaults.group()),
                 longValue(raw, "gracefulTimeoutMillis", defaults.gracefulTimeoutMillis()),
-                stringValue(raw, "staticResourcesDir", defaults.staticResourcesDir())
+                stringValue(raw, "staticResourcesDir", defaults.staticResourcesDir()),
+                stringValue(raw, "observeProviderType", defaults.observeProviderType()),
+                stringValue(raw, "otlpEndpoint", defaults.otlpEndpoint()),
+                mapValue(raw, "otlpHeaders", defaults.otlpHeaders()),
+                stringValue(raw, "observeServiceName", defaults.observeServiceName()),
+                longValue(raw, "observeExportIntervalMillis", defaults.observeExportIntervalMillis()),
+                stringValue(raw, "metricsPath", defaults.metricsPath()),
+                booleanValue(raw, "accessLogEnabled", defaults.accessLogEnabled())
         );
     }
 
@@ -107,5 +115,42 @@ public final class BootstrapConfigLoader {
             return number.longValue();
         }
         return Long.parseLong(value.toString());
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Map<String, String> mapValue(Map<String, Object> raw, String key, Map<String, String> fallback) {
+        Object value = raw.get(key);
+        if (value == null) {
+            return fallback;
+        }
+        if (!(value instanceof Map<?, ?> map)) {
+            return fallback;
+        }
+        Map<String, String> converted = new LinkedHashMap<>();
+        for (Map.Entry<?, ?> entry : map.entrySet()) {
+            if (entry.getKey() == null || entry.getValue() == null) {
+                continue;
+            }
+            converted.put(String.valueOf(entry.getKey()), String.valueOf(entry.getValue()));
+        }
+        return Map.copyOf(converted);
+    }
+
+    private static boolean booleanValue(Map<String, Object> raw, String key, boolean fallback) {
+        Object value = raw.get(key);
+        if (value == null) {
+            return fallback;
+        }
+        if (value instanceof Boolean bool) {
+            return bool;
+        }
+        String normalized = value.toString().trim().toLowerCase();
+        if ("true".equals(normalized)) {
+            return true;
+        }
+        if ("false".equals(normalized)) {
+            return false;
+        }
+        return fallback;
     }
 }

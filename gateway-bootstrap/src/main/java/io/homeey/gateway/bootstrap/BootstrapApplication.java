@@ -8,6 +8,8 @@ import io.homeey.gateway.core.route.RouteTableSnapshot;
 import io.homeey.gateway.core.runtime.SnapshotCodecException;
 import io.homeey.gateway.plugin.api.GatewayFilter;
 import io.homeey.gateway.transport.api.TransportServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,6 +33,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @date 2026/04/18
  */
 public final class BootstrapApplication {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BootstrapApplication.class);
     private final RuntimeFactory runtimeFactory;
     private RuntimeFactory.RuntimeComponents runtimeComponents;
     private TransportServer runningTransport;
@@ -55,8 +58,10 @@ public final class BootstrapApplication {
      * @param config 引导配置
      */
     public void init(BootstrapConfig config) {
+        LOGGER.info("Bootstrap init start: transport={}, port={}", config.transportType(), config.port());
         this.runtimeComponents = runtimeFactory.createRuntime(config);
         this.runningTransport = runtimeComponents.transportServer();
+        runtimeComponents.observeProvider().init();
         initFilterLifecycle();
         String initial = runtimeComponents.configProvider()
                 .get(config.routesDataId(), config.group())
@@ -85,6 +90,7 @@ public final class BootstrapApplication {
                 .toCompletableFuture()
                 .join();
         initialized.set(true);
+        LOGGER.info("Bootstrap init completed");
     }
 
     /**
@@ -99,8 +105,11 @@ public final class BootstrapApplication {
         if (!initialized.get()) {
             throw new IllegalStateException("Application must be initialized before start");
         }
+        LOGGER.info("Bootstrap start");
+        runtimeComponents.observeProvider().start();
         startFilterLifecycle();
         this.runningTransport.start().toCompletableFuture().join();
+        LOGGER.info("Bootstrap start completed");
     }
 
     /**
@@ -110,14 +119,17 @@ public final class BootstrapApplication {
      * </p>
      */
     public void stop() {
+        LOGGER.info("Bootstrap stop");
         if (runningTransport != null) {
             runningTransport.stop().toCompletableFuture().join();
         }
         stopFilterLifecycle();
         if (runtimeComponents != null) {
             runtimeComponents.proxyClient().close();
+            runtimeComponents.observeProvider().stop();
         }
         initialized.set(false);
+        LOGGER.info("Bootstrap stopped");
     }
 
     /**

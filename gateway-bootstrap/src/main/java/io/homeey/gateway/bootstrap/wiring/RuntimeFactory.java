@@ -4,6 +4,10 @@ import io.homeey.gateway.bootstrap.config.BootstrapConfig;
 import io.homeey.gateway.common.spi.ExtensionLoader;
 import io.homeey.gateway.config.api.ConfigProvider;
 import io.homeey.gateway.config.api.ConfigProviderFactory;
+import io.homeey.gateway.observe.api.NoopObserveProvider;
+import io.homeey.gateway.observe.api.ObserveOptions;
+import io.homeey.gateway.observe.api.ObserveProvider;
+import io.homeey.gateway.observe.api.ObserveProviderFactory;
 import io.homeey.gateway.core.runtime.RouteSnapshotCodec;
 import io.homeey.gateway.core.runtime.RuntimeSnapshotManager;
 import io.homeey.gateway.proxy.api.ProxyClient;
@@ -33,7 +37,8 @@ public final class RuntimeFactory {
             ConfigProvider configProvider,
             ServiceDiscoveryProvider discoveryProvider,
             RuntimeSnapshotManager snapshotManager,
-            RouteSnapshotCodec routeSnapshotCodec
+            RouteSnapshotCodec routeSnapshotCodec,
+            ObserveProvider observeProvider
     ) {
     }
 
@@ -47,12 +52,15 @@ public final class RuntimeFactory {
         RuntimeSnapshotManager snapshotManager = new RuntimeSnapshotManager(Map.of("version", "v0"));
         RouteSnapshotCodec snapshotCodec = new RouteSnapshotCodec();
         ProxyClient proxyClient = createProxyClient(config);
+        ObserveProvider observeProvider = createObserveProvider(config);
 
-        DefaultGatewayRequestHandler handler = new DefaultGatewayRequestHandler(
+        GatewayRequestHandler handler = new DefaultGatewayRequestHandler(
                 snapshotManager,
                 discoveryProvider,
                 proxyClient,
-                config.staticResourcesDir()
+                config.staticResourcesDir(),
+                observeProvider,
+                config.metricsPath()
         );
 
         TransportServer transport = createTransport(config, handler);
@@ -62,7 +70,8 @@ public final class RuntimeFactory {
                 configProvider,
                 discoveryProvider,
                 snapshotManager,
-                snapshotCodec
+                snapshotCodec,
+                observeProvider
         );
     }
 
@@ -97,6 +106,27 @@ public final class RuntimeFactory {
             return loader.getDefaultExtension().create(config.port(), handler);
         }
         return loader.getExtension(config.transportType()).create(config.port(), handler);
+    }
+
+    private ObserveProvider createObserveProvider(BootstrapConfig config) {
+        try {
+            ExtensionLoader<ObserveProviderFactory> loader = ExtensionLoader.getExtensionLoader(ObserveProviderFactory.class);
+            ObserveOptions options = new ObserveOptions(
+                    config.observeProviderType(),
+                    config.otlpEndpoint(),
+                    config.otlpHeaders(),
+                    config.observeServiceName(),
+                    config.observeExportIntervalMillis(),
+                    config.metricsPath(),
+                    config.accessLogEnabled()
+            );
+            ObserveProviderFactory factory = isBlank(config.observeProviderType())
+                    ? loader.getDefaultExtension()
+                    : loader.getExtension(config.observeProviderType());
+            return factory.create(options);
+        } catch (RuntimeException ex) {
+            return new NoopObserveProvider();
+        }
     }
 
     private boolean isBlank(String value) {

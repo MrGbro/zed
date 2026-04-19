@@ -7,4 +7,10 @@ nacosServerAddr: 192.168.79.144:8848
 routesDataId: gateway.routes.json
 group: GATEWAY
 gracefulTimeoutMillis: 5000
-staticResourcesDir: ./static
+staticResourcesDir: static
+observeProviderType: otel
+otlpEndpoint: ""
+observeServiceName: gateway-node
+observeExportIntervalMillis: 10000
+metricsPath: /metrics
+accessLogEnabled: true

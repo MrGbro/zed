@@ -3,6 +3,8 @@ package io.homeey.gateway.admin.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.homeey.gateway.admin.model.PublishRequest;
+import io.homeey.gateway.admin.model.ReleaseRecord;
+import io.homeey.gateway.admin.service.ReleaseGovernanceService;
 import io.homeey.gateway.admin.service.PublishService;
 import io.homeey.gateway.config.api.ConfigProvider;
 import io.homeey.gateway.plugin.api.FilterFailPolicy;
@@ -45,13 +47,20 @@ public class RouteController {
     private final List<PublishRequest.RouteItem> routes = new CopyOnWriteArrayList<>();
     private final List<PluginBinding> pluginBindings = new CopyOnWriteArrayList<>();
     private final PublishService publishService;
+    private final ReleaseGovernanceService releaseGovernanceService;
     private final ConfigProvider configProvider;
     private final ObjectMapper objectMapper;
     private final Object initLock = new Object();
     private volatile boolean initializedFromConfigCenter = false;
 
-    public RouteController(PublishService publishService, ConfigProvider configProvider, ObjectMapper objectMapper) {
+    public RouteController(
+            PublishService publishService,
+            ReleaseGovernanceService releaseGovernanceService,
+            ConfigProvider configProvider,
+            ObjectMapper objectMapper
+    ) {
         this.publishService = publishService;
+        this.releaseGovernanceService = releaseGovernanceService;
         this.configProvider = configProvider;
         this.objectMapper = objectMapper;
     }
@@ -121,6 +130,73 @@ public class RouteController {
                 command == null || command.summary() == null ? "publish routes and plugins" : command.summary()
         );
         return publishService.publish(request);
+    }
+
+    @PostMapping("/releases/draft")
+    public ReleaseRecord createReleaseDraft(@RequestBody(required = false) ReleaseDraftCommand command) {
+        ensureStateInitialized();
+        return releaseGovernanceService.createDraft(
+                new ArrayList<>(routes),
+                new ArrayList<>(pluginBindings),
+                new ReleaseGovernanceService.DraftCommand(
+                        command == null ? null : command.operator(),
+                        command == null ? null : command.summary(),
+                        command == null ? Map.of() : command.policySet(),
+                        command == null || command.canary() == null
+                                ? ReleaseRecord.CanaryPolicy.disabled()
+                                : command.canary().toPolicy()
+                )
+        );
+    }
+
+    @PostMapping("/releases/{releaseId}/validate")
+    public ReleaseRecord validateRelease(@PathVariable("releaseId") String releaseId) {
+        return releaseGovernanceService.validate(releaseId);
+    }
+
+    @PostMapping("/releases/{releaseId}/approve")
+    public ReleaseRecord approveRelease(
+            @PathVariable("releaseId") String releaseId,
+            @RequestBody(required = false) ApproveCommand command
+    ) {
+        return releaseGovernanceService.approve(
+                releaseId,
+                new ReleaseGovernanceService.ApproveCommand(
+                        command == null ? null : command.approver(),
+                        command == null ? null : command.comment()
+                )
+        );
+    }
+
+    @PostMapping("/releases/{releaseId}/publish")
+    public ReleaseRecord publishRelease(@PathVariable("releaseId") String releaseId) {
+        return releaseGovernanceService.publish(releaseId);
+    }
+
+    @PostMapping("/releases/{releaseId}/rollback")
+    public ReleaseRecord rollbackRelease(
+            @PathVariable("releaseId") String releaseId,
+            @RequestBody(required = false) RollbackCommand command
+    ) {
+        return releaseGovernanceService.rollback(
+                releaseId,
+                new ReleaseGovernanceService.RollbackCommand(
+                        command == null ? null : command.operator(),
+                        command == null ? null : command.comment(),
+                        command == null ? null : command.targetReleaseId()
+                )
+        );
+    }
+
+    @GetMapping("/releases/{releaseId}")
+    public ReleaseRecord getRelease(@PathVariable("releaseId") String releaseId) {
+        return releaseGovernanceService.get(releaseId)
+                .orElseThrow(() -> new IllegalArgumentException("release not found: " + releaseId));
+    }
+
+    @GetMapping("/releases")
+    public List<ReleaseRecord> listReleases() {
+        return releaseGovernanceService.list();
     }
 
     @GetMapping("/publish-records")
@@ -412,6 +488,38 @@ public class RouteController {
             String operator,
             String summary,
             Map<String, Object> policySet
+    ) {
+    }
+
+    public record ReleaseDraftCommand(
+            String operator,
+            String summary,
+            Map<String, Object> policySet,
+            CanaryCommand canary
+    ) {
+    }
+
+    public record CanaryCommand(
+            String mode,
+            String header,
+            String value,
+            boolean enabled
+    ) {
+        ReleaseRecord.CanaryPolicy toPolicy() {
+            return new ReleaseRecord.CanaryPolicy(mode, header, value, enabled);
+        }
+    }
+
+    public record ApproveCommand(
+            String approver,
+            String comment
+    ) {
+    }
+
+    public record RollbackCommand(
+            String operator,
+            String comment,
+            String targetReleaseId
     ) {
     }
 }

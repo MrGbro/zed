@@ -20,6 +20,7 @@ class DependencyRulesTest {
                     .should().dependOnClassesThat().resideInAnyPackage(
                             "..nacos..",
                             "..netty..",
+                            "..otel..",
                             "..bootstrap..",
                             "..admin.."
                     );

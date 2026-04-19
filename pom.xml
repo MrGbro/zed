@@ -39,6 +39,7 @@
         <module>gateway-transport</module>
         <module>gateway-proxy</module>
         <module>gateway-plugin</module>
+        <module>gateway-observe</module>
         <module>gateway-config</module>
         <module>gateway-registry</module>
         <module>architecture-tests</module>

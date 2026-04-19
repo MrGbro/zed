@@ -1,0 +1,120 @@
+2026-04-19 21:27:05.133 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init start: transport=netty, port=18080
+2026-04-19 21:27:05.259 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 21:27:05.259 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 21:27:05.310 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 21:27:05.311 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 21:27:05.909 [main] INFO  com.alibaba.nacos.common.ability.AbstractAbilityControlManager - Ready to get current node abilities...
+2026-04-19 21:27:05.910 [main] INFO  com.alibaba.nacos.common.ability.AbstractAbilityControlManager - Ready to initialize current node abilities, support modes: [SDK_CLIENT]
+2026-04-19 21:27:05.911 [main] INFO  com.alibaba.nacos.common.ability.AbstractAbilityControlManager - Initialize current abilities finish...
+2026-04-19 21:27:05.911 [main] INFO  com.alibaba.nacos.common.ability.discover.NacosAbilityManagerHolder - [AbilityControlManager] Successfully initialize AbilityControlManager
+2026-04-19 21:27:06.509 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init completed
+2026-04-19 21:27:06.509 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stop
+2026-04-19 21:27:06.513 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stopped
+2026-04-19 21:27:06.573 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init start: transport=netty, port=19080
+2026-04-19 21:27:06.575 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 21:27:06.575 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 21:27:06.576 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 21:27:06.576 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 21:27:07.079 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init completed
+2026-04-19 21:27:07.079 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stop
+2026-04-19 21:27:07.082 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stopped
+2026-04-19 21:27:07.148 [Thread-5] WARN  com.alibaba.nacos.common.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2026-04-19 21:27:07.148 [Thread-8] WARN  com.alibaba.nacos.common.notify.NotifyCenter - [NotifyCenter] Start destroying Publisher
+2026-04-19 21:27:07.148 [Thread-8] WARN  com.alibaba.nacos.common.notify.NotifyCenter - [NotifyCenter] Destruction of the end
+2026-04-19 21:27:07.149 [Thread-5] WARN  com.alibaba.nacos.common.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2026-04-19 21:50:00.518 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init start: transport=netty, port=18080
+2026-04-19 21:50:00.641 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 21:50:00.641 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 21:50:00.689 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 21:50:00.689 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 21:50:01.286 [main] INFO  com.alibaba.nacos.common.ability.AbstractAbilityControlManager - Ready to get current node abilities...
+2026-04-19 21:50:01.287 [main] INFO  com.alibaba.nacos.common.ability.AbstractAbilityControlManager - Ready to initialize current node abilities, support modes: [SDK_CLIENT]
+2026-04-19 21:50:01.288 [main] INFO  com.alibaba.nacos.common.ability.AbstractAbilityControlManager - Initialize current abilities finish...
+2026-04-19 21:50:01.288 [main] INFO  com.alibaba.nacos.common.ability.discover.NacosAbilityManagerHolder - [AbilityControlManager] Successfully initialize AbilityControlManager
+2026-04-19 21:50:01.867 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init completed
+2026-04-19 21:50:01.867 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stop
+2026-04-19 21:50:01.873 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stopped
+2026-04-19 21:50:01.935 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init start: transport=netty, port=19080
+2026-04-19 21:50:01.937 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 21:50:01.937 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 21:50:01.937 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 21:50:01.937 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 21:50:02.456 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init completed
+2026-04-19 21:50:02.456 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stop
+2026-04-19 21:50:02.458 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stopped
+2026-04-19 21:50:02.525 [Thread-8] WARN  com.alibaba.nacos.common.notify.NotifyCenter - [NotifyCenter] Start destroying Publisher
+2026-04-19 21:50:02.525 [Thread-5] WARN  com.alibaba.nacos.common.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2026-04-19 21:50:02.526 [Thread-8] WARN  com.alibaba.nacos.common.notify.NotifyCenter - [NotifyCenter] Destruction of the end
+2026-04-19 21:50:02.526 [Thread-5] WARN  com.alibaba.nacos.common.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2026-04-19 21:51:17.160 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init start: transport=netty, port=18080
+2026-04-19 21:51:17.288 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 21:51:17.288 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 21:51:17.337 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 21:51:17.337 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 21:51:17.925 [main] INFO  com.alibaba.nacos.common.ability.AbstractAbilityControlManager - Ready to get current node abilities...
+2026-04-19 21:51:17.926 [main] INFO  com.alibaba.nacos.common.ability.AbstractAbilityControlManager - Ready to initialize current node abilities, support modes: [SDK_CLIENT]
+2026-04-19 21:51:17.927 [main] INFO  com.alibaba.nacos.common.ability.AbstractAbilityControlManager - Initialize current abilities finish...
+2026-04-19 21:51:17.927 [main] INFO  com.alibaba.nacos.common.ability.discover.NacosAbilityManagerHolder - [AbilityControlManager] Successfully initialize AbilityControlManager
+2026-04-19 21:51:18.673 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init completed
+2026-04-19 21:51:18.673 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stop
+2026-04-19 21:51:18.678 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stopped
+2026-04-19 21:51:18.732 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init start: transport=netty, port=19080
+2026-04-19 21:51:18.734 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 21:51:18.734 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 21:51:18.735 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 21:51:18.735 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 21:51:19.245 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init completed
+2026-04-19 21:51:19.245 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stop
+2026-04-19 21:51:19.247 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stopped
+2026-04-19 21:51:19.303 [Thread-8] WARN  com.alibaba.nacos.common.notify.NotifyCenter - [NotifyCenter] Start destroying Publisher
+2026-04-19 21:51:19.303 [Thread-5] WARN  com.alibaba.nacos.common.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2026-04-19 21:51:19.303 [Thread-8] WARN  com.alibaba.nacos.common.notify.NotifyCenter - [NotifyCenter] Destruction of the end
+2026-04-19 21:51:19.304 [Thread-5] WARN  com.alibaba.nacos.common.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2026-04-19 21:51:49.468 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init start: transport=netty, port=18080
+2026-04-19 21:51:49.598 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 21:51:49.598 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 21:51:49.655 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 21:51:49.655 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 21:51:50.253 [main] INFO  com.alibaba.nacos.common.ability.AbstractAbilityControlManager - Ready to get current node abilities...
+2026-04-19 21:51:50.254 [main] INFO  com.alibaba.nacos.common.ability.AbstractAbilityControlManager - Ready to initialize current node abilities, support modes: [SDK_CLIENT]
+2026-04-19 21:51:50.254 [main] INFO  com.alibaba.nacos.common.ability.AbstractAbilityControlManager - Initialize current abilities finish...
+2026-04-19 21:51:50.255 [main] INFO  com.alibaba.nacos.common.ability.discover.NacosAbilityManagerHolder - [AbilityControlManager] Successfully initialize AbilityControlManager
+2026-04-19 21:51:50.835 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init completed
+2026-04-19 21:51:50.835 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stop
+2026-04-19 21:51:50.840 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stopped
+2026-04-19 21:51:50.897 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init start: transport=netty, port=19080
+2026-04-19 21:51:50.899 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 21:51:50.899 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 21:51:50.900 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 21:51:50.900 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 21:51:51.403 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init completed
+2026-04-19 21:51:51.403 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stop
+2026-04-19 21:51:51.405 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stopped
+2026-04-19 21:51:51.473 [Thread-8] WARN  com.alibaba.nacos.common.notify.NotifyCenter - [NotifyCenter] Start destroying Publisher
+2026-04-19 21:51:51.473 [Thread-5] WARN  com.alibaba.nacos.common.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2026-04-19 21:51:51.473 [Thread-8] WARN  com.alibaba.nacos.common.notify.NotifyCenter - [NotifyCenter] Destruction of the end
+2026-04-19 21:51:51.474 [Thread-5] WARN  com.alibaba.nacos.common.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2026-04-19 22:25:22.452 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init start: transport=netty, port=18080
+2026-04-19 22:25:22.577 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 22:25:22.577 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 22:25:22.627 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 22:25:22.629 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 22:25:23.252 [main] INFO  com.alibaba.nacos.common.ability.AbstractAbilityControlManager - Ready to get current node abilities...
+2026-04-19 22:25:23.253 [main] INFO  com.alibaba.nacos.common.ability.AbstractAbilityControlManager - Ready to initialize current node abilities, support modes: [SDK_CLIENT]
+2026-04-19 22:25:23.253 [main] INFO  com.alibaba.nacos.common.ability.AbstractAbilityControlManager - Initialize current abilities finish...
+2026-04-19 22:25:23.253 [main] INFO  com.alibaba.nacos.common.ability.discover.NacosAbilityManagerHolder - [AbilityControlManager] Successfully initialize AbilityControlManager
+2026-04-19 22:25:23.835 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init completed
+2026-04-19 22:25:24.096 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stop
+2026-04-19 22:25:24.100 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stopped
+2026-04-19 22:25:24.158 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init start: transport=netty, port=19080
+2026-04-19 22:25:24.161 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 22:25:24.161 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 22:25:24.162 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-19 22:25:24.162 [main] INFO  com.alibaba.nacos.plugin.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-19 22:25:24.684 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap init completed
+2026-04-19 22:25:24.684 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stop
+2026-04-19 22:25:24.687 [main] INFO  io.homeey.gateway.bootstrap.BootstrapApplication - Bootstrap stopped
+2026-04-19 22:25:24.748 [Thread-8] WARN  com.alibaba.nacos.common.notify.NotifyCenter - [NotifyCenter] Start destroying Publisher
+2026-04-19 22:25:24.748 [Thread-5] WARN  com.alibaba.nacos.common.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2026-04-19 22:25:24.749 [Thread-8] WARN  com.alibaba.nacos.common.notify.NotifyCenter - [NotifyCenter] Destruction of the end
+2026-04-19 22:25:24.749 [Thread-5] WARN  com.alibaba.nacos.common.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end

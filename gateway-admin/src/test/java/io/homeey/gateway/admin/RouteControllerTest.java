@@ -1,5 +1,7 @@
 package io.homeey.gateway.admin;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,6 +25,8 @@ class RouteControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     private String uniqueId(String prefix) {
         return prefix + "-" + System.nanoTime();
@@ -168,5 +172,126 @@ class RouteControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].operator").value("alice"))
                 .andExpect(jsonPath("$[0].summary").value("manual release"));
+    }
+
+    @Test
+    void shouldRunReleaseGovernanceLifecycle() throws Exception {
+        String routeId = uniqueId("r-release");
+        String route = """
+                {"id":"%s","host":"api.example.com","pathPrefix":"/gov","method":"GET","headers":{},"upstreamService":"gov-service","upstreamPath":"/gov"}
+                """.formatted(routeId);
+        mockMvc.perform(post("/api/routes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(route))
+                .andExpect(status().isOk());
+
+        String draft1Command = """
+                {"operator":"alice","summary":"release-1","policySet":{"env":"prod"},"canary":{"mode":"header","header":"x-canary","value":"v1","enabled":true}}
+                """;
+        String draft1Payload = mockMvc.perform(post("/api/routes/releases/draft")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(draft1Command))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.releaseId").exists())
+                .andExpect(jsonPath("$.state").value("DRAFT"))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        JsonNode draft1 = objectMapper.readTree(draft1Payload);
+        String release1Id = draft1.path("releaseId").asText();
+
+        mockMvc.perform(post("/api/routes/releases/{releaseId}/validate", release1Id))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.state").value("VALIDATED"));
+
+        mockMvc.perform(post("/api/routes/releases/{releaseId}/approve", release1Id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"approver":"reviewer-a","comment":"looks good"}
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.state").value("APPROVED"))
+                .andExpect(jsonPath("$.approvedBy").value("reviewer-a"));
+
+        mockMvc.perform(post("/api/routes/releases/{releaseId}/publish", release1Id))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.state").value("PUBLISHED"))
+                .andExpect(jsonPath("$.publishedVersion").exists());
+
+        String draft2Payload = mockMvc.perform(post("/api/routes/releases/draft")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"operator":"alice","summary":"release-2","policySet":{"env":"prod"}}
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.state").value("DRAFT"))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        JsonNode draft2 = objectMapper.readTree(draft2Payload);
+        String release2Id = draft2.path("releaseId").asText();
+
+        mockMvc.perform(post("/api/routes/releases/{releaseId}/validate", release2Id))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.state").value("VALIDATED"));
+
+        mockMvc.perform(post("/api/routes/releases/{releaseId}/approve", release2Id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"approver":"reviewer-b","comment":"approve release-2"}
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.state").value("APPROVED"))
+                .andExpect(jsonPath("$.approvedBy").value("reviewer-b"));
+
+        mockMvc.perform(post("/api/routes/releases/{releaseId}/publish", release2Id))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.state").value("PUBLISHED"));
+
+        mockMvc.perform(post("/api/routes/releases/{releaseId}/rollback", release2Id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"operator":"ops","comment":"rollback to previous stable","targetReleaseId":"%s"}
+                                """.formatted(release1Id)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.state").value("ROLLED_BACK"))
+                .andExpect(jsonPath("$.rollbackToReleaseId").value(release1Id));
+
+        mockMvc.perform(get("/api/routes/releases/{releaseId}", release2Id))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.state").value("ROLLED_BACK"));
+
+        mockMvc.perform(get("/api/routes/releases"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[*].releaseId", hasItem(release1Id)))
+                .andExpect(jsonPath("$[*].releaseId", hasItem(release2Id)));
+    }
+
+    @Test
+    void shouldRejectReleasePublishWhenNotApproved() throws Exception {
+        String routeId = uniqueId("r-release-invalid");
+        String route = """
+                {"id":"%s","host":"api.example.com","pathPrefix":"/gov-invalid","method":"GET","headers":{},"upstreamService":"gov-service","upstreamPath":"/gov-invalid"}
+                """.formatted(routeId);
+        mockMvc.perform(post("/api/routes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(route))
+                .andExpect(status().isOk());
+
+        String draftPayload = mockMvc.perform(post("/api/routes/releases/draft")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"operator":"alice","summary":"release-invalid"}
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.state").value("DRAFT"))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        String releaseId = objectMapper.readTree(draftPayload).path("releaseId").asText();
+
+        mockMvc.perform(post("/api/routes/releases/{releaseId}/publish", releaseId))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("BAD_REQUEST"));
     }
 }

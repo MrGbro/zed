@@ -24,6 +24,11 @@
             <artifactId>gateway-common</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-observe-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

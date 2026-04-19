@@ -75,14 +75,39 @@ server.listen($nodePort, '127.0.0.1');
     Wait-HttpReady -Url "http://127.0.0.1:$nodePort/version"
 
     Write-Host "[3/5] Creating route and publishing via admin..."
+    $existingRoutes = Invoke-RestMethod -Uri "http://127.0.0.1:$adminPort/api/routes" -Method Get
+    if ($existingRoutes) {
+        foreach ($route in $existingRoutes) {
+            if ($route.id) {
+                Invoke-RestMethod -Uri "http://127.0.0.1:$adminPort/api/routes/$($route.id)" -Method Delete | Out-Null
+            }
+        }
+    }
+    Invoke-RestMethod -Uri "http://127.0.0.1:$adminPort/api/routes/plugins" `
+        -Method Post `
+        -ContentType "application/json" `
+        -Body "[]" | Out-Null
+
+    $routeId = "smoke-r1-" + [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
     $routeBody = @{
-        id = "smoke-r1"
-        path = "/orders"
-        upstream = "order-service"
-        plugins = @("auth")
+        id = $routeId
+        host = "api.example.com"
+        pathPrefix = "/orders"
+        method = "GET"
+        headers = @{}
+        upstreamService = "order-service"
+        upstreamPath = "/orders"
     } | ConvertTo-Json
     Invoke-RestMethod -Uri "http://127.0.0.1:$adminPort/api/routes" -Method Post -ContentType "application/json" -Body $routeBody | Out-Null
-    $publish = Invoke-RestMethod -Uri "http://127.0.0.1:$adminPort/api/routes/publish" -Method Post
+    $publishBody = @{
+        operator = "smoke"
+        summary = "phase2 smoke publish"
+        policySet = @{}
+    } | ConvertTo-Json
+    $publish = Invoke-RestMethod -Uri "http://127.0.0.1:$adminPort/api/routes/publish" `
+        -Method Post `
+        -ContentType "application/json" `
+        -Body $publishBody
     if (-not $publish.version) {
         throw "Publish response missing version"
     }

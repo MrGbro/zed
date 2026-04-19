@@ -53,7 +53,11 @@ public final class NacosServiceDiscoveryProvider implements ServiceDiscoveryProv
             } catch (Exception ignored) {
                 // fallback below
             }
-            return fallback.getInstances(serviceName).toCompletableFuture().join();
+            List<String> fallbackInstances = fallback.getInstances(serviceName).toCompletableFuture().join();
+            if (fallbackInstances != null && !fallbackInstances.isEmpty()) {
+                return fallbackInstances;
+            }
+            return snapshots.getOrDefault(serviceName, List.of());
         });
     }
 

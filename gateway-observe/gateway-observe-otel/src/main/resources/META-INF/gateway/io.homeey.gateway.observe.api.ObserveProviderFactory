@@ -1,0 +1,1 @@
+otel=io.homeey.gateway.observe.otel.OtelObserveProviderFactory

@@ -45,7 +45,7 @@ public class PublishService {
     }
 
     public Map<String, Object> publish(PublishRequest request) {
-        validateRequest(request);
+        validate(request);
         String version = "v" + System.currentTimeMillis();
         String publishedAt = Instant.now().toString();
         List<Map<String, Object>> routes = request.routes() == null
@@ -113,6 +113,10 @@ public class PublishService {
 
     public List<PublishRecord> listRecords() {
         return publishRecordRepository.list();
+    }
+
+    public void validate(PublishRequest request) {
+        validateRequest(request);
     }
 
     private void validateRequest(PublishRequest request) {
