@@ -1,115 +1,828 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gateway Admin</title>
+    <title>Gateway 配置管理台</title>
     <style>
         :root {
-            --bg: #f4f8f5;
+            --bg-a: #f2f7f4;
+            --bg-b: #dbeee4;
             --card: #ffffff;
-            --fg: #1f3b2d;
-            --accent: #1e7a4a;
-            --muted: #5b6f64;
+            --fg: #123227;
+            --muted: #5d7469;
+            --accent: #0f8d56;
+            --accent-strong: #08603a;
+            --danger: #c23a2b;
+            --line: #dfebe4;
+            --mono: "JetBrains Mono", "Cascadia Mono", Consolas, monospace;
+            --sans: "IBM Plex Sans", "Noto Sans SC", "PingFang SC", sans-serif;
         }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
-            font-family: "Segoe UI", "PingFang SC", sans-serif;
-            background: radial-gradient(circle at top right, #dff5e8, var(--bg) 45%);
             color: var(--fg);
+            font-family: var(--sans);
+            background:
+                radial-gradient(1000px 400px at -10% -10%, #bde6cf, transparent 60%),
+                radial-gradient(800px 350px at 110% 0%, #d4eadf, transparent 50%),
+                linear-gradient(145deg, var(--bg-a), var(--bg-b));
+            min-height: 100vh;
         }
+
         .wrap {
-            max-width: 920px;
-            margin: 24px auto;
+            max-width: 1160px;
+            margin: 24px auto 40px;
             padding: 0 16px;
         }
-        .card {
-            background: var(--card);
-            border-radius: 12px;
-            padding: 16px;
-            box-shadow: 0 8px 28px rgba(24, 69, 44, 0.08);
+
+        .hero {
+            background: linear-gradient(120deg, #104734, #0f6b45);
+            color: #f4fff9;
+            border-radius: 16px;
+            padding: 20px 22px;
+            box-shadow: 0 14px 34px rgba(12, 57, 39, 0.28);
             margin-bottom: 16px;
         }
-        h1 { margin: 0 0 8px; font-size: 26px; }
-        h2 { margin: 0 0 12px; font-size: 18px; }
+
+        h1 {
+            margin: 0 0 6px;
+            font-size: 28px;
+            letter-spacing: 0.2px;
+        }
+
+        h2 {
+            margin: 0 0 12px;
+            font-size: 18px;
+        }
+
+        .hint {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .hero .hint {
+            color: #cfe9de;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid #edf4ef;
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 8px 24px rgba(20, 56, 40, 0.08);
+        }
+
+        details.card {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        details.card > summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            user-select: none;
+        }
+
+        details.card > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .collapse-title {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .collapse-arrow {
+            color: var(--muted);
+            font-size: 13px;
+            transition: transform 0.16s ease;
+        }
+
+        details[open] > summary .collapse-arrow {
+            transform: rotate(180deg);
+        }
+
+        .collapse-body {
+            padding: 0 16px 16px;
+        }
+
+        .summary {
+            grid-column: span 3;
+        }
+
+        .span-6 {
+            grid-column: span 6;
+        }
+
+        .span-12 {
+            grid-column: span 12;
+        }
+
+        .metric {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-top: 8px;
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field label {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 9px 10px;
+            background: #fff;
+            color: var(--fg);
+            font: inherit;
+        }
+
+        textarea {
+            min-height: 86px;
+            resize: vertical;
+            font-family: var(--mono);
+            font-size: 12px;
+        }
+
         button {
-            background: var(--accent);
-            color: white;
             border: none;
             border-radius: 8px;
-            padding: 8px 12px;
+            padding: 9px 12px;
             cursor: pointer;
+            font: inherit;
+            color: #fff;
+            background: var(--accent);
+            transition: background-color 0.16s ease;
         }
-        input { padding: 8px; margin-right: 8px; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { text-align: left; padding: 8px 0; border-bottom: 1px solid #ecf0ed; }
-        .hint { color: var(--muted); font-size: 13px; }
-        .record { font-family: Consolas, monospace; }
+
+        button:hover {
+            background: var(--accent-strong);
+        }
+
+        button.secondary {
+            background: #dbe9e2;
+            color: #244438;
+        }
+
+        button.secondary:hover {
+            background: #c8ddd3;
+        }
+
+        button.danger {
+            background: #f6ddd9;
+            color: #8b2c21;
+        }
+
+        button.danger:hover {
+            background: #f0cbc5;
+        }
+
+        .actions {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px 8px;
+            border-bottom: 1px solid #edf3ef;
+            vertical-align: top;
+            word-break: break-word;
+        }
+
+        th {
+            color: #3a5c4e;
+            font-size: 12px;
+        }
+
+        .pill {
+            display: inline-block;
+            border-radius: 999px;
+            padding: 3px 8px;
+            font-size: 12px;
+            background: #ebf4ef;
+            color: #2e5847;
+        }
+
+        .pill.warn {
+            background: #f6e8cf;
+            color: #8e641e;
+        }
+
+        .pill.bad {
+            background: #f9dfdc;
+            color: #9a3228;
+        }
+
+        .status {
+            margin-top: 10px;
+            border-radius: 8px;
+            padding: 9px 10px;
+            font-size: 13px;
+            background: #eff8f3;
+            color: #24533f;
+            display: none;
+        }
+
+        .status.error {
+            background: #f9e6e4;
+            color: var(--danger);
+        }
+
+        .record-cell {
+            font-family: var(--mono);
+            font-size: 12px;
+        }
+
+        @media (max-width: 980px) {
+            .summary,
+            .span-6,
+            .span-12 {
+                grid-column: span 12;
+            }
+
+            .field-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
 <div class="wrap">
-    <div class="card">
-        <h1>Gateway Admin Console</h1>
-        <div class="hint">Route list, create, and publish records.</div>
-    </div>
+    <section class="hero">
+        <h1>Gateway 配置管理台</h1>
+        <div class="hint">管理路由、插件绑定、发布参数与发布记录。</div>
+    </section>
 
-    <div class="card">
-        <h2>Create Route</h2>
-        <input id="routeId" placeholder="route id" value="r1">
-        <input id="routePath" placeholder="path" value="/orders">
-        <input id="routeUpstream" placeholder="upstream" value="order-service">
-        <button onclick="createRoute()">Create</button>
-    </div>
+    <section class="grid">
+        <div class="card summary">
+            <div class="hint">路由总数</div>
+            <div class="metric" id="metricRoutes">0</div>
+        </div>
+        <div class="card summary">
+            <div class="hint">插件绑定</div>
+            <div class="metric" id="metricBindings">0</div>
+        </div>
+        <div class="card summary">
+            <div class="hint">可用插件</div>
+            <div class="metric" id="metricPlugins">0</div>
+        </div>
+        <div class="card summary">
+            <div class="hint">发布记录</div>
+            <div class="metric" id="metricRecords">0</div>
+        </div>
 
-    <div class="card">
-        <h2>Routes</h2>
-        <table>
-            <thead><tr><th>ID</th><th>Path</th><th>Upstream</th></tr></thead>
-            <tbody id="routeTable"></tbody>
-        </table>
-    </div>
+        <div class="card span-6">
+            <h2>新增路由</h2>
+            <div class="field-grid">
+                <div class="field">
+                    <label for="routeId">ID</label>
+                    <input id="routeId" value="r1">
+                </div>
+                <div class="field">
+                    <label for="routeHost">Host</label>
+                    <input id="routeHost" value="api.example.com">
+                </div>
+                <div class="field">
+                    <label for="routePathPrefix">Path Prefix</label>
+                    <input id="routePathPrefix" value="/orders">
+                </div>
+                <div class="field">
+                    <label for="routeMethod">Method</label>
+                    <select id="routeMethod">
+                        <option>GET</option>
+                        <option>POST</option>
+                        <option>PUT</option>
+                        <option>DELETE</option>
+                        <option>PATCH</option>
+                        <option>OPTIONS</option>
+                        <option>HEAD</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="routeUpstreamService">Upstream Service</label>
+                    <input id="routeUpstreamService" value="order-service">
+                </div>
+                <div class="field">
+                    <label for="routeUpstreamPath">Upstream Path</label>
+                    <input id="routeUpstreamPath" value="/orders">
+                </div>
+            </div>
+            <div class="field" style="margin-top:10px;">
+                <label for="routeHeaders">Headers JSON（键值均为字符串）</label>
+                <textarea id="routeHeaders">{ "x-env": "prod" }</textarea>
+            </div>
+            <div class="actions">
+                <button id="btnCreateRoute" type="button">新增路由</button>
+                <button class="secondary" id="btnRefreshRoutes" type="button">刷新路由</button>
+            </div>
+        </div>
 
-    <div class="card">
-        <h2>Publish</h2>
-        <button onclick="publishRoutes()">Publish</button>
-        <div id="publishRecord" class="record"></div>
-    </div>
+        <div class="card span-6">
+            <h2>新增插件绑定</h2>
+            <div class="field-grid">
+                <div class="field">
+                    <label for="bindingName">插件</label>
+                    <select id="bindingName"></select>
+                </div>
+                <div class="field">
+                    <label for="bindingRouteId">作用路由</label>
+                    <select id="bindingRouteId"></select>
+                </div>
+                <div class="field">
+                    <label for="bindingOrder">Order</label>
+                    <input id="bindingOrder" type="number" value="10">
+                </div>
+                <div class="field">
+                    <label for="bindingFailPolicy">Fail Policy</label>
+                    <select id="bindingFailPolicy">
+                        <option value="FAIL_CLOSE">FAIL_CLOSE</option>
+                        <option value="FAIL_OPEN">FAIL_OPEN</option>
+                    </select>
+                </div>
+            </div>
+            <div class="field" style="margin-top:10px;">
+                <label for="bindingConfig">插件配置 JSON</label>
+                <textarea id="bindingConfig">{ "mode": "strict" }</textarea>
+            </div>
+            <div class="field" style="margin-top:10px;">
+                <label>
+                    <input id="bindingEnabled" type="checkbox" checked style="width:auto; margin-right:6px;">
+                    启用该绑定
+                </label>
+            </div>
+            <div class="actions">
+                <button id="btnCreateBinding" type="button">新增绑定</button>
+                <button class="secondary" id="btnRefreshBindings" type="button">刷新绑定</button>
+            </div>
+        </div>
+
+        <details class="card span-12" open>
+            <summary>
+                <h2 class="collapse-title">路由列表</h2>
+                <span class="collapse-arrow">▼</span>
+            </summary>
+            <div class="collapse-body">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Host</th>
+                        <th>Path Prefix</th>
+                        <th>Method</th>
+                        <th>Upstream</th>
+                        <th>Headers</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="routeTable"></tbody>
+                </table>
+            </div>
+        </details>
+
+        <details class="card span-12" open>
+            <summary>
+                <h2 class="collapse-title">插件绑定列表</h2>
+                <span class="collapse-arrow">▼</span>
+            </summary>
+            <div class="collapse-body">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>插件</th>
+                        <th>Route ID</th>
+                        <th>Order</th>
+                        <th>Enabled</th>
+                        <th>Fail Policy</th>
+                        <th>Config</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="bindingTable"></tbody>
+                </table>
+            </div>
+        </details>
+
+        <div class="card span-6">
+            <h2>发布配置</h2>
+            <div class="field-grid">
+                <div class="field">
+                    <label for="publishOperator">Operator</label>
+                    <input id="publishOperator" value="admin">
+                </div>
+                <div class="field">
+                    <label for="publishSummary">Summary</label>
+                    <input id="publishSummary" value="publish routes and plugins">
+                </div>
+            </div>
+            <div class="field" style="margin-top:10px;">
+                <label for="publishPolicySet">Policy Set JSON</label>
+                <textarea id="publishPolicySet">{}</textarea>
+            </div>
+            <div class="actions">
+                <button id="btnPublish" type="button">发布配置</button>
+                <button class="secondary" id="btnRefreshRecords" type="button">刷新发布记录</button>
+            </div>
+        </div>
+
+        <details class="card span-6" open>
+            <summary>
+                <h2 class="collapse-title">插件列表</h2>
+                <span class="collapse-arrow">▼</span>
+            </summary>
+            <div class="collapse-body">
+                <div id="pluginList"></div>
+            </div>
+        </details>
+
+        <div class="card span-12">
+            <h2>发布记录</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Version</th>
+                    <th>Published At</th>
+                    <th>Operator</th>
+                    <th>Summary</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody id="recordTable"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <div id="status" class="status"></div>
 </div>
 
 <script>
+    const state = {
+        routes: [],
+        plugins: [],
+        bindings: [],
+        records: []
+    };
+
+    function escapeHtml(input) {
+        return String(input == null ? "" : input)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;");
+    }
+
+    function showStatus(message, isError = false) {
+        const el = document.getElementById("status");
+        el.textContent = message;
+        el.className = isError ? "status error" : "status";
+        el.style.display = "block";
+    }
+
+    function clearStatus() {
+        const el = document.getElementById("status");
+        el.style.display = "none";
+    }
+
+    async function apiFetch(url, options = {}) {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            let msg = `HTTP ${response.status}`;
+            try {
+                const payload = await response.json();
+                if (payload && payload.message) {
+                    msg = payload.message;
+                }
+            } catch (_) {
+                // ignore json parse errors
+            }
+            throw new Error(msg);
+        }
+        if (response.status === 204) {
+            return null;
+        }
+        return response.json();
+    }
+
+    function parseJsonObject(raw, fieldName) {
+        let parsed;
+        try {
+            parsed = raw && raw.trim() ? JSON.parse(raw) : {};
+        } catch (e) {
+            throw new Error(`${fieldName} 不是合法 JSON`);
+        }
+        if (parsed == null || typeof parsed !== "object" || Array.isArray(parsed)) {
+            throw new Error(`${fieldName} 必须是 JSON 对象`);
+        }
+        return parsed;
+    }
+
+    function toHeaderMap(rawObject) {
+        const result = {};
+        for (const key of Object.keys(rawObject)) {
+            result[key] = String(rawObject[key]);
+        }
+        return result;
+    }
+
+    function refreshMetrics() {
+        document.getElementById("metricRoutes").textContent = String(state.routes.length);
+        document.getElementById("metricBindings").textContent = String(state.bindings.length);
+        document.getElementById("metricPlugins").textContent = String(state.plugins.length);
+        document.getElementById("metricRecords").textContent = String(state.records.length);
+    }
+
+    function renderPluginList() {
+        const list = document.getElementById("pluginList");
+        if (!state.plugins.length) {
+            list.innerHTML = "<div class='hint'>暂无可用插件</div>";
+            return;
+        }
+        list.innerHTML = state.plugins.map(item => (
+            `<span class="pill" style="margin-right:8px; margin-bottom:8px;">${escapeHtml(item.id)}</span>`
+        )).join("");
+    }
+
+    function renderRouteOptions() {
+        const routeSelect = document.getElementById("bindingRouteId");
+        const options = [`<option value="">全局（不限定路由）</option>`];
+        for (const route of state.routes) {
+            options.push(`<option value="${escapeHtml(route.id)}">${escapeHtml(route.id)}</option>`);
+        }
+        routeSelect.innerHTML = options.join("");
+    }
+
+    function renderPluginOptions() {
+        const pluginSelect = document.getElementById("bindingName");
+        if (!state.plugins.length) {
+            pluginSelect.innerHTML = "<option value=''>无可用插件</option>";
+            return;
+        }
+        pluginSelect.innerHTML = state.plugins
+            .map(p => `<option value="${escapeHtml(p.id)}">${escapeHtml(p.id)}</option>`)
+            .join("");
+    }
+
+    function renderRoutes() {
+        const table = document.getElementById("routeTable");
+        if (!state.routes.length) {
+            table.innerHTML = "<tr><td colspan='7' class='hint'>暂无路由配置</td></tr>";
+            return;
+        }
+        table.innerHTML = state.routes.map(route => {
+            const headers = JSON.stringify(route.headers || {});
+            return `
+                <tr>
+                    <td>${escapeHtml(route.id)}</td>
+                    <td>${escapeHtml(route.host)}</td>
+                    <td>${escapeHtml(route.pathPrefix)}</td>
+                    <td>${escapeHtml(route.method || "GET")}</td>
+                    <td>${escapeHtml(route.upstreamService)}${route.upstreamPath ? "/" + escapeHtml(route.upstreamPath) : ""}</td>
+                    <td class="record-cell">${escapeHtml(headers)}</td>
+                    <td><button class="danger" type="button" data-route-id="${escapeHtml(route.id)}">删除</button></td>
+                </tr>
+            `;
+        }).join("");
+
+        table.querySelectorAll("button[data-route-id]").forEach(btn => {
+            btn.addEventListener("click", async () => {
+                try {
+                    await apiFetch(`/api/routes/${encodeURIComponent(btn.dataset.routeId)}`, { method: "DELETE" });
+                    await Promise.all([loadRoutes(), loadBindings()]);
+                    showStatus(`已删除路由 ${btn.dataset.routeId}`);
+                } catch (error) {
+                    showStatus(error.message, true);
+                }
+            });
+        });
+    }
+
+    function renderBindings() {
+        const table = document.getElementById("bindingTable");
+        if (!state.bindings.length) {
+            table.innerHTML = "<tr><td colspan='7' class='hint'>暂无插件绑定</td></tr>";
+            return;
+        }
+        table.innerHTML = state.bindings.map(binding => `
+            <tr>
+                <td>${escapeHtml(binding.name)}</td>
+                <td>${escapeHtml(binding.routeId || "全局")}</td>
+                <td>${escapeHtml(binding.order)}</td>
+                <td><span class="pill ${binding.enabled ? "" : "warn"}">${binding.enabled ? "true" : "false"}</span></td>
+                <td>${escapeHtml(binding.failPolicy || "FAIL_CLOSE")}</td>
+                <td class="record-cell">${escapeHtml(JSON.stringify(binding.config || {}))}</td>
+                <td>
+                    <button class="danger" type="button" data-name="${escapeHtml(binding.name)}" data-route-id="${escapeHtml(binding.routeId || "")}">删除</button>
+                </td>
+            </tr>
+        `).join("");
+
+        table.querySelectorAll("button[data-name]").forEach(btn => {
+            btn.addEventListener("click", async () => {
+                try {
+                    const name = btn.dataset.name;
+                    const routeId = btn.dataset.routeId;
+                    const query = routeId ? `?routeId=${encodeURIComponent(routeId)}` : "";
+                    await apiFetch(`/api/routes/plugins/${encodeURIComponent(name)}${query}`, { method: "DELETE" });
+                    await loadBindings();
+                    showStatus(`已删除插件绑定 ${name}${routeId ? "@" + routeId : ""}`);
+                } catch (error) {
+                    showStatus(error.message, true);
+                }
+            });
+        });
+    }
+
+    function renderRecords() {
+        const table = document.getElementById("recordTable");
+        if (!state.records.length) {
+            table.innerHTML = "<tr><td colspan='5' class='hint'>暂无发布记录</td></tr>";
+            return;
+        }
+        const sorted = [...state.records].sort((a, b) => (b.publishedAt || "").localeCompare(a.publishedAt || ""));
+        table.innerHTML = sorted.map(record => {
+            const statusJson = JSON.stringify(record.status || {});
+            const published = record.status && record.status.published === false ? "bad" : "";
+            return `
+                <tr>
+                    <td class="record-cell">${escapeHtml(record.version)}</td>
+                    <td>${escapeHtml(record.publishedAt)}</td>
+                    <td>${escapeHtml(record.operator || "")}</td>
+                    <td>${escapeHtml(record.summary || "")}</td>
+                    <td><span class="pill ${published} record-cell">${escapeHtml(statusJson)}</span></td>
+                </tr>
+            `;
+        }).join("");
+    }
+
     async function loadRoutes() {
-        const res = await fetch('/api/routes');
-        const data = await res.json();
-        const table = document.getElementById('routeTable');
-        table.innerHTML = data.map(r =>
-            `<tr><td>${r.id || ''}</td><td>${r.path || ''}</td><td>${r.upstream || ''}</td></tr>`
-        ).join('');
+        state.routes = await apiFetch("/api/routes");
+        renderRoutes();
+        renderRouteOptions();
+        refreshMetrics();
+    }
+
+    async function loadPlugins() {
+        state.plugins = await apiFetch("/api/plugins");
+        renderPluginOptions();
+        renderPluginList();
+        refreshMetrics();
+    }
+
+    async function loadBindings() {
+        state.bindings = await apiFetch("/api/routes/plugins");
+        renderBindings();
+        refreshMetrics();
+    }
+
+    async function loadRecords() {
+        state.records = await apiFetch("/api/routes/publish-records");
+        renderRecords();
+        refreshMetrics();
     }
 
     async function createRoute() {
-        const body = {
-            id: document.getElementById('routeId').value,
-            path: document.getElementById('routePath').value,
-            upstream: document.getElementById('routeUpstream').value,
-            plugins: ['auth']
-        };
-        await fetch('/api/routes', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        });
-        await loadRoutes();
+        clearStatus();
+        try {
+            const routeId = document.getElementById("routeId").value.trim();
+            if (!routeId) {
+                throw new Error("路由 ID 不能为空");
+            }
+            if (state.routes.some(r => r.id === routeId)) {
+                throw new Error(`路由 ID 已存在: ${routeId}`);
+            }
+            const headersJson = parseJsonObject(document.getElementById("routeHeaders").value, "Headers JSON");
+            const body = {
+                id: routeId,
+                host: document.getElementById("routeHost").value.trim(),
+                pathPrefix: document.getElementById("routePathPrefix").value.trim(),
+                method: document.getElementById("routeMethod").value,
+                headers: toHeaderMap(headersJson),
+                upstreamService: document.getElementById("routeUpstreamService").value.trim(),
+                upstreamPath: document.getElementById("routeUpstreamPath").value.trim()
+            };
+            await apiFetch("/api/routes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body)
+            });
+            await loadRoutes();
+            showStatus(`路由 ${routeId} 新增成功`);
+        } catch (error) {
+            showStatus(error.message, true);
+        }
     }
 
-    async function publishRoutes() {
-        const res = await fetch('/api/routes/publish', { method: 'POST' });
-        const data = await res.json();
-        document.getElementById('publishRecord').textContent =
-            `version=${data.version}, publishedAt=${data.publishedAt}`;
+    async function createBinding() {
+        clearStatus();
+        try {
+            const name = document.getElementById("bindingName").value;
+            if (!name) {
+                throw new Error("请选择插件");
+            }
+            const routeId = document.getElementById("bindingRouteId").value.trim();
+            const dedupeKey = `${name}@${routeId}`;
+            if (state.bindings.some(b => `${b.name}@${b.routeId || ""}` === dedupeKey)) {
+                throw new Error(`插件绑定已存在: ${dedupeKey}`);
+            }
+            const config = parseJsonObject(document.getElementById("bindingConfig").value, "插件配置 JSON");
+            const nextBindings = [...state.bindings, {
+                name,
+                routeId: routeId || "",
+                order: Number(document.getElementById("bindingOrder").value || 0),
+                enabled: document.getElementById("bindingEnabled").checked,
+                failPolicy: document.getElementById("bindingFailPolicy").value || "FAIL_CLOSE",
+                config
+            }];
+            await apiFetch("/api/routes/plugins", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(nextBindings)
+            });
+            await loadBindings();
+            showStatus(`插件绑定 ${dedupeKey} 新增成功`);
+        } catch (error) {
+            showStatus(error.message, true);
+        }
     }
 
-    loadRoutes();
+    async function publishConfig() {
+        clearStatus();
+        try {
+            const policySet = parseJsonObject(document.getElementById("publishPolicySet").value, "Policy Set JSON");
+            const payload = {
+                operator: document.getElementById("publishOperator").value.trim(),
+                summary: document.getElementById("publishSummary").value.trim(),
+                policySet
+            };
+            const result = await apiFetch("/api/routes/publish", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            await loadRecords();
+            showStatus(`发布成功 version=${result.version}, publishedAt=${result.publishedAt}`);
+        } catch (error) {
+            showStatus(error.message, true);
+        }
+    }
+
+    async function boot() {
+        document.getElementById("btnCreateRoute").addEventListener("click", createRoute);
+        document.getElementById("btnRefreshRoutes").addEventListener("click", loadRoutes);
+        document.getElementById("btnCreateBinding").addEventListener("click", createBinding);
+        document.getElementById("btnRefreshBindings").addEventListener("click", loadBindings);
+        document.getElementById("btnPublish").addEventListener("click", publishConfig);
+        document.getElementById("btnRefreshRecords").addEventListener("click", loadRecords);
+
+        try {
+            await Promise.all([loadRoutes(), loadPlugins(), loadBindings(), loadRecords()]);
+            showStatus("配置管理控制台已就绪");
+        } catch (error) {
+            showStatus(error.message, true);
+        }
+    }
+
+    boot();
 </script>
 </body>
 </html>

@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89100707-e19e-4d06-8e09-d912ebb83c06" name="Changes" comment="feat(gateway): 添加静态资源服务功能&#10;&#10;- 新增 staticResourcesDir 配置项用于指定静态资源目录&#10;- 扩展 BootstrapConfig 支持静态资源配置加载&#10;- 在 DefaultGatewayRequestHandler 中实现静态资源服务逻辑&#10;- 添加 MIME 类型检测和安全路径验证机制&#10;- 支持 GET 和 HEAD 请求方法处理静态文件&#10;- 集成 Jackson 注解支持配置对象序列化&#10;- 更新测试用例验证静态路由发布功能&#10;- 修改 IDE 配置兼容 JDK 版本设置">
-      <change afterPath="$PROJECT_DIR$/docs/route.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/resources/static/index.html" afterDir="false" />
+    <list default="true" id="89100707-e19e-4d06-8e09-d912ebb83c06" name="Changes" comment="fix(gateway): 修复静态资源路径配置和路由路径标准化问题&#10;&#10;- 修正 BootstrapConfig 中静态资源路径默认值为 &quot;static&quot;&#10;- 更新测试用例适配新的静态资源路径配置&#10;- 修复 DefaultGatewayRequestHandler 构造函数中的路径引用&#10;- 添加路由路径标准化逻辑确保路径以斜杠开头&#10;- 移除 netty-all 依赖避免版本冲突&#10;- 统一项目中 Netty 相关依赖版本管理">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-reactor-netty/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-proxy/gateway-proxy-reactor-netty/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyTransportServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyTransportServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-admin/src/main/java/io/homeey/gateway/admin/controller/RouteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-admin/src/main/java/io/homeey/gateway/admin/controller/RouteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-admin/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-admin/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-admin/src/test/java/io/homeey/gateway/admin/RouteControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-admin/src/test/java/io/homeey/gateway/admin/RouteControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,6 +87,10 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultHtmlFileTemplate": "HTML File",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -117,7 +118,12 @@
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
-  <component name="RunManager" selected="Application.BootstrapApplication">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\CodeSpace\OpenSource\Experiment\zed" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.AdminApplication">
     <configuration name="BootstrapApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="io.homeey.gateway.bootstrap.BootstrapApplication" />
       <module name="gateway-bootstrap" />
@@ -162,7 +168,7 @@
       <workItem from="1776438518805" duration="4000" />
       <workItem from="1776484600108" duration="12588000" />
       <workItem from="1776515878792" duration="2059000" />
-      <workItem from="1776563774616" duration="1514000" />
+      <workItem from="1776563774616" duration="5024000" />
     </task>
     <task id="LOCAL-00001" summary="feat(gateway): 完成网关P0功能实现&#10;&#10;- 添加真实数据平面转发管道替代演示行为&#10;- 实现HTTP/2入站支持&#10;- 集成真实Nacos配置中心和服务发现&#10;- 实现管理端发布到配置中心再到节点热重载闭环&#10;- 添加运行时生命周期init/start/stop及优雅关闭&#10;- 实现可插拔代理客户端策略包括async-http-client等&#10;- 添加Nacos不可用时自动降级到本地内存配置&#10;- 实现路由快照原子切换和实时订阅更新&#10;- 完善插件过滤器生命周期管理和故障处理策略&#10;- 添加性能门禁检查脚本确保QPS和延迟达标">
       <created>1776513765970</created>
@@ -192,7 +198,14 @@
       <option name="project" value="LOCAL" />
       <updated>1776563799976</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fix(gateway): 修复静态资源路径配置和路由路径标准化问题&#10;&#10;- 修正 BootstrapConfig 中静态资源路径默认值为 &quot;static&quot;&#10;- 更新测试用例适配新的静态资源路径配置&#10;- 修复 DefaultGatewayRequestHandler 构造函数中的路径引用&#10;- 添加路由路径标准化逻辑确保路径以斜杠开头&#10;- 移除 netty-all 依赖避免版本冲突&#10;- 统一项目中 Netty 相关依赖版本管理">
+      <created>1776565512659</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1776565512659</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -215,7 +228,8 @@
     <MESSAGE value="feat(gateway): 完成网关P0功能实现&#10;&#10;- 添加真实数据平面转发管道替代演示行为&#10;- 实现HTTP/2入站支持&#10;- 集成真实Nacos配置中心和服务发现&#10;- 实现管理端发布到配置中心再到节点热重载闭环&#10;- 添加运行时生命周期init/start/stop及优雅关闭&#10;- 实现可插拔代理客户端策略包括async-http-client等&#10;- 添加Nacos不可用时自动降级到本地内存配置&#10;- 实现路由快照原子切换和实时订阅更新&#10;- 完善插件过滤器生命周期管理和故障处理策略&#10;- 添加性能门禁检查脚本确保QPS和延迟达标" />
     <MESSAGE value="docs(gateway): 添加仓库指南文档并清理工作区配置&#10;&#10;- 新增 AGENTS.md 包含项目结构、构建命令、编码规范等完整指南&#10;- 移除 workspace.xml 中的冗余变更列表配置&#10;- 更新工作项时间统计和任务计数器配置" />
     <MESSAGE value="feat(gateway): 添加静态资源服务功能&#10;&#10;- 新增 staticResourcesDir 配置项用于指定静态资源目录&#10;- 扩展 BootstrapConfig 支持静态资源配置加载&#10;- 在 DefaultGatewayRequestHandler 中实现静态资源服务逻辑&#10;- 添加 MIME 类型检测和安全路径验证机制&#10;- 支持 GET 和 HEAD 请求方法处理静态文件&#10;- 集成 Jackson 注解支持配置对象序列化&#10;- 更新测试用例验证静态路由发布功能&#10;- 修改 IDE 配置兼容 JDK 版本设置" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(gateway): 添加静态资源服务功能&#10;&#10;- 新增 staticResourcesDir 配置项用于指定静态资源目录&#10;- 扩展 BootstrapConfig 支持静态资源配置加载&#10;- 在 DefaultGatewayRequestHandler 中实现静态资源服务逻辑&#10;- 添加 MIME 类型检测和安全路径验证机制&#10;- 支持 GET 和 HEAD 请求方法处理静态文件&#10;- 集成 Jackson 注解支持配置对象序列化&#10;- 更新测试用例验证静态路由发布功能&#10;- 修改 IDE 配置兼容 JDK 版本设置" />
+    <MESSAGE value="fix(gateway): 修复静态资源路径配置和路由路径标准化问题&#10;&#10;- 修正 BootstrapConfig 中静态资源路径默认值为 &quot;static&quot;&#10;- 更新测试用例适配新的静态资源路径配置&#10;- 修复 DefaultGatewayRequestHandler 构造函数中的路径引用&#10;- 添加路由路径标准化逻辑确保路径以斜杠开头&#10;- 移除 netty-all 依赖避免版本冲突&#10;- 统一项目中 Netty 相关依赖版本管理" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix(gateway): 修复静态资源路径配置和路由路径标准化问题&#10;&#10;- 修正 BootstrapConfig 中静态资源路径默认值为 &quot;static&quot;&#10;- 更新测试用例适配新的静态资源路径配置&#10;- 修复 DefaultGatewayRequestHandler 构造函数中的路径引用&#10;- 添加路由路径标准化逻辑确保路径以斜杠开头&#10;- 移除 netty-all 依赖避免版本冲突&#10;- 统一项目中 Netty 相关依赖版本管理" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
@@ -243,6 +257,11 @@
           <url>file://$PROJECT_DIR$/gateway-core/src/main/java/io/homeey/gateway/core/route/RadixRouteLocator.java</url>
           <line>43</line>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/DefaultGatewayRequestHandler.java</url>
+          <line>164</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
