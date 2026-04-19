@@ -95,6 +95,16 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-governance-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-governance-local</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>2.2</version>

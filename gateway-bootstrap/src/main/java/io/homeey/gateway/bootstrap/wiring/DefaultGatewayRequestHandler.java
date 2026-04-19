@@ -117,6 +117,7 @@ public final class DefaultGatewayRequestHandler implements GatewayRequestHandler
         context.attributes().put("upstream.path", route.upstreamPath());
         context.attributes().put("route.pathPrefix", route.pathPrefix());
         context.attributes().put("route.method", route.method());
+        context.attributes().put("route.policySet", route.policySet() == null ? Map.of() : route.policySet().entries());
         FilterExecutionPlan plan = compilePlan(route);
         DefaultGatewayFilterChain chain = new DefaultGatewayFilterChain(plan.invocations());
         return chain.next(context)

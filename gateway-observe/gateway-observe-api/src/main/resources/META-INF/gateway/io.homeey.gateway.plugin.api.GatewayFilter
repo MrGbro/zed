@@ -1,0 +1,3 @@
+observe-trace=io.homeey.gateway.observe.api.TraceObserveFilter
+observe-metrics=io.homeey.gateway.observe.api.MetricsObserveFilter
+observe-log=io.homeey.gateway.observe.api.LogObserveFilter

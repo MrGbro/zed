@@ -183,6 +183,67 @@ class DefaultGatewayRequestHandlerTest {
         assertTrue(new String(response.body(), StandardCharsets.UTF_8).contains("gateway_requests_total"));
     }
 
+    @Test
+    void shouldPutRoutePolicySetIntoContextAttributes() {
+        RuntimeSnapshotManager snapshotManager = new RuntimeSnapshotManager(Map.of("version", "v0"));
+        RouteDefinition route = new RouteDefinition(
+                "r1",
+                "api.example.com",
+                "/orders",
+                "GET",
+                Map.of(),
+                "upstream-a",
+                "/orders",
+                List.of(),
+                new PolicySet(Map.of("governance.enabled", true, "governance.ratelimit.enabled", true, "governance.ratelimit.qps", 1))
+        );
+        snapshotManager.onRouteSnapshotPublished(new RouteTableSnapshot("v1", List.of(route)));
+
+        ServiceDiscoveryProvider discoveryProvider = new ServiceDiscoveryProvider() {
+            @Override
+            public CompletionStage<List<String>> getInstances(String serviceName) {
+                return CompletableFuture.completedFuture(List.of("127.0.0.1:19000"));
+            }
+
+            @Override
+            public CompletionStage<Void> register(String serviceName, String endpoint) {
+                return CompletableFuture.completedFuture(null);
+            }
+
+            @Override
+            public CompletionStage<Void> subscribe(String serviceName, java.util.function.Consumer<List<String>> listener) {
+                return CompletableFuture.completedFuture(null);
+            }
+        };
+
+        ProxyClient proxyClient = new ProxyClient() {
+            @Override
+            public CompletionStage<ProxyResponse> execute(ProxyRequest request) {
+                return CompletableFuture.completedFuture(new ProxyResponse(200, Map.of("content-type", "text/plain"), "ok".getBytes(StandardCharsets.UTF_8)));
+            }
+
+            @Override
+            public void close() {
+                // no-op
+            }
+        };
+
+        DefaultGatewayRequestHandler handler = new DefaultGatewayRequestHandler(snapshotManager, discoveryProvider, proxyClient, tempDir.toString());
+
+        HttpResponseMessage response = handler.handle(new HttpRequestMessage(
+                "GET",
+                "api.example.com",
+                "/orders",
+                "",
+                Map.of(),
+                new byte[0]
+        )).toCompletableFuture().join();
+
+        assertEquals(200, response.statusCode());
+        assertTrue(route.policySet().entries().containsKey("governance.enabled"));
+        assertEquals(true, route.policySet().entries().get("governance.enabled"));
+    }
+
     private DefaultGatewayRequestHandler newHandler(
             String routeId,
             String pathPrefix,
