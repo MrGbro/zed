@@ -5,6 +5,7 @@ public record RateLimitPolicy(
         FailureMode failureMode,
         double qps,
         int burst,
+        String provider,
         String keyType,
         String keyHeader
 ) implements GovernancePolicy {
@@ -21,6 +22,7 @@ public record RateLimitPolicy(
                 FailureMode.FAIL_CLOSE,
                 0D,
                 1,
+                "local",
                 "route",
                 ""
         );
@@ -33,6 +35,7 @@ public record RateLimitPolicy(
     public RateLimitPolicy {
         failureMode = failureMode == null ? FailureMode.FAIL_CLOSE : failureMode;
         burst = Math.max(1, burst);
+        provider = provider == null || provider.isBlank() ? "local" : provider.trim().toLowerCase();
         keyType = keyType == null || keyType.isBlank() ? "route" : keyType.trim().toLowerCase();
         if (!"route".equals(keyType) && !"ip".equals(keyType) && !"header".equals(keyType)) {
             keyType = "route";

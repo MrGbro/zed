@@ -18,6 +18,7 @@
         <module>gateway-governance-engine</module>
         <module>gateway-governance-state-local</module>
         <module>gateway-governance-ratelimit-local</module>
+        <module>gateway-governance-ratelimit-sentinel</module>
         <module>gateway-governance-circuitbreaker-local</module>
         <module>gateway-governance-retry-local</module>
         <module>gateway-governance-timeout-local</module>

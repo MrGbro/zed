@@ -131,7 +131,7 @@ class DefaultGovernanceEngineTest {
         @Override
         public RateLimitPolicy create(Map<String, Object> entries) {
             trace.add("factory.ratelimit");
-            return new RateLimitPolicy(true, FailureMode.FAIL_CLOSE, 10D, 1, "route", "");
+            return new RateLimitPolicy(true, FailureMode.FAIL_CLOSE, 10D, 1, "local", "route", "");
         }
     }
 

@@ -19,12 +19,13 @@ public final class LocalRateLimitPolicyFactory implements PolicyFactory<RateLimi
         double qps = dbl(entries, "governance.ratelimit.qps", 0D);
         int burstDefault = Math.max(1, (int) Math.ceil(qps <= 0D ? 1D : qps));
         int burst = integer(entries, "governance.ratelimit.burst", burstDefault);
+        String provider = str(entries, "governance.ratelimit.provider", "local");
         String keyType = str(entries, "governance.ratelimit.keyType", "route");
         String keyHeader = str(entries, "governance.ratelimit.keyHeader", "");
         if (!enabled || qps <= 0D) {
             return RateLimitPolicy.defaultPolicy();
         }
-        return new RateLimitPolicy(true, failureMode, qps, burst, keyType, keyHeader);
+        return new RateLimitPolicy(true, failureMode, qps, burst, provider, keyType, keyHeader);
     }
 
     private boolean bool(Map<String, Object> source, String key, boolean fallback) {

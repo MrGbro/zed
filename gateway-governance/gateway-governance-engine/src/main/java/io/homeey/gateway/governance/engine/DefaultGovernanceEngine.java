@@ -41,6 +41,7 @@ public final class DefaultGovernanceEngine implements GovernanceEngine {
     private final PolicyFactory<TimeoutPolicy> timeoutPolicyFactory;
     private final PolicyFactory<DegradePolicy> degradePolicyFactory;
     private final RateLimitPolicyHandler rateLimitHandler;
+    private final ExtensionLoader<RateLimitPolicyHandler> rateLimitHandlerLoader;
     private final CircuitBreakerPolicyHandler circuitBreakerHandler;
     private final RetryPolicyHandler retryHandler;
     private final TimeoutPolicyHandler timeoutHandler;
@@ -69,6 +70,7 @@ public final class DefaultGovernanceEngine implements GovernanceEngine {
         ExtensionLoader<DegradePolicyHandler> degradeHandlerLoader = ExtensionLoader.getExtensionLoader(DegradePolicyHandler.class);
 
         this.rateLimitHandler = rateLimitHandlerLoader.getDefaultExtension();
+        this.rateLimitHandlerLoader = rateLimitHandlerLoader;
         this.circuitBreakerHandler = circuitHandlerLoader.getDefaultExtension();
         this.retryHandler = retryHandlerLoader.getDefaultExtension();
         this.timeoutHandler = timeoutHandlerLoader.getDefaultExtension();
@@ -99,6 +101,7 @@ public final class DefaultGovernanceEngine implements GovernanceEngine {
         this.timeoutPolicyFactory = Objects.requireNonNull(timeoutPolicyFactory, "timeoutPolicyFactory");
         this.degradePolicyFactory = Objects.requireNonNull(degradePolicyFactory, "degradePolicyFactory");
         this.rateLimitHandler = Objects.requireNonNull(rateLimitHandler, "rateLimitHandler");
+        this.rateLimitHandlerLoader = null;
         this.circuitBreakerHandler = Objects.requireNonNull(circuitBreakerHandler, "circuitBreakerHandler");
         this.retryHandler = Objects.requireNonNull(retryHandler, "retryHandler");
         this.timeoutHandler = Objects.requireNonNull(timeoutHandler, "timeoutHandler");
@@ -167,13 +170,28 @@ public final class DefaultGovernanceEngine implements GovernanceEngine {
             return null;
         }
         try {
-            if (rateLimitHandler.allow(context, policy, stateStore)) {
+            if (resolveRateLimitHandler(policy).allow(context, policy, stateStore)) {
                 return null;
             }
             context.attributes().put("governance.rate_limited", true);
             return applyDegrade(context, degradePolicy, GovernanceFailureKind.RATE_LIMITED, null);
         } catch (Throwable throwable) {
             return handleAbilityFailure(context, policy, GovernanceFailureKind.GOVERNANCE_ERROR, throwable, degradePolicy);
+        }
+    }
+
+    private RateLimitPolicyHandler resolveRateLimitHandler(RateLimitPolicy policy) {
+        if (rateLimitHandlerLoader == null) {
+            return rateLimitHandler;
+        }
+        String provider = policy.provider();
+        if (provider == null || provider.isBlank()) {
+            return rateLimitHandler;
+        }
+        try {
+            return rateLimitHandlerLoader.getExtension(provider);
+        } catch (IllegalArgumentException ignored) {
+            return rateLimitHandler;
         }
     }
 
