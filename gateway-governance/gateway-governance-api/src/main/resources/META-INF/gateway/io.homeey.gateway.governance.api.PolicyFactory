@@ -1,5 +1,0 @@
-ratelimit=io.homeey.gateway.governance.ratelimit.local.LocalRateLimitPolicyFactory
-circuitbreaker=io.homeey.gateway.governance.circuitbreaker.local.LocalCircuitBreakerPolicyFactory
-retry=io.homeey.gateway.governance.retry.local.LocalRetryPolicyFactory
-timeout=io.homeey.gateway.governance.timeout.local.LocalTimeoutPolicyFactory
-degrade=io.homeey.gateway.governance.degrade.local.LocalDegradePolicyFactory
