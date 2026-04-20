@@ -1,0 +1,1 @@
+retry=io.homeey.gateway.governance.retry.local.LocalRetryPolicyFactory

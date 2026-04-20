@@ -101,7 +101,37 @@
         </dependency>
         <dependency>
             <groupId>io.homeey</groupId>
-            <artifactId>gateway-governance-local</artifactId>
+            <artifactId>gateway-governance-engine</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-governance-state-local</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-governance-ratelimit-local</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-governance-circuitbreaker-local</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-governance-retry-local</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-governance-timeout-local</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.homeey</groupId>
+            <artifactId>gateway-governance-degrade-local</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

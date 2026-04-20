@@ -15,6 +15,12 @@
 
     <modules>
         <module>gateway-governance-api</module>
-        <module>gateway-governance-local</module>
+        <module>gateway-governance-engine</module>
+        <module>gateway-governance-state-local</module>
+        <module>gateway-governance-ratelimit-local</module>
+        <module>gateway-governance-circuitbreaker-local</module>
+        <module>gateway-governance-retry-local</module>
+        <module>gateway-governance-timeout-local</module>
+        <module>gateway-governance-degrade-local</module>
     </modules>
 </project>

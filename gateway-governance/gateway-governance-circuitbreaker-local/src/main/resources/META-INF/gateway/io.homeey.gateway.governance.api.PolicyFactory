@@ -1,0 +1,1 @@
+circuitbreaker=io.homeey.gateway.governance.circuitbreaker.local.LocalCircuitBreakerPolicyFactory
