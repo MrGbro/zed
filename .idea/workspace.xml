@@ -4,55 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89100707-e19e-4d06-8e09-d912ebb83c06" name="Changes" comment="docs(gateway): 为网关核心组件添加完整JavaDoc文档&#10;&#10;- 为FilterFailPolicy枚举添加详细文档说明两种失败策略&#10;- 为FilterInvocation记录添加参数和构造函数的完整文档&#10;- 为HttpRequestMessage和HttpResponseMessage记录添加字段说明&#10;- 为NettyRequestAdapter和NettyResponseAdapter添加转换逻辑文档&#10;- 为ProxyRequest和ProxyResponse记录添加代理请求响应说明&#10;- 为ReactorTransportServer添加基于Reactor Netty的实现文档&#10;- 为VertxTransportServer添加基于Eclipse Vert.x的实现说明&#10;- 为各种传输服务器工厂类添加SPI机制相关文档&#10;- 更新IDE工作区配置中的任务记录信息">
-      <change afterPath="$PROJECT_DIR$/docs/archive/phase1-phase2-gap-2026-04-19-pre-fix.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/governance-observability-phase-plan-2026-04-19.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/obs-arch.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/phase1-phase2-gap-2026-04-19.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/superpowers/plans/2026-04-19-observability-redesign-implementation-plan.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/superpowers/specs/2026-04-19-observability-redesign-based-obs-arch.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-bootstrap/logs/access.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-bootstrap/logs/application.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/RoutingGatewayFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/resources/logback.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-observe/gateway-observe-api/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-observe/gateway-observe-api/src/main/java/io/homeey/gateway/observe/api/LogObserveFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-observe/gateway-observe-api/src/main/java/io/homeey/gateway/observe/api/MetricsObserveFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-observe/gateway-observe-api/src/main/java/io/homeey/gateway/observe/api/NoopObserveProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-observe/gateway-observe-api/src/main/java/io/homeey/gateway/observe/api/ObserveKeys.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-observe/gateway-observe-api/src/main/java/io/homeey/gateway/observe/api/ObserveOptions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-observe/gateway-observe-api/src/main/java/io/homeey/gateway/observe/api/ObserveProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-observe/gateway-observe-api/src/main/java/io/homeey/gateway/observe/api/ObserveProviderFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-observe/gateway-observe-api/src/main/java/io/homeey/gateway/observe/api/RequestObservation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-observe/gateway-observe-api/src/main/java/io/homeey/gateway/observe/api/TraceObserveFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-observe/gateway-observe-otel/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-observe/gateway-observe-otel/src/main/java/io/homeey/gateway/observe/otel/OtelObserveProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-observe/gateway-observe-otel/src/main/java/io/homeey/gateway/observe/otel/OtelObserveProviderFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-observe/gateway-observe-otel/src/main/resources/META-INF/gateway/io.homeey.gateway.observe.api.ObserveProviderFactory" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-observe/gateway-observe-otel/src/test/java/io/homeey/gateway/observe/otel/OtelObserveProviderTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway-observe/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/architecture-tests/src/test/java/io/homeey/gateway/arch/DependencyRulesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/architecture-tests/src/test/java/io/homeey/gateway/arch/DependencyRulesTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/phase1-phase2-gap-spi-2026-04-18.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/archive/phase1-phase2-gap-spi-2026-04-18.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-admin/src/main/java/io/homeey/gateway/admin/controller/RouteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-admin/src/main/java/io/homeey/gateway/admin/controller/RouteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-admin/src/main/java/io/homeey/gateway/admin/service/PublishService.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-admin/src/main/java/io/homeey/gateway/admin/service/PublishService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-admin/src/test/java/io/homeey/gateway/admin/RouteControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-admin/src/test/java/io/homeey/gateway/admin/RouteControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/BootstrapApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/BootstrapApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfigLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/config/BootstrapConfigLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/DefaultGatewayRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/DefaultGatewayRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/RuntimeFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/java/io/homeey/gateway/bootstrap/wiring/RuntimeFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/main/resources/bootstrap.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/main/resources/bootstrap.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/test/java/io/homeey/gateway/bootstrap/config/BootstrapConfigLoaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/test/java/io/homeey/gateway/bootstrap/config/BootstrapConfigLoaderTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/test/java/io/homeey/gateway/bootstrap/wiring/DefaultGatewayRequestHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/test/java/io/homeey/gateway/bootstrap/wiring/DefaultGatewayRequestHandlerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-bootstrap/src/test/resources/bootstrap.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-bootstrap/src/test/resources/bootstrap.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-config/gateway-config-nacos/src/main/java/io/homeey/gateway/config/nacos/NacosConfigProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-config/gateway-config-nacos/src/main/java/io/homeey/gateway/config/nacos/NacosConfigProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-core/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-core/src/main/java/io/homeey/gateway/core/filter/DefaultGatewayFilterChain.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-core/src/main/java/io/homeey/gateway/core/filter/DefaultGatewayFilterChain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway-registry/gateway-registry-nacos/src/main/java/io/homeey/gateway/registry/nacos/NacosServiceDiscoveryProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-registry/gateway-registry-nacos/src/main/java/io/homeey/gateway/registry/nacos/NacosServiceDiscoveryProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/e2e/run-phase2-smoke.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/e2e/run-phase2-smoke.ps1" afterDir="false" />
+    <list default="true" id="89100707-e19e-4d06-8e09-d912ebb83c06" name="Changes" comment="feat(governance): implement governance policies including rate limiting, circuit breaking, and retries">
+      <change beforePath="$PROJECT_DIR$/docs/governance-2.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/governance-2.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,6 +64,7 @@
       <MavenGeneralSettings>
         <option name="showDialogWithAdvancedSettings" value="true" />
         <option name="threads" value="4" />
+        <option name="useMavenConfig" value="false" />
         <option name="userSettingsFile" value="D:\SoftWare\DevTools\maven\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
@@ -128,37 +82,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "go.import.settings.migrated": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "F:/CodeSpace/OpenSource/Java",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "spring.configuration.checksum": "1d77d12031158deb1420e868589f87d7",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/CodeSpace/OpenSource/Java&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.18475074&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.12571979&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;1d77d12031158deb1420e868589f87d7&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -167,7 +122,7 @@
       <recent name="F:\CodeSpace\OpenSource\Experiment\zed" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.BootstrapApplication">
+  <component name="RunManager" selected="Spring Boot.AdminApplication">
     <configuration name="BootstrapApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="io.homeey.gateway.bootstrap.BootstrapApplication" />
       <module name="gateway-bootstrap" />
@@ -188,17 +143,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.BootstrapApplication" />
-        <item itemvalue="Application.BootstrapApplication" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
         <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.32098.37" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.32098.37" />
       </set>
     </attachedChunks>
   </component>
@@ -213,7 +163,12 @@
       <workItem from="1776438518805" duration="4000" />
       <workItem from="1776484600108" duration="12588000" />
       <workItem from="1776515878792" duration="2059000" />
-      <workItem from="1776563774616" duration="17038000" />
+      <workItem from="1776563774616" duration="20514000" />
+      <workItem from="1776615141567" duration="53000" />
+      <workItem from="1776615219560" duration="9000" />
+      <workItem from="1776615261807" duration="81000" />
+      <workItem from="1776615366043" duration="192000" />
+      <workItem from="1776684071732" duration="981000" />
     </task>
     <task id="LOCAL-00001" summary="feat(gateway): 完成网关P0功能实现&#10;&#10;- 添加真实数据平面转发管道替代演示行为&#10;- 实现HTTP/2入站支持&#10;- 集成真实Nacos配置中心和服务发现&#10;- 实现管理端发布到配置中心再到节点热重载闭环&#10;- 添加运行时生命周期init/start/stop及优雅关闭&#10;- 实现可插拔代理客户端策略包括async-http-client等&#10;- 添加Nacos不可用时自动降级到本地内存配置&#10;- 实现路由快照原子切换和实时订阅更新&#10;- 完善插件过滤器生命周期管理和故障处理策略&#10;- 添加性能门禁检查脚本确保QPS和延迟达标">
       <created>1776513765970</created>
@@ -278,7 +233,22 @@
       <option name="project" value="LOCAL" />
       <updated>1776585791948</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="docs(observability): 添加可观测性重构设计文档与实施计划&#10;&#10;- 创建基于 obs-arch 的网关可观测性重新设计规范文档&#10;- 制定完整的可观测性重构实施计划，包含模块分解与集成步骤&#10;- 定义观察者 SPI 合约与默认 OpenTelemetry 实现架构&#10;- 设计内置的追踪、指标和日志过滤器与数据平面集成方案&#10;- 规划启动应用日志与访问日志分离策略及验证验收标准">
+      <created>1776608876507</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1776608876507</updated>
+    </task>
+    <task id="LOCAL-00011" summary="feat(governance): implement governance policies including rate limiting, circuit breaking, and retries">
+      <option name="closed" value="true" />
+      <created>1776615533091</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1776615533091</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -306,7 +276,9 @@
     <MESSAGE value="feat(gateway): 添加静态路由和可配置静态资源目录功能&#10;&#10;- 在bootstrap配置中添加静态资源目录字段&#10;- 实现静态文件服务功能，支持GET请求返回本地文件&#10;- 集成Vert.x传输层，替换原有的Reactor Netty实现&#10;- 添加路径遍历安全检查，防止访问外部目录&#10;- 更新网关依赖配置，添加新的传输模块&#10;- 创建静态路由实现计划文档&#10;- 实现Netty传输层的基础HTTP服务功能&#10;- 添加React式传输层实现和测试代码&#10;- 创建调试启动脚本用于本地开发测试&#10;- 实现默认请求处理器并支持基本ping命令&#10;- 添加完整的单元测试覆盖静态路由功能" />
     <MESSAGE value="fix(transport): 修复传输层路径和主机头处理问题&#10;&#10;- 修复ReactorTransportServer中路径为空时的空指针异常&#10;- 添加VertxTransportServer中HOST头部字段常量定义&#10;- 修复VertxTransportServer中主机头获取逻辑，支持多种头部名称&#10;- 更新bootstrap配置将传输类型从vertx改为reactor&#10;- 为PathTest添加详细的JavaDoc文档注释&#10;- 修正IDE工作区配置中的任务记录信息" />
     <MESSAGE value="docs(gateway): 为网关核心组件添加完整JavaDoc文档&#10;&#10;- 为FilterFailPolicy枚举添加详细文档说明两种失败策略&#10;- 为FilterInvocation记录添加参数和构造函数的完整文档&#10;- 为HttpRequestMessage和HttpResponseMessage记录添加字段说明&#10;- 为NettyRequestAdapter和NettyResponseAdapter添加转换逻辑文档&#10;- 为ProxyRequest和ProxyResponse记录添加代理请求响应说明&#10;- 为ReactorTransportServer添加基于Reactor Netty的实现文档&#10;- 为VertxTransportServer添加基于Eclipse Vert.x的实现说明&#10;- 为各种传输服务器工厂类添加SPI机制相关文档&#10;- 更新IDE工作区配置中的任务记录信息" />
-    <option name="LAST_COMMIT_MESSAGE" value="docs(gateway): 为网关核心组件添加完整JavaDoc文档&#10;&#10;- 为FilterFailPolicy枚举添加详细文档说明两种失败策略&#10;- 为FilterInvocation记录添加参数和构造函数的完整文档&#10;- 为HttpRequestMessage和HttpResponseMessage记录添加字段说明&#10;- 为NettyRequestAdapter和NettyResponseAdapter添加转换逻辑文档&#10;- 为ProxyRequest和ProxyResponse记录添加代理请求响应说明&#10;- 为ReactorTransportServer添加基于Reactor Netty的实现文档&#10;- 为VertxTransportServer添加基于Eclipse Vert.x的实现说明&#10;- 为各种传输服务器工厂类添加SPI机制相关文档&#10;- 更新IDE工作区配置中的任务记录信息" />
+    <MESSAGE value="docs(observability): 添加可观测性重构设计文档与实施计划&#10;&#10;- 创建基于 obs-arch 的网关可观测性重新设计规范文档&#10;- 制定完整的可观测性重构实施计划，包含模块分解与集成步骤&#10;- 定义观察者 SPI 合约与默认 OpenTelemetry 实现架构&#10;- 设计内置的追踪、指标和日志过滤器与数据平面集成方案&#10;- 规划启动应用日志与访问日志分离策略及验证验收标准" />
+    <MESSAGE value="feat(governance): implement governance policies including rate limiting, circuit breaking, and retries" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(governance): implement governance policies including rate limiting, circuit breaking, and retries" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
@@ -315,11 +287,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/gateway-transport/gateway-transport-netty/src/main/java/io/homeey/gateway/transport/netty/NettyTransportServer.java</url>
-          <line>60</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/gateway-transport/gateway-transport-vertx/src/main/java/io/homeey/gateway/transport/vertx/VertxTransportServer.java</url>
           <line>82</line>
@@ -332,6 +299,10 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
