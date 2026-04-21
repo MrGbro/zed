@@ -22,6 +22,7 @@ public final class ReleaseRecord {
     private final String approvedAt;
     private final String approvalComment;
     private final CanaryPolicy canary;
+    private final AutoRollbackPolicy autoRollback;
     private final String publishedVersion;
     private final String publishedAt;
     private final String rollbackToReleaseId;
@@ -41,6 +42,7 @@ public final class ReleaseRecord {
             @JsonProperty("approvedAt") String approvedAt,
             @JsonProperty("approvalComment") String approvalComment,
             @JsonProperty("canary") CanaryPolicy canary,
+            @JsonProperty("autoRollback") AutoRollbackPolicy autoRollback,
             @JsonProperty("publishedVersion") String publishedVersion,
             @JsonProperty("publishedAt") String publishedAt,
             @JsonProperty("rollbackToReleaseId") String rollbackToReleaseId,
@@ -58,6 +60,7 @@ public final class ReleaseRecord {
         this.approvedAt = approvedAt == null ? "" : approvedAt;
         this.approvalComment = approvalComment == null ? "" : approvalComment;
         this.canary = canary == null ? CanaryPolicy.disabled() : canary;
+        this.autoRollback = autoRollback == null ? AutoRollbackPolicy.disabled() : autoRollback;
         this.publishedVersion = publishedVersion == null ? "" : publishedVersion;
         this.publishedAt = publishedAt == null ? "" : publishedAt;
         this.rollbackToReleaseId = rollbackToReleaseId == null ? "" : rollbackToReleaseId;
@@ -124,6 +127,11 @@ public final class ReleaseRecord {
         return canary;
     }
 
+    @JsonProperty("autoRollback")
+    public AutoRollbackPolicy autoRollback() {
+        return autoRollback;
+    }
+
     @JsonProperty("publishedVersion")
     public String publishedVersion() {
         return publishedVersion;
@@ -158,6 +166,7 @@ public final class ReleaseRecord {
                 approvedAt,
                 approvalComment,
                 canary,
+                autoRollback,
                 publishedVersion,
                 publishedAt,
                 rollbackToReleaseId,
@@ -179,6 +188,7 @@ public final class ReleaseRecord {
                 approvalAt,
                 comment,
                 canary,
+                autoRollback,
                 publishedVersion,
                 publishedAt,
                 rollbackToReleaseId,
@@ -200,6 +210,7 @@ public final class ReleaseRecord {
                 approvedAt,
                 approvalComment,
                 canary,
+                autoRollback,
                 version,
                 publishTime,
                 rollbackToReleaseId,
@@ -221,6 +232,7 @@ public final class ReleaseRecord {
                 approvedAt,
                 approvalComment,
                 canary,
+                autoRollback,
                 publishedVersion,
                 publishedAt,
                 rollbackTargetReleaseId,
@@ -243,6 +255,23 @@ public final class ReleaseRecord {
 
         public static CanaryPolicy disabled() {
             return new CanaryPolicy("", "", "", false);
+        }
+    }
+
+    public record AutoRollbackPolicy(
+            @JsonProperty("enabled") boolean enabled,
+            @JsonProperty("maxErrorRate") Double maxErrorRate,
+            @JsonProperty("maxP95LatencyMillis") Long maxP95LatencyMillis,
+            @JsonProperty("minAvailability") Double minAvailability,
+            @JsonProperty("targetReleaseId") String targetReleaseId
+    ) {
+        @JsonCreator
+        public AutoRollbackPolicy {
+            targetReleaseId = targetReleaseId == null ? "" : targetReleaseId;
+        }
+
+        public static AutoRollbackPolicy disabled() {
+            return new AutoRollbackPolicy(false, null, null, null, "");
         }
     }
 }

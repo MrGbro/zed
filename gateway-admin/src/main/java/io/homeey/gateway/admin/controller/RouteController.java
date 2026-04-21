@@ -144,7 +144,10 @@ public class RouteController {
                         command == null ? Map.of() : command.policySet(),
                         command == null || command.canary() == null
                                 ? ReleaseRecord.CanaryPolicy.disabled()
-                                : command.canary().toPolicy()
+                                : command.canary().toPolicy(),
+                        command == null || command.autoRollback() == null
+                                ? ReleaseRecord.AutoRollbackPolicy.disabled()
+                                : command.autoRollback().toPolicy()
                 )
         );
     }
@@ -184,6 +187,21 @@ public class RouteController {
                         command == null ? null : command.operator(),
                         command == null ? null : command.comment(),
                         command == null ? null : command.targetReleaseId()
+                )
+        );
+    }
+
+    @PostMapping("/releases/{releaseId}/auto-rollback/evaluate")
+    public ReleaseGovernanceService.AutoRollbackEvaluationResult evaluateAutoRollback(
+            @PathVariable("releaseId") String releaseId,
+            @RequestBody(required = false) AutoRollbackEvaluateCommand command
+    ) {
+        return releaseGovernanceService.evaluateAutoRollback(
+                releaseId,
+                new ReleaseGovernanceService.AutoRollbackMetricsSnapshot(
+                        command == null ? null : command.errorRate(),
+                        command == null ? null : command.p95LatencyMillis(),
+                        command == null ? null : command.availability()
                 )
         );
     }
@@ -495,7 +513,8 @@ public class RouteController {
             String operator,
             String summary,
             Map<String, Object> policySet,
-            CanaryCommand canary
+            CanaryCommand canary,
+            AutoRollbackCommand autoRollback
     ) {
     }
 
@@ -520,6 +539,31 @@ public class RouteController {
             String operator,
             String comment,
             String targetReleaseId
+    ) {
+    }
+
+    public record AutoRollbackCommand(
+            boolean enabled,
+            Double maxErrorRate,
+            Long maxP95LatencyMillis,
+            Double minAvailability,
+            String targetReleaseId
+    ) {
+        ReleaseRecord.AutoRollbackPolicy toPolicy() {
+            return new ReleaseRecord.AutoRollbackPolicy(
+                    enabled,
+                    maxErrorRate,
+                    maxP95LatencyMillis,
+                    minAvailability,
+                    targetReleaseId
+            );
+        }
+    }
+
+    public record AutoRollbackEvaluateCommand(
+            Double errorRate,
+            Long p95LatencyMillis,
+            Double availability
     ) {
     }
 }

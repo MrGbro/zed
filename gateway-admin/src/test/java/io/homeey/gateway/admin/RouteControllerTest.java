@@ -2,16 +2,27 @@ package io.homeey.gateway.admin;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.homeey.gateway.config.api.ConfigProvider;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
 
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.not;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -27,9 +38,34 @@ class RouteControllerTest {
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
+    @MockBean
+    private ConfigProvider configProvider;
+
+    private final Map<String, String> configStore = new ConcurrentHashMap<>();
 
     private String uniqueId(String prefix) {
         return prefix + "-" + System.nanoTime();
+    }
+
+    @BeforeEach
+    void setUpConfigProvider() {
+        configStore.clear();
+        when(configProvider.get(anyString(), anyString()))
+                .thenAnswer(invocation -> {
+                    String dataId = invocation.getArgument(0);
+                    String group = invocation.getArgument(1);
+                    return CompletableFuture.completedFuture(configStore.get(group + ":" + dataId));
+                });
+        when(configProvider.publish(anyString(), anyString(), anyString()))
+                .thenAnswer(invocation -> {
+                    String dataId = invocation.getArgument(0);
+                    String group = invocation.getArgument(1);
+                    String content = invocation.getArgument(2);
+                    configStore.put(group + ":" + dataId, content);
+                    return CompletableFuture.completedFuture(true);
+                });
+        when(configProvider.subscribe(anyString(), anyString(), any(Consumer.class)))
+                .thenReturn(CompletableFuture.completedFuture(null));
     }
 
     @Test
@@ -186,7 +222,7 @@ class RouteControllerTest {
                 .andExpect(status().isOk());
 
         String draft1Command = """
-                {"operator":"alice","summary":"release-1","policySet":{"env":"prod"},"canary":{"mode":"header","header":"x-canary","value":"v1","enabled":true}}
+                {"operator":"alice","summary":"release-1","policySet":{"env":"prod"}}
                 """;
         String draft1Payload = mockMvc.perform(post("/api/routes/releases/draft")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -293,5 +329,121 @@ class RouteControllerTest {
         mockMvc.perform(post("/api/routes/releases/{releaseId}/publish", releaseId))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.error").value("BAD_REQUEST"));
+    }
+
+    @Test
+    void shouldPersistAutoRollbackPolicyInDraftAndTriggerEvaluate() throws Exception {
+        String routeId = uniqueId("r-ar");
+        String route = """
+                {"id":"%s","host":"api.example.com","pathPrefix":"/ar","method":"GET","headers":{},"upstreamService":"ar-service","upstreamPath":"/ar"}
+                """.formatted(routeId);
+        mockMvc.perform(post("/api/routes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(route))
+                .andExpect(status().isOk());
+
+        String draft1Payload = mockMvc.perform(post("/api/routes/releases/draft")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "operator":"alice",
+                                  "summary":"stable-release",
+                                  "policySet":{"env":"prod"}
+                                }
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.state").value("DRAFT"))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        String stableId = objectMapper.readTree(draft1Payload).path("releaseId").asText();
+        mockMvc.perform(post("/api/routes/releases/{releaseId}/validate", stableId))
+                .andExpect(status().isOk());
+        mockMvc.perform(post("/api/routes/releases/{releaseId}/approve", stableId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"approver":"reviewer","comment":"ok"}
+                                """))
+                .andExpect(status().isOk());
+        mockMvc.perform(post("/api/routes/releases/{releaseId}/publish", stableId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.state").value("PUBLISHED"));
+
+        String draft2Payload = mockMvc.perform(post("/api/routes/releases/draft")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "operator":"alice",
+                                  "summary":"canary-release",
+                                  "policySet":{"env":"prod"},
+                                  "canary":{"mode":"header","header":"x-canary","value":"v2","enabled":true},
+                                  "autoRollback":{
+                                    "enabled":true,
+                                    "maxErrorRate":0.05,
+                                    "maxP95LatencyMillis":300,
+                                    "minAvailability":0.99,
+                                    "targetReleaseId":"%s"
+                                  }
+                                }
+                                """.formatted(stableId)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.autoRollback.enabled").value(true))
+                .andExpect(jsonPath("$.autoRollback.maxErrorRate").value(0.05))
+                .andExpect(jsonPath("$.autoRollback.maxP95LatencyMillis").value(300))
+                .andExpect(jsonPath("$.autoRollback.minAvailability").value(0.99))
+                .andExpect(jsonPath("$.autoRollback.targetReleaseId").value(stableId))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        String canaryId = objectMapper.readTree(draft2Payload).path("releaseId").asText();
+
+        mockMvc.perform(post("/api/routes/releases/{releaseId}/validate", canaryId))
+                .andExpect(status().isOk());
+        mockMvc.perform(post("/api/routes/releases/{releaseId}/approve", canaryId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"approver":"reviewer","comment":"ok"}
+                                """))
+                .andExpect(status().isOk());
+        mockMvc.perform(post("/api/routes/releases/{releaseId}/publish", canaryId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.state").value("PUBLISHED"));
+
+        String snapshotPayload = configStore.get("GATEWAY:gateway.routes.json");
+        JsonNode snapshot = objectMapper.readTree(snapshotPayload);
+        JsonNode routesNode = snapshot.path("routes");
+        String canaryRouteId = routeId + "__canary__" + canaryId;
+        boolean foundCanaryRoute = false;
+        boolean foundStableRoute = false;
+        for (JsonNode node : routesNode) {
+            if (canaryRouteId.equals(node.path("id").asText())) {
+                foundCanaryRoute = true;
+                org.junit.jupiter.api.Assertions.assertEquals("v2", node.path("headers").path("x-canary").asText());
+            }
+            if (routeId.equals(node.path("id").asText())) {
+                foundStableRoute = true;
+            }
+        }
+        org.junit.jupiter.api.Assertions.assertTrue(foundCanaryRoute);
+        org.junit.jupiter.api.Assertions.assertTrue(foundStableRoute);
+
+        mockMvc.perform(post("/api/routes/releases/{releaseId}/auto-rollback/evaluate", canaryId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"errorRate":0.01,"p95LatencyMillis":120,"availability":0.999}
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.triggered").value(false));
+
+        mockMvc.perform(post("/api/routes/releases/{releaseId}/auto-rollback/evaluate", canaryId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"errorRate":0.20,"p95LatencyMillis":800,"availability":0.90}
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.triggered").value(true))
+                .andExpect(jsonPath("$.release.state").value("ROLLED_BACK"))
+                .andExpect(jsonPath("$.release.rollbackToReleaseId").value(stableId))
+                .andExpect(jsonPath("$.reasons[0]").exists());
     }
 }

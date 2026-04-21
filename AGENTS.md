@@ -6,7 +6,8 @@ This repository is a Maven multi-module Java 21 project (`pom.xml` at root).
 - Core runtime: `gateway-core`, shared utilities in `gateway-common`
 - Bootstrap and wiring: `gateway-bootstrap`
 - Admin plane: `gateway-admin` (Spring Boot web app)
-- Extension families: `gateway-transport/*`, `gateway-proxy/*`, `gateway-config/*`, `gateway-registry/*`
+- Distribution packaging: `gateway-dist`
+- Extension families: `gateway-transport/*`, `gateway-proxy/*`, `gateway-observe/*`, `gateway-governance/*`, `gateway-config/*`, `gateway-registry/*`
 - Extension pattern: each family separates API module and concrete implementation modules
 - Plugin contracts: `gateway-plugin/gateway-plugin-api`
 - Architecture constraints: `architecture-tests`
